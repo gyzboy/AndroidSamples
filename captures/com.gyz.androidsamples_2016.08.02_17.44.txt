@@ -1,0 +1,197 @@
+Activity Resolver Table:
+  Full MIME Types:
+      text/plain:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter ed6f97c
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+      image/*:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter e8e86f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter 3743205
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+
+  Base MIME Types:
+      text:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter ed6f97c
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+
+  Wild MIME Types:
+      image:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter e8e86f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter 3743205
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+
+  Non-Data Actions:
+      android.intent.action.MAIN:
+        dd62510 com.gyz.androidsamples/.MainActivity filter 2170b995
+          Action: "android.intent.action.MAIN"
+          Category: "android.intent.category.LAUNCHER"
+        1dd8d809 com.gyz.androidsamples/.activity.lifecycle.ActivityA filter 33c89aaa
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        271cea0e com.gyz.androidsamples/.activity.ASActivityRecreate filter 3505d69b
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        b741c2f com.gyz.androidsamples/.activity.affinity.OneActivity filter 31c1ca38
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        3c60823c com.gyz.androidsamples/.activity.orientation.ASOrientation filter 1a705a11
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        132debc5 com.gyz.androidsamples/.activity.softInput.ASSoftInput filter 376db776
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        7c1991a com.gyz.androidsamples/.activity.XMLtags.OneActivity filter 22e14177
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        e304c4b com.gyz.androidsamples/.activity.launchMode.ActivityA filter 14e551e4
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        ed18628 com.gyz.androidsamples/.activity.features.ASRequestWindowFeature filter 3eef864d
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        11067f41 com.gyz.androidsamples/.activity.fullscreen.ASImmersive filter 3375d502
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        27d02ce6 com.gyz.androidsamples/.intent.flags.ASIntentActivityFlagsA filter 119e7e13
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        1356227 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionA filter 2097a850
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        18ccdcd4 com.gyz.androidsamples/.managers.ASAlarmManager filter 1495025a
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        1a7ace7d com.gyz.androidsamples/.managers.ASActivityManager filter 15c59c8b
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        22e23172 com.gyz.androidsamples/.managers.ASPackageManager filter 19583168
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        358bf9c3 com.gyz.androidsamples/.managers.ASWindowManager filter 80ae981
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        2284f240 com.gyz.androidsamples/.managers.ASConnectivityManager filter 1a90ea26
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        11ead579 com.gyz.androidsamples/.managers.ASPowerManager filter 366f7667
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        29df2be com.gyz.androidsamples/.managers.ASWifiManager filter 1e32fc14
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        3a2a6f1f com.gyz.androidsamples/.managers.ASDownloadManager filter 2ffb9cbd
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        2e6f26c com.gyz.androidsamples/.managers.ASAppOpsManager filter f1182b2
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        5ba5035 com.gyz.androidsamples/.view.ASWebview filter 7f31203
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        32c27cca com.gyz.androidsamples/.view.ASTextView filter 234dc580
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        2d10de3b com.gyz.androidsamples/.view.ASScrollView filter 3b4a47b9
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        3086c958 com.gyz.androidsamples/.view.ASDialog filter 129117fe
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        cccbab1 com.gyz.androidsamples/.view.ViewTest filter 298acb5f
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        29f39b96 com.gyz.androidsamples/.media.ASAudioFx filter 2489b9ac
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        2252317 com.gyz.androidsamples/.view.ASSurfaceView filter c3ea675
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        354b2304 com.gyz.androidsamples/.view.ASDataDialog filter e2b60a
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        2ec150ed com.gyz.androidsamples/.activity.menu.ASMenu filter 9babe7b
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+        1345db22 com.gyz.androidsamples/.view.ASImageView filter 18aec498
+          Action: "android.intent.action.MAIN"
+          Category: "androidSample"
+      com.gyz.androidsamples.action.custom:
+        1bced9b3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionB filter 13bb3a49
+          Action: "com.gyz.androidsamples.action.custom"
+          Category: "android.intent.category.DEFAULT"
+          Category: "androidSample"
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter ff03f4e
+          Action: "com.gyz.androidsamples.action.custom"
+          Category: "android.intent.category.DEFAULT"
+
+  MIME Typed Actions:
+      android.intent.action.SEND:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter e8e86f
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter ed6f97c
+          Action: "android.intent.action.SEND"
+          Category: "android.intent.category.DEFAULT"
+          Type: "text/plain"
+      android.intent.action.SEND_MULTIPLE:
+        2e89f5d3 com.gyz.androidsamples/.intent.actions.ASIntentActivityActionC filter 3743205
+          Action: "android.intent.action.SEND_MULTIPLE"
+          Category: "android.intent.category.DEFAULT"
+          Type: "image"
+          mPriority=0, mHasPartialTypes=true
+
+Key Set Manager:
+  [com.gyz.androidsamples]
+      Signing KeySets: 6
+
+Packages:
+  Package [com.gyz.androidsamples] (200525dd):
+    userId=10079 gids=[3003, 1028, 1015]
+    pkg=Package{30d96b70 com.gyz.androidsamples}
+    codePath=/data/app/com.gyz.androidsamples-1
+    resourcePath=/data/app/com.gyz.androidsamples-1
+    legacyNativeLibraryDir=/data/app/com.gyz.androidsamples-1/lib
+    primaryCpuAbi=null
+    secondaryCpuAbi=null
+    versionCode=1 targetSdk=23
+    versionName=1.0
+    applicationInfo=ApplicationInfo{13ef0ee9 com.gyz.androidsamples}
+    flags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    dataDir=/data/data/com.gyz.androidsamples
+    supportsScreens=[small, medium, large, xlarge, resizeable, anyDensity]
+    timeStamp=2016-08-02 01:38:07
+    firstInstallTime=2016-06-15 22:51:02
+    lastUpdateTime=2016-08-02 01:38:07
+    signatures=PackageSignatures{f5f3920 [1db342d9]}
+    permissionsFixed=true haveGids=true installStatus=1
+    pkgFlags=[ DEBUGGABLE HAS_CODE ALLOW_CLEAR_USER_DATA ALLOW_BACKUP ]
+    User 0:  installed=true hidden=false stopped=false notLaunched=false enabled=0
+    grantedPermissions:
+      android.permission.CHANGE_NETWORK_STATE
+      android.permission.INTERNET
+      android.permission.WRITE_EXTERNAL_STORAGE
+      android.permission.READ_EXTERNAL_STORAGE
+      android.permission.GET_TASKS
+      android.permission.CHANGE_WIFI_STATE
+      android.permission.ACCESS_NETWORK_STATE
+      android.permission.CALL_PHONE
+      android.permission.ACCESS_WIFI_STATE

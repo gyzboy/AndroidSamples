@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent" android:layout_height="match_parent">
+
+    <TextView
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:paddingBottom="4dip"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="不同的SoftInput"/>
+
+    <LinearLayout android:orientation="horizontal" android:gravity="center"
+        android:layout_width="match_parent" android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textAppearance="?android:textAppearanceMedium"
+            android:text="SoftInput"/>
+
+        <Spinner android:id="@+id/resize_mode"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawSelectorOnTop="true">
+        </Spinner>
+
+    </LinearLayout>
+
+    <TextView
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="1"
+        android:paddingBottom="6dip"
+        android:background="#7f00"
+        android:textAppearance="?android:textAppearanceMedium"
+        android:text="test"/>
+
+    <EditText android:id="@+id/saved"
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:layout_weight="0"
+        android:background="#7700ff00"
+        android:text="testtt"
+        android:freezesText="true">
+        <requestFocus />
+    </EditText>
+
+</LinearLayout>

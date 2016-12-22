@@ -1,0 +1,238 @@
+apply plugin: 'com.android.application'//应用的插件名
+
+android {//android项目的DSL
+    compileSdkVersion 23//required，编译sdk版本
+    buildToolsVersion "23.0.2"//required，编译工具版本
+
+    defaultConfig {//默认设置，类似于全局变量，所有的flavors都会共享
+        applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来
+        minSdkVersion 17
+        targetSdkVersion 23
+        versionCode 1
+        versionName "1.0"
+
+        /**
+         * 必须加，否则64位手机无法加载so文件
+         */
+        ndk{
+            abiFilters "armeabi", "armeabi-v7a", "x86"
+        }
+
+    }
+    buildTypes {//build的种类，在assemble时会表现出来，例如assembleDebug，assembleRelease等，可与productFlavors配合使用
+
+        release {
+            applicationIdSuffix ".release"//相当于替换applicationId的作用，在最后添加后缀.release
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+            debuggable false
+            jniDebuggable false
+            manifestPlaceholders = [activityLabel : "android例子"]//修改manifest文件文件内容
+            minifyEnabled false//是否混淆
+            multiDexEnabled false
+            renderscriptDebuggable false
+            shrinkResources true
+            zipAlignEnabled true
+            versionNameSuffix ".xx"
+
+        }
+        debug{
+
+        }
+    }
+//    flavorDimensions "brand","environment" //会生成flavor1-flavor2包
+    productFlavors{//构建出的产品，多渠道包等等
+        //在src文件夹下分别创建flavor1、flavor2子目录
+        //将flavor1的图片放入flavor1/res/drawble中，flavor2的图片放入flavor2/res/drawable中，文件名相同，其他资源文件相同，在build时会自动合并
+        //代码中的区别通过自动生成的BuildConfig.FLAVOR来判断
+        normal{
+            applicationId "com.gyz.androidsamples"
+            consumerProguardFiles //打包aar文件时的混淆文件
+            jackOptions {//google新的java编译系统jack
+                enabled false
+                jackInProcess true//jack是否和gradle相同的jvm进程中
+            }
+            manifestPlaceholders = [activityLabel : "android例子"]//修改manifest文件文件内容
+            multiDexEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            signingConfig {
+//                storeFile file("/Users/guoyizhe/svn/FHloveSVN/xingqu.jks")
+//                storePassword '123456'
+//                keyAlias 'xingqu'
+//                keyPassword '123456'
+//            }
+            testApplicationId "com.gyz.androidsample.test"
+            versionCode 10
+            versionName "10"
+        }
+        flavor1{
+//            dimension "brand"
+            applicationId "com.gyz.androidsamplesbranchone"
+            manifestPlaceholders = [activityLabel: "android例子flavor1"]
+        }
+        flavor2{
+//            dimension "environment"
+            applicationId "com.gyz.androidsamplesbranchtwo"
+            manifestPlaceholders = [activityLabel: "android例子flavor2"]
+        }
+    }
+    aaptOptions{//aapt设置，会影响所有使用aapt的项目
+//        additionalParameters //传到aapt中的额外元素，方法数过多时调用
+        cruncherEnabled true //检测png合法性
+        failOnMissingConfigEntry false //当aapt检测配置中实体缺失时强制返回error
+        ignoreAssets false //忽略对assets文件的描述
+        noCompress 'foo', 'bar'
+        ignoreAssetsPattern "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
+    }
+    adbOptions{//adb设置,会影响所有使用adb的项目
+        installOptions
+        timeOutInMs 3000 //超时时间
+    }
+    applicationVariants{//会返回applicationVariant的DomainObjectCollection对象，可以对所有对象直接访问，也可以通过过滤器过滤
+
+    }
+    android.applicationVariants.each {//过滤器访问applicationVariants对象
+
+    }
+    compileOptions{//编译设置
+        encoding "utf-8"//java文件编码格式
+        sourceCompatibility JavaVersion.Version_1_8//java源文件版本
+        targetCompatibility JavaVersion.Version_1_8//生成的java字节码版本
+    }
+    dataBinding{//数据绑定
+        addDefaultAdapters
+        enabled false
+        version "1.0"
+    }
+    defaultPublishConfig "xxx"//构建默认artifact的配置名
+    dexOptions{//dex设置
+        dexInProcess true //是否dex与gradle在同一个jvm进程中
+        javaMaxHeapSize "2048m"//-xmx
+        jumboMode true //可解决AGPBI 警告
+        maxProcessCount 4 //当前dex可用最大进程数 默认为4
+        preDexLibraries true //是否预加载dex包，开启的话会提高build速度，但clean速度会减慢
+        threadCount 4 //dx可用线程 默认为4，但是源码中注释掉了..com.android.builder.core.AndroidBuilder.java
+    }
+    generatePureSplits false//是否分割或者生成多包
+
+    jacoco{//jacoco设置，一款覆盖率工具
+
+    }
+    lintOptions{//lint设置
+        abortOnError false //当lint发现errors时是否退出
+        absolutePaths false //lint输出错误时是否显示绝对路径
+        checkAllWarnings false//是否检测所有警告
+        checkReleaseBuilds false //lint在打release包过程中是否检测致命错误，默认为true
+        ignoreWarnings true
+        htmlOutput
+        htmlReport true //html报告 与 htmlOutput一块使用
+        lintConfig //自定义lint文件
+        noLines true //是否显示错误源码Line，默认为true
+        quiet false //是否不输出信息
+
+//        <?xml version="1.0" encoding="UTF-8" ?>
+//        <lint>
+//        <issue id="MissingTranslation" severity="warning" />
+//        </lint>
+        severityOverrides {
+            ["MissingTranslation" : "warning"]
+        }
+        showAll false
+        warningsAsErrors false
+    }
+    packagingOptions{//包设置
+        exclude 'LICENSE.txt'//不引入的路径，常用于解决包冲突
+        exclude 'META-INF/LICENSE.txt'
+
+        merges ''
+        pickFirsts ''
+    }
+    resourcePrefix "as"//创建新资源时的前缀，通过studio使用
+
+    signingConfigs{//签名设置
+
+    }
+    splits{//apk多区域
+        abi {
+            enable true
+            reset()
+            include  'armeabi', 'armeabi-v7a','x86'
+            universalApk true
+        }
+
+        density {
+            enable true
+            exclude "ldpi", "tvdpi", "xxxhdpi"
+            compatibleScreens 'small', 'normal', 'large', 'xlarge'
+        }
+        language {
+            enable true
+        }
+    }
+    testOptions{//test设置
+
+    }
+    useLibrary 'org.apache.http.legacy'//运行需要的Library
+    sourceSets {
+        main {
+            manifest.srcFile 'AndroidManifest.xml'
+            java.srcDirs = ['src']
+            resources.srcDirs = ['src']
+            aidl.srcDirs = ['src']
+            renderscript.srcDirs = ['src']
+            res.srcDirs = ['res']
+            assets.srcDirs = ['assets']
+            jniLibs.srcDirs = ['libs']
+        }
+        test {
+            java.srcDirs = ['test']
+        }
+        androidTest {
+            java.srcDirs = ['androidTest']
+        }
+
+        // Move the tests to tests/java, tests/res, etc...
+//        instrumentTest.setRoot('tests')
+
+        // Move the build types to build-types/<type>
+        // For instance, build-types/debug/java, build-types/debug/AndroidManifest.xml, ...
+        // This moves them out of them default location under src/<type>/... which would
+        // conflict with src/ being used by the main source set.
+        // Adding new build types or product flavors should be accompanied
+        // by a similar customization.
+        debug.setRoot('build-types/debug')
+        release.setRoot('build-types/release')
+    }
+
+
+}
+configurations {
+//    all {
+//        //全局的依赖传递是否开启
+//        transitive = true
+//        resolutionStrategy {
+//            // 如果想插件和snaphost版本实时生效,请打开注释
+//            cacheChangingModulesFor(0, 'SECONDS')
+//            //TODO 设置所有依赖库的依赖,防止间接依赖导致版本号不对
+//            force ("com.google.android:android:4.4.2")
+//        }
+//    }
+    //TODO 全局排除单个依赖
+    all*.exclude group: 'com.taobao.android', module: 'alisdk-hotfix'
+}
+dependencies {
+    compile fileTree(dir: 'libs', include: ['*.jar'])
+    testCompile 'junit:junit:4.12'
+    compile 'com.android.support:appcompat-v7:23.4.0'
+}
+
+task updateIcon << {
+    println "Generating Release Icon"
+    def scriptDir = "/scripts";
+    exec {
+        executable "bash"
+        args "$rootProject.rootDir$scriptDir/icon_gen.sh", "v1.0", rootProject.rootDir, scriptDir
+    }
+}
+preBuild.dependsOn updateIcon
+

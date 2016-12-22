@@ -1,0 +1,26 @@
+
+apply plugin: 'com.android.library'
+
+android {
+    publishNonDefault true //很关键,避免defaultPublishConfig起作用
+
+    productFlavors {
+        market1 {}
+        market2 {}
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+        }
+    }
+}
+
+dependencies {
+    market1DebugCompile project(path: ':lib1', configuration: 'market1Debug')
+    market2DebugCompile project(path: ':lib1', configuration: 'market2Debug')
+    market1ReleaseCompile project(path: ':lib1', configuration: 'market1Release')
+    market2ReleaseCompile project(path: ':lib1', configuration: 'market2Release')
+}
+
+

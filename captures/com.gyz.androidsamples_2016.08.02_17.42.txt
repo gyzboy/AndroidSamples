@@ -1,0 +1,34 @@
+Applications Memory Usage (kB):
+Uptime: 23363925 Realtime: 23363925
+
+** MEMINFO in pid 9203 [com.gyz.androidsamples] **
+                   Pss  Private  Private  Swapped     Heap     Heap     Heap
+                 Total    Dirty    Clean    Dirty     Size    Alloc     Free
+                ------   ------   ------   ------   ------   ------   ------
+  Native Heap     5381     5260        0        0    16165    16165    15578
+  Dalvik Heap    19658    18980        0        0    48407    34131    14276
+ Dalvik Other      620      492        0        0                           
+        Stack      112      112        0        0                           
+    Other dev        4        0        4        0                           
+     .so mmap      846      148        4        0                           
+    .apk mmap      199        0       12        0                           
+    .ttf mmap      366        0      144        0                           
+    .dex mmap      448        0      444        0                           
+    code mmap     1164        0      192        0                           
+   image mmap      891      492        0        0                           
+   Other mmap       29        4        0        0                           
+      Unknown       89       88        0        0                           
+        TOTAL    29807    25576      800        0    64572    50296    29854
+ 
+ Objects
+               Views:      188         ViewRootImpl:        6
+         AppContexts:        5           Activities:        3
+              Assets:        2        AssetManagers:        2
+       Local Binders:       15        Proxy Binders:       17
+    Death Recipients:        0
+     OpenSSL Sockets:        0
+ 
+ SQL
+         MEMORY_USED:        0
+  PAGECACHE_OVERFLOW:        0          MALLOC_SIZE:        0
+ 

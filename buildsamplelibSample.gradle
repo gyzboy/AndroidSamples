@@ -1,0 +1,30 @@
+
+//这里模拟的是多个module依赖同一个lib型module,而这个module需要在打多渠道包时有不同的flavors
+
+//libBase是最基本的lib包属于多个lib公用
+//lib1引用libBase,是多个使用libBase中的其中一个lib包
+//libSample是application包
+
+apply plugin: 'com.android.application'
+
+android {
+
+    productFlavors {
+        market1 {}
+        market2 {}
+    }
+    buildTypes {
+        debug {
+        }
+        release {
+        }
+    }
+}
+
+dependencies {
+    market1DebugCompile project(path: ':lib1', configuration: 'market1Debug')
+    market2DebugCompile project(path: ':lib1', configuration: 'market2Debug')
+    market1ReleaseCompile project(path: ':lib1', configuration: 'market1Release')
+    market2ReleaseCompile project(path: ':lib1', configuration: 'market2Release')
+}
+

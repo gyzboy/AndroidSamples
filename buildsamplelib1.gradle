@@ -1,0 +1,21 @@
+apply plugin: 'com.android.library'
+
+android {
+
+    defaultPublishConfig 'release'
+    publishNonDefault true //很关键,避免defaultPublishConfig起作用
+    productFlavors {
+        market1 {
+        }
+        market2 {
+        }
+    }
+    buildTypes {
+        release {
+        }
+        debug {
+        }
+    }
+}
+
+

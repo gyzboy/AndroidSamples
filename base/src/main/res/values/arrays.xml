@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="screen_orientations">
+        <item>UNSPECIFIED</item>
+        <item>LANDSCAPE</item>
+        <item>PORTRAIT</item>
+        <item>USER</item>
+        <item>BEHIND</item>
+        <item>SENSOR</item>
+        <item>NOSENSOR</item>
+        <item>SENSOR_LANDSCAPE</item>
+        <item>SENSOR_PORTRAIT</item>
+        <item>REVERSE_LANDSCAPE</item>
+        <item>REVERSE_PORTRAIT</item>
+        <item>FULL_SENSOR</item>
+        <item>USER_LANDSCAPE</item>
+        <item>USER_PORTRAIT</item>
+        <item>FULL_USER</item>
+        <item>LOCKED</item>
+    </string-array>
+
+    <string-array name="intent_actions">
+        <item>打开指定网页</item>
+        <item>打开拨号面板</item>
+        <item>直接拨打指定号码</item>
+        <item>打开发短信的界面</item>
+        <item>打开发短信的界面(指定电话号码)</item>
+        <item>播放指定路径音乐</item>
+        <item>卸载某个应用程序</item>
+        <item>安装某个应用程序</item>
+        <item>分享文本</item>
+        <item>改变分享列表标题</item>
+        <item>分享图片</item>
+        <item>分享图片列表</item>
+        <item>分享到指定activity</item>
+
+    </string-array>
+
+</resources>

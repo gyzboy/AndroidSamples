@@ -1,0 +1,132 @@
+TASK com.gyz.androidsamples id=238
+  ACTIVITY com.gyz.androidsamples/.view.ASImageView 80d9ae8 pid=9203
+    Local Activity 1611ebdb State:
+      mResumed=true mStopped=false mFinished=false
+      mLoadersStarted=true
+      mChangingConfigurations=false
+      mCurrentConfig={1.0 310mcc260mnc zh_CN ldltr sw360dp w360dp h567dp 480dpi nrml port finger -keyb/v/h dpad/v s.6}
+    FragmentManager misc state:
+      mActivity=com.gyz.androidsamples.view.ASImageView@1611ebdb
+      mContainer=android.app.Activity$1@21e05678
+      mCurState=5 mStateSaved=false mDestroyed=false
+    ViewRoot:
+      mAdded=true mRemoved=false
+      mConsumeBatchedInputScheduled=false
+      mConsumeBatchedInputImmediatelyScheduled=false
+      mPendingInputEventCount=0
+      mProcessInputEventsScheduled=false
+      mTraversalScheduled=false
+      android.view.ViewRootImpl$NativePreImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$ImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$NativePostImeInputStage: mQueueLength=0
+    Choreographer:
+      mFrameScheduled=false
+      mLastFrameTime=11754216 (11671481 ms ago)
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{163a2955 V.E..... R....... 0,0-1080,1920}
+        android.widget.LinearLayout{3c19af6a V.E..... ........ 0,0-1080,1776}
+          android.view.ViewStub{1fad9151 G.E..... ......I. 0,0-0,0 #102036e}
+          android.widget.FrameLayout{5e2c5b V.E..... ........ 0,75-1080,1776 #1020002 android:id/content}
+            android.widget.ScrollView{2feccf8 VFED.V.. ........ 0,0-1080,1701}
+              android.widget.LinearLayout{28c105d1 V.E..V.. ........ 0,0-1080,4844}
+                android.widget.Spinner{3a9b5836 VFED..C. ........ 0,30-696,102 #7f0d006b app:id/spinner}
+                  android.widget.TextView{304ebcea V.ED.... ........ 0,3-594,68 #1020014 android:id/text1}
+                android.widget.TextView{ecfc0a4 V.ED.... ........ 0,102-1080,159 #7f0d006c app:id/tv_intro}
+                android.widget.ImageButton{3dff2e0d VFED..C. ........ 0,159-216,363 #7f0d006d app:id/btn_colorFilter}
+                android.widget.TextView{10bcc1c2 V.ED.... ........ 0,363-1080,518}
+                android.widget.ImageView{173cbd3 V.ED.... ........ 0,518-600,1118}
+                android.widget.TextView{1e9a4310 V.ED.... ........ 0,1118-1080,1273}
+                android.widget.ImageView{367d9e09 V.ED.... ........ 0,1273-600,1873}
+                android.widget.TextView{3d99380e V.ED.... ........ 0,1873-1080,2028}
+                android.widget.ImageView{1225522f V.ED.... ........ 0,2028-600,2628}
+                android.widget.TextView{1848803c V.ED.... ........ 0,2628-906,2734}
+                android.widget.ImageView{185911c5 V.ED.... ........ 0,2734-600,3334}
+                android.widget.TextView{4b4c71a V.ED.... ........ 0,3334-1080,3538}
+                android.widget.ImageView{2dbee24b V.ED.... ........ 0,3538-600,4138}
+                android.widget.TextView{343b6428 V.ED.... ........ 0,4138-889,4244}
+                android.widget.ImageView{34be0541 V.ED.... ........ 0,4244-600,4844}
+        android.view.View{2bc83ae6 V.ED.... ........ 0,0-1080,75 #102002f android:id/statusBarBackground}
+        android.view.View{1a175827 V.ED.... ........ 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
+    Looper (main, tid 1) {14d3bdb6}
+      (Total messages: 0, idling=false, quitting=false)
+
+  ACTIVITY com.gyz.androidsamples/.MainActivity 25999282 pid=9203
+    Local Activity 2dd5e3dc State:
+      mResumed=false mStopped=true mFinished=false
+      mLoadersStarted=false
+      mChangingConfigurations=false
+      mCurrentConfig={1.0 310mcc260mnc zh_CN ldltr sw360dp w360dp h567dp 480dpi nrml port finger -keyb/v/h dpad/v s.6}
+    FragmentManager misc state:
+      mActivity=com.gyz.androidsamples.MainActivity@2dd5e3dc
+      mContainer=android.app.Activity$1@12b96ab7
+      mCurState=3 mStateSaved=true mDestroyed=false
+    ViewRoot:
+      mAdded=true mRemoved=false
+      mConsumeBatchedInputScheduled=false
+      mConsumeBatchedInputImmediatelyScheduled=false
+      mPendingInputEventCount=0
+      mProcessInputEventsScheduled=false
+      mTraversalScheduled=false
+      android.view.ViewRootImpl$NativePreImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$ImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$NativePostImeInputStage: mQueueLength=0
+    Choreographer:
+      mFrameScheduled=false
+      mLastFrameTime=11754216 (11671485 ms ago)
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{3f694c75 I.E..... R....... 0,0-1080,1920}
+        android.widget.LinearLayout{2c9f640a V.E..... ........ 0,0-1080,1776}
+          android.view.ViewStub{38006224 G.E..... ......I. 0,0-0,0 #102036e}
+          android.widget.FrameLayout{3a14d47b V.E..... ........ 0,75-1080,1776 #1020002 android:id/content}
+            android.widget.ListView{25be2298 VFED.VC. .F...... 0,0-1080,1701 #102000a android:id/list}
+              android.widget.TextView{3d7b6d6 V.ED.... ........ 0,0-1080,144 #1020014 android:id/text1}
+              android.widget.TextView{1c123d57 V.ED.... ........ 0,146-1080,290 #1020014 android:id/text1}
+              android.widget.TextView{abed044 V.ED.... ........ 0,292-1080,436 #1020014 android:id/text1}
+              android.widget.TextView{f4b952d V.ED.... ........ 0,438-1080,582 #1020014 android:id/text1}
+              android.widget.TextView{18706a62 V.ED.... ........ 0,584-1080,728 #1020014 android:id/text1}
+              android.widget.TextView{121357f3 V.ED.... ........ 0,730-1080,874 #1020014 android:id/text1}
+              android.widget.TextView{ffaacb0 V.ED.... ........ 0,876-1080,1020 #1020014 android:id/text1}
+              android.widget.TextView{2e795729 V.ED.... ........ 0,1022-1080,1166 #1020014 android:id/text1}
+        android.view.View{14eecaae V.ED.... ........ 0,0-1080,75 #102002f android:id/statusBarBackground}
+        android.view.View{1c01804f V.ED.... ........ 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
+    Looper (main, tid 1) {14d3bdb6}
+      (Total messages: 0, idling=false, quitting=false)
+
+  ACTIVITY com.gyz.androidsamples/.MainActivity 48a876e pid=9203
+    Local Activity 1bb86803 State:
+      mResumed=false mStopped=true mFinished=false
+      mLoadersStarted=false
+      mChangingConfigurations=false
+      mCurrentConfig={1.0 310mcc260mnc zh_CN ldltr sw360dp w360dp h567dp 480dpi nrml port finger -keyb/v/h dpad/v s.6}
+    FragmentManager misc state:
+      mActivity=com.gyz.androidsamples.MainActivity@1bb86803
+      mContainer=android.app.Activity$1@1e8f18d
+      mCurState=3 mStateSaved=true mDestroyed=false
+    ViewRoot:
+      mAdded=true mRemoved=false
+      mConsumeBatchedInputScheduled=false
+      mConsumeBatchedInputImmediatelyScheduled=false
+      mPendingInputEventCount=0
+      mProcessInputEventsScheduled=false
+      mTraversalScheduled=false
+      android.view.ViewRootImpl$NativePreImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$ImeInputStage: mQueueLength=0
+      android.view.ViewRootImpl$NativePostImeInputStage: mQueueLength=0
+    Choreographer:
+      mFrameScheduled=false
+      mLastFrameTime=11754216 (11671487 ms ago)
+    View Hierarchy:
+      com.android.internal.policy.impl.PhoneWindow$DecorView{3d2a0049 I.E..... R......D 0,0-1080,1920}
+        android.widget.LinearLayout{186e8d4e V.E..... .......D 0,0-1080,1776}
+          android.view.ViewStub{29d5ff42 G.E..... ......I. 0,0-0,0 #102036e}
+          android.widget.FrameLayout{2e741e6f V.E..... .......D 0,75-1080,1776 #1020002 android:id/content}
+            android.widget.ListView{2190f77c VFED.VC. .F....ID 0,0-1080,1701 #102000a android:id/list}
+              android.widget.TextView{21aa305a V.ED.... ........ 0,0-1080,144 #1020014 android:id/text1}
+              android.widget.TextView{2fce328b V.ED.... ........ 0,146-1080,290 #1020014 android:id/text1}
+              android.widget.TextView{10b40f68 V.ED.... ........ 0,292-1080,436 #1020014 android:id/text1}
+              android.widget.TextView{bcc6f81 V.ED.... ........ 0,438-1080,582 #1020014 android:id/text1}
+              android.widget.TextView{ecaf826 V.ED.... ........ 0,584-1080,728 #1020014 android:id/text1}
+        android.view.View{376b6c67 V.ED.... ........ 0,0-1080,75 #102002f android:id/statusBarBackground}
+        android.view.View{126eba14 V.ED.... ........ 0,1776-1080,1920 #1020030 android:id/navigationBarBackground}
+    Looper (main, tid 1) {14d3bdb6}
+      (Total messages: 0, idling=false, quitting=false)

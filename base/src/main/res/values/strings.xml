@@ -1,0 +1,92 @@
+<resources>
+    <string name="app_name">Android例子</string>
+
+
+    <!--activityLifeCycle-->
+    <string name="lifecycle_method_list">Lifecycle Method List</string>
+    <string name="activity_status">Activity Status</string>
+    <string name="dialog_text">Simple Dialog</string>
+
+    <string name="on_create">onCreate</string>
+    <string name="on_postcreate">onPostCreate</string>
+    <string name="on_postresume">onPostResume</string>
+    <string name="on_destroy">onDestroy</string>
+    <string name="on_start">onStart</string>
+    <string name="on_restart">onRestart</string>
+    <string name="on_stop">onStop</string>
+    <string name="on_pause">onPause</string>
+    <string name="on_resume">onResume</string>
+    <string name="on_restore">onRestoreInstance</string>
+    <string name="on_saveIns">onSaveInstance</string>
+
+    <string name="activity_a_label">Activity A</string>
+    <string name="activity_b_label">Activity B</string>
+    <string name="activity_c_label">Activity C</string>
+
+    <string name="btn_start_a_label">Start A</string>
+    <string name="btn_start_b_label">Start B</string>
+    <string name="btn_start_c_label">Start C</string>
+    <string name="btn_start_dialog_label">Dialog</string>
+
+    <string name="btn_finish_a_label">Finish A</string>
+    <string name="btn_finish_b_label">Finish B</string>
+    <string name="btn_finish_c_label">Finish C</string>
+    <string name="btn_finish_dialog_label">Close</string>
+
+    <string name="on_activity_created">onActivityCreated</string>
+    <string name="on_attach">onAttach</string>
+    <string name="on_create_view">onCreateView</string>
+    <string name="on_destroy_view">onDestroyView</string>
+    <string name="on_detach">onDetach</string>
+    <string name="on_view_created">onViewCreated</string>
+    <string name="activity_a">Activity A</string>
+
+    <string name="start_a">Start A</string>
+    <string name="start_b">Start B</string>
+    <string name="start_c">Start C</string>
+
+    <string name="close">Close</string>
+    <string name="dialog">Dialog</string>
+
+
+    <string name="screen_orientation">Screen Orientation</string>
+
+    <string name="text_test">你好%1$04d,%2$s,%3$2.2f</string>
+
+
+
+    <string name="contextmenu_openlink">打开</string>
+    <string name="contextmenu_openlink_newwindow">在新标签页打开</string>
+    <string name="contextmenu_openlink_newwindow_background">在新背景标签页打开</string>
+    <string name="contextmenu_savelink">保存链接</string>
+    <string name="contextmenu_sharelink">分享链接</string>
+    <string name="contextmenu_copy">复制</string>
+    <string name="contextmenu_copylink">复制URL</string>
+    <string name="contextmenu_download_image">保存图片</string>
+    <string name="contextmenu_view_image">查看图片</string>
+    <string name="contextmenu_set_wallpaper">保存为壁纸</string>
+    <string name="contextmenu_dial_dot">拨号</string>
+    <string name="contextmenu_add_contact">添加到联系人</string>
+    <string name="contextmenu_send_mail">发送邮件</string>
+    <string name="contextmenu_map">地图</string>
+    <string name="select_dot">选择文字</string>
+
+    <string name="circle">圆形</string>
+    <string name="square">正方形</string>
+    <string name="rect">长方形</string>
+    <string name="round_rect">圆角矩形</string>
+    <string name="oval">椭圆形</string>
+    <string name="triangle">三角形</string>
+    <string name="pentagon">五角形</string>
+    <string name="width_1">1像素</string>
+    <string name="width_3">3像素</string>
+    <string name="width_5">5像素</string>
+    <string name="color_red">红色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color">画笔颜色</string>
+    <string name="width">画笔宽度</string>
+    <string name="blur">模糊效果</string>
+    <string name="emboss">浮雕效果</string>
+
+</resources>

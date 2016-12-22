@@ -1,0 +1,131 @@
+AGGREGATED OVER LAST 24 HOURS:
+System memory usage:
+  SOn /Norm: 6 samples:
+    Cached: 376MB min, 390MB avg, 419MB max
+    Free: 1.2GB min, 1.3GB avg, 1.3GB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 46MB min, 47MB avg, 51MB max
+    Native: 43MB min, 47MB avg, 56MB max
+       Mod : 1 samples:
+    Cached: 421MB min, 421MB avg, 421MB max
+    Free: 1.2GB min, 1.2GB avg, 1.2GB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 57MB min, 57MB avg, 57MB max
+    Native: 55MB min, 55MB avg, 55MB max
+
+Per-Package Stats:
+  * com.gyz.androidsamples / u0a79 / v1:
+      * com.gyz.androidsamples / u0a79 / v1:
+               TOTAL: 49% (6.7MB-21MB-29MB/4.4MB-18MB-26MB over 323)
+                 Top: 49% (6.7MB-21MB-29MB/4.4MB-18MB-26MB over 323)
+          (Last Act): 0.04%
+            (Cached): 26% (8.7MB-11MB-28MB/5.9MB-8.3MB-25MB over 13)
+
+Summary:
+  * com.gyz.androidsamples / u0a79 / v1:
+           TOTAL: 49% (6.7MB-21MB-29MB/4.4MB-18MB-26MB over 323)
+             Top: 49% (6.7MB-21MB-29MB/4.4MB-18MB-26MB over 323)
+      (Last Act): 0.04%
+        (Cached): 26% (8.7MB-11MB-28MB/5.9MB-8.3MB-25MB over 13)
+
+Run time Stats:
+  SOn /Norm: +21h2m28s559ms
+       Mod : +18s911ms
+      TOTAL: +21h2m47s470ms
+
+Memory usage:
+  Kernel : 47MB (55 samples)
+  Native : 47MB (55 samples)
+  Persist: 151MB (352 samples)
+  Top    : 24MB (1210 samples)
+  ImpFg  : 10MB (632 samples)
+  ImpBg  : 13MB (216 samples)
+  Service: 80MB (1134 samples)
+  Receivr: 2.4KB (1172 samples)
+  Home   : 23MB (58 samples)
+  LastAct: 5.7MB (284 samples)
+  CchAct : 3.1MB (15 samples)
+  CchEmty: 78MB (978 samples)
+  Cached : 390MB (55 samples)
+  Free   : 1.3GB (55 samples)
+  TOTAL  : 2.1GB
+  ServRst: 215 (304 samples)
+
+          Start time: 2016-07-27 22:20:21
+  Total elapsed time: +21h2m56s271ms (partial) libart.so
+
+AGGREGATED OVER LAST 3 HOURS:
+System memory usage:
+  SOn /Norm: 1 samples:
+    Cached: 419MB min, 419MB avg, 419MB max
+    Free: 1.2GB min, 1.2GB avg, 1.2GB max
+    ZRam: 0.00 min, 0.00 avg, 0.00 max
+    Kernel: 46MB min, 46MB avg, 46MB max
+    Native: 52MB min, 52MB avg, 52MB max
+
+Per-Package Stats:
+  * com.gyz.androidsamples / u0a79 / v1:
+      * com.gyz.androidsamples / u0a79 / v1:
+               TOTAL: 100% (7.1MB-28MB-29MB/4.4MB-25MB-26MB over 101)
+                 Top: 100% (7.1MB-28MB-29MB/4.4MB-25MB-26MB over 101)
+            (Cached): 0.01%
+
+Summary:
+  * com.gyz.androidsamples / u0a79 / v1:
+           TOTAL: 100% (7.1MB-28MB-29MB/4.4MB-25MB-26MB over 101)
+             Top: 100% (7.1MB-28MB-29MB/4.4MB-25MB-26MB over 101)
+        (Cached): 0.01%
+
+Run time Stats:
+  SOn /Norm: +3h29m14s146ms
+       Mod : +8s92ms
+      TOTAL: +3h29m22s238ms
+
+Memory usage:
+  Kernel : 46MB (8 samples)
+  Native : 52MB (8 samples)
+  Persist: 151MB (120 samples)
+  Top    : 28MB (218 samples)
+  ImpFg  : 11MB (80 samples)
+  ImpBg  : 11MB (45 samples)
+  Service: 83MB (141 samples)
+  Receivr: 51 (81 samples)
+  Home   : 25MB (18 samples)
+  LastAct: 9.4MB (16 samples)
+  CchEmty: 70MB (253 samples)
+  Cached : 419MB (8 samples)
+  Free   : 1.2GB (8 samples)
+  TOTAL  : 2.1GB
+
+          Start time: 2016-08-02 01:26:00
+  Total elapsed time: +3h29m22s238ms (partial) libart.so
+
+CURRENT STATS:
+Per-Package Stats:
+  * com.gyz.androidsamples / u0a79 / v1:
+      * com.gyz.androidsamples / u0a79 / v1:
+               TOTAL: 100% (29MB-29MB-29MB/25MB-26MB-26MB over 14)
+                 Top: 100% (29MB-29MB-29MB/25MB-26MB-26MB over 14)
+
+Summary:
+  * com.gyz.androidsamples / u0a79 / v1:
+           TOTAL: 100% (29MB-29MB-29MB/25MB-26MB-26MB over 14)
+             Top: 100% (29MB-29MB-29MB/25MB-26MB-26MB over 14)
+
+Run time Stats:
+  SOn /Norm: +28m38s557ms (running)
+      TOTAL: +28m38s557ms
+
+Memory usage:
+  Persist: 156MB (4 samples)
+  Top    : 29MB (14 samples)
+  ImpFg  : 11MB (4 samples)
+  ImpBg  : 11MB (4 samples)
+  Service: 83MB (6 samples)
+  Home   : 25MB (1 samples)
+  LastAct: 9.4MB (1 samples)
+  CchEmty: 71MB (9 samples)
+  TOTAL  : 396MB
+
+          Start time: 2016-08-02 04:26:43
+  Total elapsed time: +28m38s582ms (partial) libart.so
