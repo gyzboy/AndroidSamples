@@ -44,6 +44,19 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity-alias
+            android:name=".ChangeIconActivity"
+            android:targetActivity=".MainActivity"
+            android:label="IconChanged"
+            android:icon="@drawable/star_half"
+            android:enabled="false"
+            android:configChanges="orientation|keyboardHidden">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity-alias>
         <!-- ************************************* -->
         <!--                Activity               -->
         <!-- ************************************* -->

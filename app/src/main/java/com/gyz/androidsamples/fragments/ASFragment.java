@@ -1,15 +1,20 @@
 package com.gyz.androidsamples.fragments;
 
-import android.app.Fragment;
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
+import android.widget.LinearLayout;
 import android.widget.ScrollView;
 import android.widget.TextView;
 
@@ -24,9 +29,19 @@ import java.util.ArrayList;
  */
 public class ASFragment extends Fragment {
 
+
+//    isVisiable //fragment是否对用户可见，1.已经add 2.已经attach到window上 3.非hidden
+//    onHiddenChanged //只有add或者remove等切换时才会调用
+//    isHidden   //伴随onHiddenChanged状态变化
+//    setTargetFragment //多用于设置希望跳转到目标fragment并获取返回结果,getTargetFragment().onActivityResult设置返回结果
+//    setUserVisiableHint //FragmentPagerAdapter中使用的Fragment会调用此方法，处理预加载问题,可能在Fragment生命周期之外调用
+
     private ArrayList<String> listData = new ArrayList<>();
     MyAdapter adapter;
     XRecyclerView xrv;
+    private View currView;
+
+    private static final String TAG = ASFragment.class.getSimpleName();
 
     @Nullable
     @Override
@@ -62,7 +77,63 @@ public class ASFragment extends Fragment {
                 xrv.refreshComplete();
             }
         });
+        currView = xrv;
         return xrv;
+    }
+
+    @Override
+    public void setUserVisibleHint(boolean isVisibleToUser) {
+        super.setUserVisibleHint(isVisibleToUser);
+        Log.d(TAG, isVisibleToUser + "");
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        Log.d(TAG,"onCreate");
+        Log.d(TAG,"isVisible = " + isVisible());
+        Log.d(TAG,"isAdded = " + isAdded());
+        Log.d(TAG,"isHidden = " + isHidden());
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        Log.d(TAG,"onStart");
+        Log.d(TAG,"isVisible = " + isVisible());
+        Log.d(TAG,"isAdded = " + isAdded());
+        Log.d(TAG,"isHidden = " + isHidden());
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.d(TAG, "onResume");
+        Log.d(TAG,"isVisible = " + isVisible());
+        Log.d(TAG,"isAdded = " + isAdded());
+        Log.d(TAG,"isHidden = " + isHidden());
+        Log.d(TAG,currView.getWindowToken() + "");
+        Log.d(TAG,currView.getVisibility() + "");
+    }
+
+
+    @Override
+    public void onAttach(Context context) {
+        super.onAttach(context);
+        Log.d(TAG,"onAttachContext");
+        Log.d(TAG,"isVisible = " + isVisible());
+        Log.d(TAG,"isAdded = " + isAdded());
+        Log.d(TAG,"isHidden = " + isHidden());
+    }
+
+    //SDK API<23时，onAttach(Context)不执行，需要使用onAttach(Activity)。Fragment自身的Bug，v4的没有此问题
+    @Override
+    public void onAttach(Activity activity) {
+        super.onAttach(activity);
+        Log.d(TAG,"onAttachActivity");
+        Log.d(TAG,"isVisible = " + isVisible());
+        Log.d(TAG,"isAdded = " + isAdded());
+        Log.d(TAG,"isHidden = " + isHidden());
     }
 }
 

@@ -3,6 +3,7 @@ package com.gyz.androidsamples.utils;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.TextViewCompat;
@@ -24,14 +25,14 @@ import com.gyz.androidsamples.fragments.ASFragmentTwo;
  * Created by guoyizhe on 16/9/20.
  * 邮箱:gyzboy@126.com
  */
-public class ASViewDragHelper extends Activity {
+public class ASViewDragHelper extends FragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_viewdrager);
 
-        getFragmentManager().beginTransaction().add(R.id.fl_container, new ASFragment()).commit();
+        getSupportFragmentManager().beginTransaction().add(R.id.fl_container, new ASFragment()).commit();
     }
 }
 

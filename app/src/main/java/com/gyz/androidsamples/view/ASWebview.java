@@ -387,6 +387,7 @@ public class ASWebview extends Activity {
         WebIconDatabase.getInstance().close();
         ((LinearLayout) wb.getRootView()).removeView(wb);//调用destroy之前调用
         wb.destroy();
+//        wb.removeJavascriptInterface();//为了安全,需要移除内部的一些jsInterface
     }
 
 

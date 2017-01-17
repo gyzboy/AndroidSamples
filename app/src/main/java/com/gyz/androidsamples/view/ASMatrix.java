@@ -16,7 +16,6 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.gyz.androidsamples.R;
-import com.gyz.androidsamples.custom.MatrixImageView;
 
 /**
  * Created by guoyizhe on 16/9/27.
@@ -273,6 +272,21 @@ public class ASMatrix extends Activity {
                 valueString = matrixValues[3 * i + j] + "";
                 System.out.println("第" + (i + 1) + "行的第" + (j + 1) + "列的值为" + valueString);
             }
+        }
+    }
+
+    private class MatrixImageView extends ImageView {
+        public MatrixImageView(Context context) {
+            super(context);
+        }
+
+        public MatrixImageView(Context context, AttributeSet attrs) {
+            super(context, attrs);
+        }
+
+        public void reset() {
+            Matrix matrix = new Matrix();
+            setImageMatrix(matrix);
         }
     }
 }

@@ -1,5 +1,6 @@
 package com.gyz.androidsamples.utils;
 
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.ApplicationInfo;
@@ -22,7 +23,7 @@ import java.util.List;
  * 5、增加，删除permission
  * 6、清除用户数据、缓存，代码段等
  */
-public class PackageInfo {
+public class PackageUtils {
 
 
     public static Drawable getAppIcon(Context context, String pkgName) {
@@ -63,12 +64,30 @@ public class PackageInfo {
         return context.getPackageManager().queryIntentActivities(intent, flags);
     }
 
-    public static android.content.pm.PackageInfo getPkgInfo(Context context, String pkgName){
+    public static android.content.pm.PackageInfo getPkgInfo(Context context, String pkgName) {
         try {
-            return context.getPackageManager().getPackageInfo(pkgName,0);
+            return context.getPackageManager().getPackageInfo(pkgName, 0);
         } catch (PackageManager.NameNotFoundException e) {
             e.printStackTrace();
         }
         return null;
+    }
+
+    /**
+     * 允许使用组件
+     * @param context
+     * @param componentName
+     */
+    public static void enableComponent(Context context, ComponentName componentName) {
+        context.getPackageManager().setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_ENABLED, PackageManager.DONT_KILL_APP);
+    }
+
+    /**
+     * 禁止使用组件
+     * @param context
+     * @param componentName
+     */
+    public static void disableComponent(Context context, ComponentName componentName) {
+        context.getPackageManager().setComponentEnabledSetting(componentName, PackageManager.COMPONENT_ENABLED_STATE_DISABLED, PackageManager.DONT_KILL_APP);
     }
 }

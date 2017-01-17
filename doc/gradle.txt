@@ -1,0 +1,4 @@
+Gradle compile:
+ 如果你的jar包/依赖代码 在编译的时候需要依赖，在运行的时候也需要，那么就用compil
+Gradle providedCompile：
+如果你的jar包/依赖代码 仅在编译的时候需要，但是在运行时不需要依赖,就用providedCompile

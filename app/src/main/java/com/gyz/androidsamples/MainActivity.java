@@ -20,6 +20,7 @@ import java.util.Map;
 public class MainActivity extends ListActivity {
 
     private String packName = "com.gyz.androidsamples";
+    private boolean isLoaded = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,7 @@ public class MainActivity extends ListActivity {
 
         Intent intent = getIntent();
         String path = intent.getStringExtra(packName);
+        isLoaded = intent.getBooleanExtra("isLoaded",false);
 
         if (path == null) {
             path = "";
@@ -91,9 +93,12 @@ public class MainActivity extends ListActivity {
         }
 
         Collections.sort(myData, sDisplayNameComparator);
-        addItem(myData, "Open", activityIntent(
-                packName,
-                "com.gyz.androidopensamples.MainActivity"));
+        if (!isLoaded) {
+            addItem(myData, "Open", activityIntent(
+                    packName,
+                    "com.gyz.androidopensamples.MainActivity"));
+            isLoaded = true;
+        }
 
         return myData;
     }
@@ -133,6 +138,7 @@ public class MainActivity extends ListActivity {
         Map<String, Object> map = (Map<String, Object>) l.getItemAtPosition(position);
 
         Intent intent = (Intent) map.get("intent");
+        intent.putExtra("isLoaded",true);
         startActivity(intent);
     }
 }

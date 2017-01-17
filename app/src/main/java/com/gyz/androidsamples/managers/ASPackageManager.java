@@ -11,9 +11,13 @@ import android.content.pm.ResolveInfo;
 import android.content.pm.ServiceInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gyz.androidsamples.R;
+import com.gyz.androidsamples.utils.PackageUtils;
 
 import java.util.List;
 
@@ -34,12 +38,16 @@ public class ASPackageManager extends Activity {
     ActivityInfo ai;//activity,receiver标签下内容
     ServiceInfo si;//service标签下内容
     ApplicationInfo appInfo;//application标签下内容
+    private boolean isChanged = false;
+
+    private ComponentName defaultCom ;
+    private ComponentName changeCom;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_simple_text_jump);
+        setContentView(R.layout.activity_pm);
 
         StringBuilder sb = new StringBuilder();
 
@@ -73,6 +81,25 @@ public class ASPackageManager extends Activity {
         .append("\nActivityLaunchmode:" + ai.launchMode)
         );//获得包名
         tv.setCompoundDrawablesWithIntrinsicBounds(getAppIcon(this,getPackageName()),null,resolveInfos.get(0).loadIcon(getPackageManager()),null);
+
+        defaultCom = getComponentName();
+        changeCom = new ComponentName(this,"com.gyz.androidsamples.ChangeIconActivity");
+        Button button = (Button) findViewById(R.id.change);
+        button.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                if (isChanged) {
+                    PackageUtils.enableComponent(getBaseContext(),defaultCom);
+                    PackageUtils.disableComponent(getBaseContext(),changeCom);
+                    Toast.makeText(getApplicationContext(),"isDefault",Toast.LENGTH_SHORT).show();
+                }else{
+                    PackageUtils.enableComponent(getBaseContext(),changeCom);
+                    PackageUtils.disableComponent(getBaseContext(),defaultCom);
+                    Toast.makeText(getApplicationContext(),"isChange",Toast.LENGTH_SHORT).show();
+                }
+                isChanged = !isChanged;
+            }
+        });
 
     }
 
