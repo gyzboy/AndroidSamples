@@ -1,0 +1,11 @@
+1.过滤网络请求,在网络请求上右键设置focus,然后点选focused
+2.如果我们需要在 iOS 或 Android 机器上截取 Https 协议的通讯内容，还需要在手机上安装相应的证书。
+点击 Charles 的顶部菜单，选择 “Help” -> “SSL Proxying” -> “Install Charles Root Certificate on a Mobile Device or Remote Browser”，然后就可以看到 Charles 弹出的简单的安装教程
+在设备上设置好 Charles 为代理后，在手机浏览器中访问地址：http://charlesproxy.com/getssl，即可打开证书安装的界面，安装完证书后，就可以截取手机上的 Https 通讯内容了。不过同样需要注意，默认情况下 Charles 并不做截取，你还需要在要截取的网络请求上右击，选择 SSL proxy 菜单项
+3.Charles 可以方便地提供网络请求的修改和重发功能。只需要在以往的网络请求上点击右键，选择 “Edit”，即可创建一个可编辑的网络请求。
+4.在想打压的网络请求上（POST 或 GET 请求均可）右击，然后选择 「Repeat Advanced」菜单项
+5.有些时候我们想让服务器返回一些指定的内容，方便我们调试一些特殊情况，根据具体的需求，Charles 提供了 Map 功能、 Rewrite 功能以及 Breakpoints 功能，都可以达到修改服务器返回内容的目的。这三者在功能上的差异是：
+    Map 功能适合长期地将某一些请求重定向到另一个网络地址或本地文件。
+    Rewrite 功能适合对网络请求进行一些正则替换。
+    Breakpoints 功能适合做一些临时性的修改。
+6.

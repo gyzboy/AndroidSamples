@@ -1,0 +1,59 @@
+1.git与其他版本控制系统区别:其他版本系统存储的是一组基本文件和每个文件随时间逐步累积的差异，git保存的是文件的快照
+
+2.Git 有三种状态，你的文件可能处于其中之一：
+已提交（committed):已提交表示数据已经安全的保存在本地数据库中。
+已修改（modified）:已修改表示修改了文件，但还没保存到数据库中。
+已暂存（staged）:已暂存表示对一个已修改文件的当前版本做了标记，使之包含在下次提交的快照中。
+
+3.Git 自带一个 git config 的工具来帮助设置控制 Git 外观和行为的配置变量。 这些变量存储在三个不同的位置：
+  (1)./etc/gitconfig 文件: 包含系统上每一个用户及他们仓库的通用配置。 如果使用带有 --system 选项的 git config 时，它会从此文件读写配置变量。
+  (2).~/.gitconfig 或 ~/.config/git/config 文件：只针对当前用户。 可以传递 --global 选项让 Git 读写此文件。
+  (3).当前使用仓库的 Git 目录中的 config 文件（就是 .git/config）：针对该仓库。
+每一个级别覆盖上一级别的配置，所以 .git/config 的配置变量会覆盖 /etc/gitconfig 中的配置变量。
+
+4.git status -s 查看git状态输出
+
+5.编辑.gitignore文件设置git提交时的忽略文件,文件 .gitignore 的格式规范如下：
+   (1).所有空行或者以 ＃ 开头的行都会被 Git 忽略。
+   (2).可以使用标准的 glob 模式(shell中简化了的正则表达式)匹配。
+   (3).匹配模式可以以（/）开头防止递归。
+   (4).匹配模式可以以（/）结尾指定目录。
+   (5).要忽略指定模式以外的文件或目录，可以在模式前加上惊叹号（!）取反。
+
+6. git rm 命令连带从工作目录中删除指定的文件，这样以后就不会出现在未跟踪文件清单中了。如果删除之前修改过并且已经放到暂存区域的话，则必须要用强制删除选项 -f
+我们想把文件从 Git 仓库中删除（亦即从暂存区域移除），但仍然希望保留在当前工作目录中。 换句话说，你想让文件保留在磁盘，但是并不想让 Git 继续跟踪,这时候可以
+使用git rm --cached命令去删除
+
+7.git mv file_from file_to 重命名文件
+
+8.git log -p -2 ,-p，用来显示每次提交的内容差异。 你也可以加上 -2 来仅显示最近两次提交
+
+9.$ git commit -m 'initial commit'
+  $ git add forgotten_file
+  $ git commit --amend
+  最终你只会有一个提交 - 第二次提交将代替第一次提交的结果。
+
+10.git checkout -- file  撤销对文件的所有修改
+
+11.git fetch [remote-name] 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+git pull == git fetch + git merge
+
+12.git config --global alias.ci commit 起别名
+
+13.在 Git 中，HEAD是一个特殊指针，指向当前所在的本地分支（译注：将 HEAD 想象为当前分支的别名）。
+
+14.只对尚未推送或分享给别人的本地修改执行变基操作清理历史，从不对已推送至别处的提交执行变基操作,git rebase
+git rebase --onto master server client 取出 client 分支，找出处于 client 分支和 server 分支的共同祖先之后的修改，然后把它们在 master 分支上重演一遍
+git checkout master
+git merge client
+
+
+15.git reset --soft HEAD 移动HEAD指针到指定版本
+   git reset --mixed HEAD 会取消暂存的所有文件
+   git reset --hard HEAD 会撤销了最后的提交、git add 和 git commit 命令以及工作目录中的所有工作
+
+回滚到指定版本,reset后git push -f 强制提交到远端服务器
+
+16.git stash 储藏现在的改变
+   git stash list 查看储藏的内容
+   git stash apply 还原到当前的储藏
