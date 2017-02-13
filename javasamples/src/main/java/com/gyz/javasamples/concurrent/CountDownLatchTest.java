@@ -16,6 +16,12 @@ public class CountDownLatchTest {
     // 才能获取“共享锁”进而继续运行。而“共享锁”可用的条件，就是“锁计数器”的值为0！而“锁计数器”的初始值为count，
     // 每当一个线程调用该CountDownLatch对象的countDown()方法时，才将“锁计数器”-1；通过这种方式，必须有count个线程调用countDown()之后，
     // “锁计数器”才为0，而前面提到的等待线程才能继续运行！
+
+    //CountDownLatch的作用是允许1或N个线程等待其他线程完成执行；而CyclicBarrier则是允许N个线程相互等待。
+    //CountDownLatch的计数器无法被重置；CyclicBarrier的计数器可以被重置后使用，因此它被称为是循环的barrier。
+
+    //CountDownLatch是通过“共享锁”实现的。
+
     private static int LATCH_SIZE = 5;
     private static CountDownLatch doneSignal;
     public static void main(String[] args) {

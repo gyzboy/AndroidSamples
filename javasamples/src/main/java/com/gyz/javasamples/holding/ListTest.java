@@ -90,12 +90,22 @@ public class ListTest {
 
 
         List list = new ArrayList();
-        for (int i=0; i<100000; i++)
+        for (int i = 0; i < 100000; i++)
             list.add(i);
         //isRandomAccessSupported(list);
-        iteratorThroughRandomAccess(list) ;
-        iteratorThroughIterator(list) ;
-        iteratorThroughFor2(list) ;
+        iteratorThroughRandomAccess(list);
+        iteratorThroughIterator(list);
+        iteratorThroughFor2(list);
+
+        System.out.println("remove test---->");
+        ArrayList<String> removetest = new ArrayList<>();
+        removetest.add("1");
+        removetest.add("1");
+        removetest.add("2");
+//        forloopRemove(removetest);//输出结果为[1,2]
+        iteratorRemove(removetest);
+        System.out.println(removetest);
+
 
     }
 
@@ -118,12 +128,12 @@ public class ListTest {
         long startTime;
         long endTime;
         startTime = System.currentTimeMillis();
-        for (int i=0; i<list.size(); i++) {
+        for (int i = 0; i < list.size(); i++) {
             list.get(i);
         }
         endTime = System.currentTimeMillis();
         long interval = endTime - startTime;
-        System.out.println("iteratorThroughRandomAccess：" + interval+" ms");
+        System.out.println("iteratorThroughRandomAccess：" + interval + " ms");
     }
 
     public static void iteratorThroughIterator(List list) {
@@ -131,12 +141,12 @@ public class ListTest {
         long startTime;
         long endTime;
         startTime = System.currentTimeMillis();
-        for(Iterator iter = list.iterator(); iter.hasNext(); ) {
+        for (Iterator iter = list.iterator(); iter.hasNext(); ) {
             iter.next();
         }
         endTime = System.currentTimeMillis();
         long interval = endTime - startTime;
-        System.out.println("iteratorThroughIterator：" + interval+" ms");
+        System.out.println("iteratorThroughIterator：" + interval + " ms");
     }
 
 
@@ -145,11 +155,11 @@ public class ListTest {
         long startTime;
         long endTime;
         startTime = System.currentTimeMillis();
-        for(Object obj:list)
+        for (Object obj : list)
             ;
         endTime = System.currentTimeMillis();
         long interval = endTime - startTime;
-        System.out.println("iteratorThroughFor2：" + interval+" ms");
+        System.out.println("iteratorThroughFor2：" + interval + " ms");
     }
 
     // toArray(T[] contents)调用方式一
@@ -161,14 +171,39 @@ public class ListTest {
 
     // toArray(T[] contents)调用方式二。最常用！
     public static Integer[] vectorToArray2(ArrayList<Integer> v) {
-        Integer[] newText = (Integer[])v.toArray(new Integer[0]);
+        Integer[] newText = (Integer[]) v.toArray(new Integer[0]);
         return newText;
     }
 
     // toArray(T[] contents)调用方式三
     public static Integer[] vectorToArray3(ArrayList<Integer> v) {
         Integer[] newText = new Integer[v.size()];
-        Integer[] newStrings = (Integer[])v.toArray(newText);
+        Integer[] newStrings = (Integer[]) v.toArray(newText);
         return newStrings;
+    }
+
+    //for循环删除list元素
+    public static List<String> forloopRemove(List<String> list) {
+        for (int i = 0; i < list.size(); i++) {
+            if ("1".equals(list.get(i))) {
+                list.remove(i);
+                //第一次遍历(int i=0)，因为做了remove(int index)处理，size发生了更新 ，由3--》2；
+                //第二次遍历(int i=1)，get(1)取的初始集合index=2的值；直接跳过初始集合index=1值；这就是为什么 返回值没有剔除1的原因啦！
+                i--;//索引-1,避免出现上述问题
+            }
+        }
+        return list;
+    }
+
+    //迭代器remove元素,推荐方法
+    public static List<String> iteratorRemove(List<String> list) {
+        Iterator<String> iterator = list.iterator();
+        while (iterator.hasNext()) {
+            String s = iterator.next();
+            if ("1".equals(s)) {
+                iterator.remove();
+            }
+        }
+        return list;
     }
 }

@@ -19,7 +19,7 @@ public class ArraysTest {
         System.out.println("The end   time  " + System.currentTimeMillis());
 
         int[] binary = {1,2,3,4,5};
-        System.out.println(Arrays.binarySearch(binary,3));//二分查找,返回索引
+        System.out.println(Arrays.binarySearch(binary,3));//二分查找,返回索引,升序排列
 
         int[] fill = {4,3,5,6};
         int fill2 = 3;
