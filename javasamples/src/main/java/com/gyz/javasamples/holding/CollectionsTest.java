@@ -5,6 +5,7 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.ConcurrentHashMap;
 
 /**
  * Created by guoyizhe on 16/8/31.
@@ -79,11 +80,37 @@ public class CollectionsTest {
 //        lis.add("333");
 
 
+        //Collections.synchronizedMap()对put、get等方法进行了同步,但只是简单的同步,缺点有二:
+        //1.一次只能有一个线程访问hash表
+        //2.许多公用的混合操作仍然需要额外的同步,是有条件的同步,所有 单个的操作都是线程安全的，但是多个操作组成的操作序列却可能导致数据争用，因为在操作序列中控制流取决于前面操作的结果。例子见testQ1
+
+
+        //ConcurrentHashMap针对桶进行加锁,性能更好,一个ConcurrentHashMap由多个segment组成，每一个segment都包含了一个HashEntry数组的hashtable，
+        // 每一个segment包含了对自己的hashtable的操作，比如get，put，replace等操作，这些操作发生的时候，对自己的hashtable进行锁定。
+        //它把区间按照并发级别(concurrentLevel)，分成了若干个segment。默认情况下内部按并发级别为16来创建。对于每个segment的容量，默认情况也是16。
+        // 当然并发级别(concurrentLevel)和每个段(segment)的初始容量都是可以通过构造函数设定的。
+
+
     }
 
     static void output(List<String> ss) {
         for (String s : ss) {
             System.out.println(s);
         }
+    }
+
+
+    Object obj = new Object();
+    public void testQ1(){
+        Map m = Collections.synchronizedMap(new HashMap<>());
+        synchronized (obj){
+            if (!m.containsKey("1")) {//这样可能在线程1中containskey判断的时候,线程2也对它进行了访问,这样就造成了put了两次,可以使用synchronize将这块代码包裹起来
+                m.put("1","2");
+            }
+        }
+
+        List l = Collections.synchronizedList(new ArrayList<>());
+        l.remove("1");//在多进程情况下,线程1调用get方法,同时线程2在调用了remove方法导致key为1的值被删除,这样线程1调用get方法时就会产生np异常,解决方法是将整个list加上同步锁,但效率会下降
+
     }
 }
