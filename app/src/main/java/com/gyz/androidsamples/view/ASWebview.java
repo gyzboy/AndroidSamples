@@ -18,6 +18,7 @@ import android.os.Environment;
 import android.os.Message;
 import android.provider.Contacts;
 import android.provider.ContactsContract;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.AttributeSet;
 import android.util.Base64;
@@ -37,6 +38,7 @@ import android.webkit.CookieSyncManager;
 import android.webkit.DownloadListener;
 import android.webkit.GeolocationPermissions;
 import android.webkit.HttpAuthHandler;
+import android.webkit.JavascriptInterface;
 import android.webkit.JsPromptResult;
 import android.webkit.JsResult;
 import android.webkit.PermissionRequest;
@@ -99,6 +101,7 @@ public class ASWebview extends Activity {
 //        wb.loadUrl("http://www.baidu.com");//有重定向
         wb.loadUrl("http://www.jb51.com");//没有重定向
 
+
 //        String summary = "<html><body>测试含有中文的 <b>HTML</b></body></html>";
 //        wb.getSettings().setDefaultTextEncodingName("UTF-8");
         //loadData()中的html data中不能包含'#', '%', '\', '?'四中特殊字符，这就为我们内嵌css等制造了些许麻烦，因为css中经常用'#', '%'等字符，
@@ -116,6 +119,9 @@ public class ASWebview extends Activity {
         setWebSettings();
         setWebClient();
         setWebChromeClient();
+
+        //wb.loadUrl("javascript:handler.getDate('" + date.replace("年", "-").replace("月", "-").replace("日", "") + "')"); 调用服务器js方法
+        wb.addJavascriptInterface(new CustomHandler(), "handler");//js中定义的对象名称
 
         save.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -151,6 +157,34 @@ public class ASWebview extends Activity {
 
     }
 
+    /**
+     * 服务器调用本地方法,需要在主线程中进行,否则容易出现crash
+     */
+    class CustomHandler {
+        @JavascriptInterface
+        public void showDateDialog() {
+            handler.obtainMessage(1).sendToTarget();
+        }
+
+        @JavascriptInterface
+        public void back() {
+            handler.obtainMessage(3).sendToTarget();
+        }
+    }
+
+    private android.os.Handler handler = new android.os.Handler() {
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            switch (msg.what) {
+                case 1:
+                    break;
+                case 3:
+                    break;
+            }
+        }
+    };
+
     @Override
     protected void onResume() {
         super.onResume();
@@ -166,7 +200,7 @@ public class ASWebview extends Activity {
         super.onPause();
         wb.pauseTimers();
         if (Build.VERSION.SDK_INT >= 11) {
-            wb.onPause();
+            wb.onPause();//onPause动作通知内核暂停所有的动作，比如DOM的解析、plugin的执行、JavaScript执行。并且可以减少不必要的CPU和网络开销，可以达到省电、省流量、省资源的效果
         }
         wb.getSettings().setJavaScriptEnabled(false);
     }
@@ -177,7 +211,7 @@ public class ASWebview extends Activity {
 //wb.setNetworkAvailable(true);
 //        wb.capturePicture();
 //        wb.getContentHeight();
-//        wb.pauseTimers();//暂停webview 所有布局,解析,javaScript times计时器
+//        wb.pauseTimers();//暂停webview 所有布局,解析,javaScript times计时器,针对全局的webview起效
 //        wb.clearXXX();//清除数据
 
 
@@ -190,10 +224,10 @@ public class ASWebview extends Activity {
         wb.setDownloadListener(new CustomDownloadLsn());
 
         //消除白色底图
-        wb.setScrollbarFadingEnabled( true );
-        wb.setScrollBarStyle(View. SCROLLBARS_INSIDE_OVERLAY );
+        wb.setScrollbarFadingEnabled(true);
+        wb.setScrollBarStyle(View.SCROLLBARS_INSIDE_OVERLAY);
 
-        wb.setLayerType(View.LAYER_TYPE_SOFTWARE,null);//Android开启硬件加速的话view切换时可能引起闪屏,这是系统级的BUG,关闭之可缓解,但滑动起来感觉卡顿
+        wb.setLayerType(View.LAYER_TYPE_SOFTWARE, null);//Android开启硬件加速的话view切换时可能引起闪屏,这是系统级的BUG,关闭之可缓解,但滑动起来感觉卡顿
 
     }
 
@@ -379,6 +413,8 @@ public class ASWebview extends Activity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);//支持通过JS打开新窗口，默认false，true的话js可通过window.open()打开窗口
         settings.setLoadWithOverviewMode(false);//缩放至屏幕的大小，默认false
         settings.setLoadsImagesAutomatically(true);//支持自动加载图片
+
+
     }
 
     @Override
@@ -596,13 +632,14 @@ public class ASWebview extends Activity {
             }
         }
     }
+
     private class Copy implements MenuItem.OnMenuItemClickListener {
         private CharSequence mText;
 
         @Override
         public boolean onMenuItemClick(MenuItem item) {
-                ClipboardManager cm = (ClipboardManager)getSystemService(Context.CLIPBOARD_SERVICE);
-                cm.setText(mText);
+            ClipboardManager cm = (ClipboardManager) getSystemService(Context.CLIPBOARD_SERVICE);
+            cm.setText(mText);
             return true;
         }
 
@@ -610,6 +647,7 @@ public class ASWebview extends Activity {
             mText = toCopy;
         }
     }
+
     /**
      * 判断是否到达底端
      *
@@ -630,17 +668,16 @@ public class ASWebview extends Activity {
     /**
      * 下载接口监听
      */
-    public class CustomDownloadLsn implements DownloadListener{
+    public class CustomDownloadLsn implements DownloadListener {
 
         @Override
         public void onDownloadStart(String url, String userAgent, String contentDisposition, String mimetype, long contentLength) {
             Uri uri = Uri.parse(url);
-            Intent intent = new Intent(Intent.ACTION_VIEW,uri);
+            Intent intent = new Intent(Intent.ACTION_VIEW, uri);
             startActivity(intent);
         }
     }
 }
-
 
 
 @SuppressWarnings("deprecation")
@@ -1794,5 +1831,56 @@ class AdvancedWebView extends WebView {
         }
 
     }
+}
 
+/**
+ * 一个Fragment与webview结合使用正常保存状态的伪代码
+ */
+class FragmentWithWebview extends Fragment {
+//            WebView的状态保存和恢复不像其他原生View一样是自动完成的.
+//            WebView不是继承自View的.
+//            如果我们把WebView放在布局里, 不加处理, 那么Activity或Fragment重建的过程中, WebView的状态就会丢失, 变成初始状态.
+
+//    但是Fragment还有另一种情况, 即Fragment被压入back stack, 此时它没有被destroy(), 所以没有调用onSavedInstanceState()这个方法.
+//    这种情况返回的时候, 会从onCreateView()开始, 并且savedInstanceState为null, 于是其中WebView之前的状态在此时丢失了.
+//    解决这种情况可以利用Fragment实例并未销毁的条件, 增加一个成员变量bundle, 保存WebView的状态
+
+    private Bundle webViewState;
+    private WebView webView;
+    String TEST_URL;
+
+    @Override
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        if (webViewState != null) {
+            //Fragment实例并未被销毁, 重新create view
+            webView.restoreState(webViewState);
+        } else if (savedInstanceState != null) {
+            //Fragment实例被销毁重建
+            webView.restoreState(savedInstanceState);
+        } else {
+            //全新Fragment
+            webView.loadUrl(TEST_URL);
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        webView.onPause();
+
+        //Fragment不被销毁(Fragment被加入back stack)的情况下, 依靠Fragment中的成员变量保存WebView状态
+        webViewState = new Bundle();
+        webView.saveState(webViewState);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+        //Fragment被销毁的情况, 依靠outState保存WebView状态
+        if (webView != null) {
+            webView.saveState(outState);
+        }
+    }
 }

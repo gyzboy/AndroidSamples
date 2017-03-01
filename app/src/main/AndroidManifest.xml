@@ -739,6 +739,37 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.gyz.androidopensamples.rxandroid.MainActivity"
+            android:label="RxAndroid"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.gyz.androidopensamples.rxandroid.BindingActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.LambdaActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.SafeActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.MoreActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.NetworkActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.NetworkDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.rxandroid.SimpleActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
 
         <meta-data
             android:name="com.gyz.androidopensamples.glide.modules.CustomModule"

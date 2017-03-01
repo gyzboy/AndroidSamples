@@ -23,7 +23,7 @@ import java.util.List;
  * 获取正在运行中的Activity信息
  */
 public class ASActivityManager extends Activity {
-    @TargetApi(Build.VERSION_CODES.LOLLIPOP)
+    @android.support.annotation.RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -73,10 +73,15 @@ public class ASActivityManager extends Activity {
 //获得最近运行的应用
         sb.append("\n获得最近运行的应用:");
         List<ActivityManager.RecentTaskInfo> appList4 = am
-                .getRecentTasks(100, 1);
+                .getRecentTasks(100, ActivityManager.RECENT_WITH_EXCLUDED);
         for (ActivityManager.RecentTaskInfo running : appList4) {
             sb.append("\n" + running.description);
         }
         tv.setText(sb.toString());
+
+        //Activity不显示在recent列表中.
+//        Intent intent = new Intent(this, TaskTestActivity.class);
+//        intent.setFlags(Intent.FLAG_ACTIVITY_EXCLUDE_FROM_RECENTS);
+//        startActivity(intent);
     }
 }
