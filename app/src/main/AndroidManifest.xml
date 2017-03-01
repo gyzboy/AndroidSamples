@@ -739,7 +739,7 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.rxandroid.MainActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.MainActivity"
             android:label="RxAndroid"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -748,25 +748,25 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.rxandroid.BindingActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.BindingActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.LambdaActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.LambdaActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.SafeActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.SafeActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.MoreActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.MoreActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.NetworkActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.NetworkDetailActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkDetailActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroid.SimpleActivity"
+        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.SimpleActivity"
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 

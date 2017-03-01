@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid.networks;
+package com.gyz.androidopensamples.rxandroidandretrofit.networks;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,13 +8,12 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.gyz.androidopensamples.R;
-import com.gyz.androidopensamples.rxandroid.NetworkActivity;
+import com.gyz.androidopensamples.rxandroidandretrofit.NetworkActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**

@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid.networks;
+package com.gyz.androidopensamples.rxandroidandretrofit.networks;
 
 import retrofit.http.GET;
 import retrofit.http.Path;

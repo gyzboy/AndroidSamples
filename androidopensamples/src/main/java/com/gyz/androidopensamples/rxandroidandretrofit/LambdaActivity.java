@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid;
+package com.gyz.androidopensamples.rxandroidandretrofit;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -10,7 +10,6 @@ import com.gyz.androidopensamples.R;
 import java.util.Arrays;
 import java.util.List;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

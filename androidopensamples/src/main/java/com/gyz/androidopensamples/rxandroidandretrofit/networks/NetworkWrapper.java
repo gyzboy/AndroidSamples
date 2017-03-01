@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid.networks;
+package com.gyz.androidopensamples.rxandroidandretrofit.networks;
 
 import rx.Observable;
 import rx.android.schedulers.AndroidSchedulers;

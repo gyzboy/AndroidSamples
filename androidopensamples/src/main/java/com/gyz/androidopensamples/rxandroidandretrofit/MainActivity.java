@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid;
+package com.gyz.androidopensamples.rxandroidandretrofit;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -6,8 +6,6 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 
 import com.gyz.androidopensamples.R;
-
-import butterknife.ButterKnife;
 
 /**
  * 主Activity, 用于跳转各个模块.

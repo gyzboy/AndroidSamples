@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid;
+package com.gyz.androidopensamples.rxandroidandretrofit;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -21,7 +21,6 @@ import com.jakewharton.rxbinding.support.v7.widget.RxToolbar;
 import com.jakewharton.rxbinding.view.RxView;
 import com.jakewharton.rxbinding.widget.RxTextView;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**

@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid;
+package com.gyz.androidopensamples.rxandroidandretrofit;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -6,10 +6,9 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.gyz.androidopensamples.R;
-import com.gyz.androidopensamples.rxandroid.networks.NetworkWrapper;
-import com.gyz.androidopensamples.rxandroid.networks.UserListAdapter;
+import com.gyz.androidopensamples.rxandroidandretrofit.networks.NetworkWrapper;
+import com.gyz.androidopensamples.rxandroidandretrofit.networks.UserListAdapter;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**

@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid.networks;
+package com.gyz.androidopensamples.rxandroidandretrofit.networks;
 
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -10,7 +10,6 @@ import com.gyz.androidopensamples.R;
 
 import java.util.ArrayList;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 
 /**

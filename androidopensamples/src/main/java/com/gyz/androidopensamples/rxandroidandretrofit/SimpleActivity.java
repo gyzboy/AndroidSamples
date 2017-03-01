@@ -1,4 +1,4 @@
-package com.gyz.androidopensamples.rxandroid;
+package com.gyz.androidopensamples.rxandroidandretrofit;
 
 import android.app.Activity;
 import android.os.Bundle;
@@ -7,7 +7,6 @@ import android.widget.Toast;
 
 import com.gyz.androidopensamples.R;
 
-import butterknife.Bind;
 import butterknife.ButterKnife;
 import rx.Observable;
 import rx.Subscriber;
