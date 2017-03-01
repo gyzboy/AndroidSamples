@@ -3,8 +3,12 @@ package com.gyz.androidsamples.application;
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
+import android.os.Handler;
+import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.gyz.androidopensamples.crashconsume.CCHandler;
 import com.gyz.androidopensamples.weex.ImageAdapter;
 import com.gyz.androidopensamples.weex.extend.PlayDebugAdapter;
 import com.gyz.androidopensamples.weex.extend.component.RichText;
@@ -35,6 +39,28 @@ public class ASApplication extends Application {
         registerComponentCallbacks(new ASComponentCallbacks());
 
         initWeex();
+
+        CCHandler.install(new CCHandler.ExceptionHandler(){
+
+            // handlerException内部建议手动try{  你的异常处理逻辑  }catch(Throwable e){ } ，以防handlerException内部再次抛出异常，导致循环调用handlerException
+
+            @Override
+            public void handlerException(final Thread thread, final Throwable throwable) {
+                new Handler(Looper.getMainLooper()).post(new Runnable() {
+                    @Override
+                    public void run() {
+                        try {
+                            Log.d("Cockroach", thread + "\n" + throwable.toString());
+                            throwable.printStackTrace();
+                            Toast.makeText(ASApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
+//                        throw new RuntimeException("..."+(i++));
+                        } catch (Throwable e) {
+
+                        }
+                    }
+                });
+            }
+        });
 
     }
 

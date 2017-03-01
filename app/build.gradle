@@ -5,6 +5,9 @@ android {//android项目的DSL
     buildToolsVersion "23.0.2"//required，编译工具版本
 
     defaultConfig {//默认设置，类似于全局变量，所有的flavors都会共享
+
+        multiDexEnabled true
+
         applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来
         minSdkVersion 17
         targetSdkVersion 23

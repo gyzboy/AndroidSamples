@@ -664,7 +664,17 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
-
+        <!-- ************************************* -->
+        <!--                SQLite               -->
+        <!-- ************************************* -->
+        <activity
+            android:name=".sqlite.ASSqlite"
+            android:label="SQLite">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
         <!-- ************************************* -->
         <!--             Notification              -->
@@ -768,6 +778,15 @@
         </activity>
         <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.SimpleActivity"
             android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
+        <activity android:name="com.gyz.androidopensamples.crashconsume.CCActivity"
+            android:label="CrashConsume"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
         </activity>
 
 
