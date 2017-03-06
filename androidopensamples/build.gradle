@@ -72,4 +72,8 @@ dependencies {
     compile 'com.jakewharton.rxbinding:rxbinding:0.3.0'
     compile 'com.jakewharton.rxbinding:rxbinding-appcompat-v7:0.3.0'
     compile 'com.jakewharton.rxbinding:rxbinding-design:0.3.0'
+
+    //easy permissions
+    compile 'pub.devrel:easypermissions:0.3.0'
+
 }
