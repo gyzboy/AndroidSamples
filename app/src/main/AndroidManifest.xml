@@ -789,6 +789,23 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.gyz.androidopensamples.permission.MainActivity"
+            android:label="EasyPermission"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
+        <activity android:name="com.gyz.androidopensamples.optimization.startup.StartUpActivity"
+            android:label="Optimization/startup"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
 
         <meta-data
             android:name="com.gyz.androidopensamples.glide.modules.CustomModule"

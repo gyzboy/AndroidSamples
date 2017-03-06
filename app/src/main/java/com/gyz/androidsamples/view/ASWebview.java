@@ -1163,9 +1163,9 @@ class AdvancedWebView extends WebView {
             public void onUnhandledInputEvent(WebView view, InputEvent event) {
                 if (Build.VERSION.SDK_INT >= 21) {
                     if (mCustomWebViewClient != null) {
-                        mCustomWebViewClient.onUnhandledInputEvent(view, event);
+//                        mCustomWebViewClient.onUnhandledInputEvent(view, event);
                     } else {
-                        super.onUnhandledInputEvent(view, event);
+//                        super.onUnhandledInputEvent(view, event);
                     }
                 }
             }
