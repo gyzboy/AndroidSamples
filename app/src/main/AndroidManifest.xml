@@ -807,6 +807,15 @@
             </intent-filter>
         </activity>
 
+        <activity android:name="com.gyz.androidopensamples.changeskin.MainActivity"
+            android:label="ChangeSkin"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
         <meta-data
             android:name="com.gyz.androidopensamples.glide.modules.CustomModule"
             android:value="CustomModule" />

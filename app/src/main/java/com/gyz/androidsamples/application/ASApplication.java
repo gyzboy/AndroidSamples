@@ -5,6 +5,7 @@ import android.content.ComponentCallbacks;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -30,6 +31,11 @@ import com.taobao.weex.common.WXException;
 public class ASApplication extends Application {
 
     private int appCount = 0;
+
+    static {
+        AppCompatDelegate.setDefaultNightMode(
+                AppCompatDelegate.MODE_NIGHT_YES);
+    }
 
     //这个函数是当我们的应用开始之时就被调用了，比应用中的其他对象创建的早，这个实现尽可能的快一点，
     //因为这个时间直接影响到我们第一个activity/service/receiver。如果你要重写这个方法必须调用super.onCreate()

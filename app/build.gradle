@@ -1,8 +1,8 @@
 apply plugin: 'com.android.application'//应用的插件名
 
 android {//android项目的DSL
-    compileSdkVersion 23//required，编译sdk版本
-    buildToolsVersion "23.0.2"//required，编译工具版本
+    compileSdkVersion 24//required，编译sdk版本
+    buildToolsVersion "24.0.0"//required，编译工具版本
 
     defaultConfig {//默认设置，类似于全局变量，所有的flavors都会共享
 
@@ -24,8 +24,8 @@ android {//android项目的DSL
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
-    compile 'com.android.support:appcompat-v7:23.4.0'
-    compile 'com.android.support:recyclerview-v7:23.4.0'
+    compile 'com.android.support:appcompat-v7:24.2.1'
+    compile 'com.android.support:support-v4:24.2.1'
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
     compile 'com.android.support:support-annotations:24.2.1'
     compile project (':androidopensamples')

@@ -4,4 +4,16 @@
         <attr name="boroderWidth" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="SkinnableView">
+        <attr name="android:background" />
+        <attr name="backgroundTint" />
+    </declare-styleable>
+
+    <declare-styleable name="SkinnableTextView">
+        <attr name="android:textColor" />
+    </declare-styleable>
+
+    <declare-styleable name="SkinnableButton">
+        <attr name="android:textColor" />
+    </declare-styleable>
 </resources>
