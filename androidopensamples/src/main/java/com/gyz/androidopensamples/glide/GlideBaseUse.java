@@ -40,6 +40,15 @@ import static android.provider.MediaStore.Images.ImageColumns.ORIENTATION;
  * 邮箱:gyzboy@126.com
  */
 
+//glide中设计上的一些优点:
+//1.Engine中getReferenceQueue中activeResource是一个持有WeakReference的Map集合,ReferenceQueue 就是提供资源 WeakReference 的虚引用队列。
+// activeResources.put(key, new ResourceWeakReference(key, cached, getReferenceQueue()));
+//这里要提的是负责清除 WeakReference 被回收的 activeResources 资源的实现：使用到了 MessageQueue.IdleHandler，
+// 源码的注释：当一个线程等待更多 message 的时候会触发该回调,就是 messageQuene 空闲的时候会触发该回调，里面还有一个queueIdle方法负责清除WeakReference被回收的资源
+
+    //2.生命周期管理:
+    //glide为当前的上下文 Activity 或者 Fragment 绑定一个 TAG 为"com.bumptech.glide.manager"的 RequestManagerFragment，然后把该 fragment 作为 rootRequestManagerFragment，并加入到当前上下文的 FragmentTransaction 事务中，
+// 从而与当前上下文 Activity 或者 Fragment 的生命周期保持一致。
 public class GlideBaseUse extends Activity {
 
     ImageView imageView;
