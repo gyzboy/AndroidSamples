@@ -16,6 +16,8 @@ import android.support.annotation.NonNull;
     private Bundle mBundle;
     private PackageManager pm;
     private Context mContext;
+    private IIntercepter mIntercepter;
+    private boolean intercepted = true;
 
     Builder(Context context) {
         mContext = context;
@@ -28,18 +30,28 @@ import android.support.annotation.NonNull;
         return this;
     }
 
+    public Builder withIntercepter(IIntercepter intercepter){
+        mIntercepter = intercepter;
+        return this;
+    }
+
     public void to(@NonNull String url) {
-        Intent intent = new Intent(Intent.ACTION_VIEW);
-        if (mBundle != null) {
-            intent.putExtras(mBundle);
+        if (mIntercepter != null) {
+            mIntercepter.process();
         }
-        intent.setData(Uri.parse(url));
-        ResolveInfo info = pm.resolveActivity(intent, 0);
-        if (info != null) {
-            mContext.startActivity(intent);
-        } else {
-            intent.setClass(mContext, ErrorPage.class);
-            mContext.startActivity(intent);
+        if (intercepted) {
+            Intent intent = new Intent(Intent.ACTION_VIEW);
+            if (mBundle != null) {
+                intent.putExtras(mBundle);
+            }
+            intent.setData(Uri.parse(url));
+            ResolveInfo info = pm.resolveActivity(intent, 0);
+            if (info != null) {
+                mContext.startActivity(intent);
+            } else {
+                intent.setClass(mContext, ErrorPage.class);
+                mContext.startActivity(intent);
+            }
         }
     }
 }

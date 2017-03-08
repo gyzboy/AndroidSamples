@@ -350,6 +350,19 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidSample" />
             </intent-filter>
+
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW" />
+                <category android:name="android.intent.category.DEFAULT" />
+                <!--如果需要配置能被js调起，一定要配置下面这句-->
+                <category android:name="android.intent.category.BROWSABLE" />
+
+                <!--scheme表示配置接受的协议为app，相当于http://www.baidu.com中的http或者https  -->
+                <!--host表示配置接受的域名为gyz，相当于http://www.baidu.com中的www.baidu.com  -->
+                <data
+                    android:host="otherroute"
+                    android:scheme="app" />
+            </intent-filter>
         </activity>
 
         <activity

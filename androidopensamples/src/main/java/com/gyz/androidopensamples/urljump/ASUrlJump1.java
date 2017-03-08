@@ -56,7 +56,8 @@ public class ASUrlJump1 extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Navi.from(ASUrlJump1.this).to("app://go");
+//                Navi.from(ASUrlJump1.this).to("app://go");
+                Navi.from(ASUrlJump1.this).withIntercepter(new CustomIntercepter(ASUrlJump1.this)).to("app://otherroute");
             }
         });
     }
