@@ -102,6 +102,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
 // cached集合的大小默认为２，exCached是需要我们通过RecyclerView.ViewCacheExtension自己实现的，默认没有；
 // recycled集合其实是一个Map，定义在RecyclerView.RecycledViewPool中，将ItemView以ItemType分类保存了下来
         rvView.setRecycledViewPool(rPool);
+        rPool.setMaxRecycledViews(0,10);//这里假设设置type为0的view缓存设置大小为10个
 
         //rv回收监听，当itemView被回收时调用
         rvView.setRecyclerListener(new RecyclerView.RecyclerListener() {

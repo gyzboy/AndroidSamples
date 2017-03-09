@@ -837,6 +837,19 @@
                 <category android:name="androidOpenSample" />
             </intent-filter>
         </activity>
+
+        <activity android:name="com.gyz.androidopensamples.vlayout.VLayoutActivity"
+            android:label="VLayout"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.vlayout.TestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <service
             android:name="com.gyz.androidopensamples.uccopypaste.ListenClipboardService"
             android:enabled="true"

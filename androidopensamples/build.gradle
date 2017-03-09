@@ -76,4 +76,9 @@ dependencies {
     //easy permissions
     compile 'pub.devrel:easypermissions:0.3.0'
 
+    //一个快速的rv开发框架
+    compile ('com.alibaba.android:vlayout:1.0.1@aar') {
+        transitive = true
+    }
+
 }
