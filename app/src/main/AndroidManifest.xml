@@ -850,6 +850,24 @@
             android:theme="@style/AppTheme.NoActionBar">
         </activity>
 
+        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.MainActivity"
+            android:label="AOP"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.FrameLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.LinearLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.RelativeLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar">
+        </activity>
+
         <service
             android:name="com.gyz.androidopensamples.uccopypaste.ListenClipboardService"
             android:enabled="true"
