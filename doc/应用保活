@@ -1,0 +1,50 @@
+1.网络连接保活
+A.GCM
+B.第三方push通道
+C.自身与服务器轮询或者长连接
+
+2.双Service(通知栏)提供进程优先级
+A.启动时启动一个假的Service,startForeground()，传一个空的Notification
+B.启动真正的Service,startForeground,使用相同的Notification ID
+C.FakeService stopForeground
+
+AlwaysLiveService.java
+@Override
+   public int onStartCommand(Intent intent, int flags, int startId) {
+       startForeground(R.id.notify, new Notification());
+       startService(new Intent(this, FakeService.class));
+       return super.onStartCommand(intent, flags, startId);
+   }
+
+FakeService.java
+public class FakeService extends Service {
+    @Nullable
+    @Override
+    public IBinder onBind(Intent intent) {
+        return null;
+    }
+
+    @Override
+    public int onStartCommand(Intent intent, int flags, int startId) {
+        startForeground(R.id.notify, new Notification());
+        stopSelf();
+        return super.onStartCommand(intent, flags, startId);
+    }
+
+    @Override
+    public void onDestroy() {
+        stopForeground(true);
+        super.onDestroy();
+    }
+}
+
+3.Service及时拉起
+AlarmReceiver， ConnectReceiver，BootReceiver等
+
+A.Service设置（见上面基础部分）
+B.通过监听系统广播，如开机，锁屏，亮屏等重新启动服务
+C.通过alarm定时器，启动服务
+
+4.守护进程/进程互拉
+
+5.AccountSync 利用Android系统提供的账号和同步机制实现
