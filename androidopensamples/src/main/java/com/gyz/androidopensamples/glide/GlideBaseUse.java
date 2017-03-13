@@ -46,8 +46,8 @@ import static android.provider.MediaStore.Images.ImageColumns.ORIENTATION;
 //这里要提的是负责清除 WeakReference 被回收的 activeResources 资源的实现：使用到了 MessageQueue.IdleHandler，
 // 源码的注释：当一个线程等待更多 message 的时候会触发该回调,就是 messageQuene 空闲的时候会触发该回调，里面还有一个queueIdle方法负责清除WeakReference被回收的资源
 
-    //2.生命周期管理:
-    //glide为当前的上下文 Activity 或者 Fragment 绑定一个 TAG 为"com.bumptech.glide.manager"的 RequestManagerFragment，然后把该 fragment 作为 rootRequestManagerFragment，并加入到当前上下文的 FragmentTransaction 事务中，
+//2.生命周期管理:
+//glide为当前的上下文 Activity 或者 Fragment 绑定一个 TAG 为"com.bumptech.glide.manager"的 RequestManagerFragment，然后把该 fragment 作为 rootRequestManagerFragment，并加入到当前上下文的 FragmentTransaction 事务中，
 // 从而与当前上下文 Activity 或者 Fragment 的生命周期保持一致。
 public class GlideBaseUse extends Activity {
 
@@ -79,6 +79,8 @@ public class GlideBaseUse extends Activity {
 //
 //                    @Override
 //                    public boolean onResourceReady(GlideDrawable resource, Integer model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+// true 表示已经处理完这个target上的资源
+//false 表示允许glide去继续请求更新target上的资源属性
 //                        return false;
 //                    }
 //                })
@@ -268,4 +270,28 @@ public class GlideBaseUse extends Activity {
             }
         }).into(imageView);
     }
+
+    static class TintOnLoad implements RequestListener<Integer, GlideDrawable> {
+
+        private ImageView imageView;
+        private int tintColor;
+
+        public TintOnLoad(ImageView imageView, int tintColor) {
+            this.imageView = imageView;
+            this.tintColor = tintColor;
+        }
+
+        @Override
+        public boolean onException(Exception e, Integer model, Target<GlideDrawable> target, boolean isFirstResource) {
+            return false;
+        }
+
+        @Override
+        public boolean onResourceReady(GlideDrawable resource, Integer model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+            imageView.setColorFilter(tintColor);
+            return false;
+        }
+    }
 }
+
+
