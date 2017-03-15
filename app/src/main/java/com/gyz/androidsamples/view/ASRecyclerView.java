@@ -36,7 +36,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
     // 重复上诉步骤至RecyclerView可绘制空间消耗完毕或子控件已全部填充。
 
 
-    //itemview执行顺序:getFromPoll---->onBind---->attached---->detached
+    //itemview执行顺序:getFromPool---->onBind---->attached---->detached
     private RecyclerView rvView;
     private String[] arr;
     private int lastInVisPos = 0;

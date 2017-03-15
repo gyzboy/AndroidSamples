@@ -11,7 +11,7 @@ android {//android项目的DSL
         applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来
         minSdkVersion 17
         targetSdkVersion 23
-        versionCode 1
+        versionCode rootProject.ext.android.versionCode
         versionName "1.0"
     }
     sourceSets {
