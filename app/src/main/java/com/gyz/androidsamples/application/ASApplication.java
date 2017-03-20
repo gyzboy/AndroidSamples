@@ -2,6 +2,7 @@ package com.gyz.androidsamples.application;
 
 import android.app.Application;
 import android.content.ComponentCallbacks;
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
@@ -10,6 +11,12 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gyz.androidopensamples.crashconsume.CCHandler;
+import com.gyz.androidopensamples.onlinemonitor.ActivityLifecycleCallback;
+import com.gyz.androidopensamples.onlinemonitor.LoadTimeCalculate;
+import com.gyz.androidopensamples.onlinemonitor.OnLineMonitor;
+import com.gyz.androidopensamples.onlinemonitor.OnLineMonitorApp;
+import com.gyz.androidopensamples.onlinemonitor.SmoothCalculate;
+import com.gyz.androidopensamples.utilCode.ProcessUtils;
 import com.gyz.androidopensamples.weex.ImageAdapter;
 import com.gyz.androidopensamples.weex.extend.PlayDebugAdapter;
 import com.gyz.androidopensamples.weex.extend.component.RichText;
@@ -23,6 +30,8 @@ import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 
+import java.lang.reflect.Field;
+
 
 /**
  * Created by guoyizhe on 16/6/12.
@@ -35,6 +44,32 @@ public class ASApplication extends Application {
     static {
         AppCompatDelegate.setDefaultNightMode(
                 AppCompatDelegate.MODE_NIGHT_YES);
+    }
+
+    //最早了
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        if(getPackageName().equals(ProcessUtils.getCurProcessName(base))) {//是否是当前主线程
+            try {
+                String[] e = new String[]{"com.gyz.androidsamples.LaucherActivity", "com.gyz.androidsamples.MainActivity"};
+                long launchTime = System.currentTimeMillis();
+
+                try {
+                    Class e1 = Class.forName("com.gyz.androidsamples.BuildConfig");
+                    Field fieldLaunchTime = e1.getDeclaredField("launchTime");
+                    fieldLaunchTime.setAccessible(true);
+                    launchTime = ((Long)fieldLaunchTime.get(e1)).longValue();
+                } catch (Exception var7) {
+                    var7.printStackTrace();
+                }
+                OnLineMonitorApp.setBootInfo(e,launchTime);
+                OnLineMonitorApp.init(this, base, (ActivityLifecycleCallback)null, (LoadTimeCalculate)null, (SmoothCalculate)null);
+                OnLineMonitor.start();
+            } catch (Exception var8) {
+                var8.printStackTrace();
+            }
+        }
     }
 
     //这个函数是当我们的应用开始之时就被调用了，比应用中的其他对象创建的早，这个实现尽可能的快一点，

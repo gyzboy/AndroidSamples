@@ -13,10 +13,17 @@ android {//android项目的DSL
         targetSdkVersion 23
         versionCode rootProject.ext.android.versionCode
         versionName "1.0"
+
     }
     sourceSets {
         main {
             java.srcDirs = ['src/main/java', 'src/main/aidl']
+            jni.srcDirs = ['src/main/java', 'src/main/jni']
+        }
+    }
+    buildTypes {
+        debug {
+            buildConfigField "long", "launchTime", "0"
         }
     }
 }
@@ -28,8 +35,8 @@ dependencies {
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
     compile 'com.android.support:support-annotations:24.2.1'
-    compile project (':androidopensamples')
-    compile project (':base')
+    compile project(':androidopensamples')
+    compile project(':base')
 }
 
 task updateIcon << {

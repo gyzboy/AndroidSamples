@@ -34,15 +34,19 @@
         <meta-data
             android:name="123"
             android:value="333" />
-
         <activity
-            android:name=".MainActivity"
+            android:name=".LaucherActivity"
             android:configChanges="orientation|keyboardHidden">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".MainActivity"
+            android:configChanges="orientation|keyboardHidden">
         </activity>
         <activity-alias
             android:name=".ChangeIconActivity"
@@ -494,6 +498,15 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.ASViewTreeObserver"
+            android:label="views/ViewTreeObserver"
+            android:theme="@android:style/Theme.Holo.Light">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
 
         <!-- ************************************* -->
@@ -688,7 +701,32 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+        <!-- ************************************* -->
+        <!--                Security               -->
+        <!-- ************************************* -->
+        <activity
+            android:name=".security.androidsecurity.demo.DemoActivity"
+            android:label="Security">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
+        <!-- ************************************* -->
+        <!--                Loader                 -->
+        <!-- ************************************* -->
+        <activity
+            android:name=".loader.MainActivity"
+            android:label="Loader">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <provider
+            android:authorities="com.gyz.androidsamples"
+            android:name="com.gyz.androidsamples.loader.MyProvider"></provider>
         <!-- ************************************* -->
         <!--             Notification              -->
         <!-- ************************************* -->

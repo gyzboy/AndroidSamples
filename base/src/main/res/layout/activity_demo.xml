@@ -1,0 +1,72 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+     >
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical" >
+
+        <Button
+            android:id="@+id/testProviderBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Provider" />
+
+        <Button
+            android:id="@+id/testKeyBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Key" />
+
+        <Button
+            android:id="@+id/testCertificateBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Certificate" />
+
+        <Button
+            android:id="@+id/testKeyStoreBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test KeyStore" />
+
+        <Button
+            android:id="@+id/testMDBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Message Digest" />
+
+        <Button
+            android:id="@+id/testSignatureBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test Signature" />
+
+        <Button
+            android:id="@+id/testCipherBtn"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Cipher" />
+
+        <Button
+            android:id="@+id/testImport"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Test Import" />
+
+        <Button
+            android:id="@+id/testJSSEBtn2"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="test JSSE" />
+
+    </LinearLayout>
+
+</RelativeLayout>

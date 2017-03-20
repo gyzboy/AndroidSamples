@@ -1,0 +1,8 @@
+1、异常断点:右键断点,勾选Java Exception Breakpoints，也可以在左上角选择Java Exception Breakpoints这样在发生
+java异常时就会断点在发生异常的位置
+
+2、条件断点:在断点处右键输入condition就可以当满足条件时自动挂起
+
+3、日志断点:右键断点处,去掉suspend挂起状态,勾选上log的选项,在输入框里输入log内容
+
+4、域断点:在对应域上加上断点即可,当这个域被修改时自动回调到修改处
