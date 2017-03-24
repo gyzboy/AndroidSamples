@@ -116,3 +116,15 @@ tasks.whenTaskAdded { task ->
         task.setEnabled(false);
     }
 }
+
+
+gradle命令:
+gradle -m build 试运行,可以查看哪些task会被执行
+gradle build --profile 查看build运行时间的报告,存储在build/report/profile目录
+gradle dependencyInsight --dependency junit查看项目中有没有引入junit,哪些阶段引入的
+gradle -q dependencies  --configuration testCompile 只查看testCompile的依赖
+gradle dependencies  查看依赖
+gradle tasks --all 显示所有可被使用的task以及之间的依赖关系
+grdale build -x test 跳过所有test任务
+
+
