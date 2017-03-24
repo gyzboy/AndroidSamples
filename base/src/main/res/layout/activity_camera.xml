@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="CameraTest"
+        tools:context=".CameraTest" />
+
+    <FrameLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <SurfaceView
+            android:id="@+id/previewSV"
+            android:layout_width="fill_parent"
+            android:layout_height="600dp" />
+    </FrameLayout>
+
+    <ImageButton
+        android:id="@+id/photoImgBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/capture"
+        android:layout_gravity="center" />
+
+</LinearLayout>

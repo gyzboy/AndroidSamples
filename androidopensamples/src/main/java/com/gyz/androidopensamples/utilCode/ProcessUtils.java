@@ -9,16 +9,22 @@ import android.content.Intent;
 import android.content.pm.ApplicationInfo;
 import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
+import android.os.Process;
 import android.provider.Settings;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.util.Arrays;
 import java.util.Collections;
 import java.util.HashSet;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
 
 public class ProcessUtils {
+
+    private static String currentProcessName;
 
     private ProcessUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
@@ -145,5 +151,68 @@ public class ProcessUtils {
             }
         }
         return true;
+    }
+
+    /**
+     * 获得当前进程名称
+     *
+     * @param context
+     * @return
+     */
+
+    public static String getCurProcessName(Context context) {
+        if(currentProcessName != null) {
+            return currentProcessName;
+        } else {
+            Class var1 = ProcessUtils.class;
+            synchronized(ProcessUtils.class) {
+                if(currentProcessName != null) {
+                    return currentProcessName;
+                } else {
+                    int pid = Process.myPid();
+                    BufferedReader cmdlineReader = null;
+
+                    try {
+                        cmdlineReader = new BufferedReader(new FileReader("/proc/" + pid + "/cmdline"));
+                        StringBuilder processName = new StringBuilder();
+
+                        int am;
+                        while((am = cmdlineReader.read()) > 0) {
+                            processName.append((char)am);
+                        }
+
+                        currentProcessName = processName.toString();
+                        String appProcess = currentProcessName;
+                        return appProcess;
+                    } catch (Exception var18) {
+                        var18.printStackTrace();
+                    } finally {
+                        try {
+                            if(cmdlineReader != null) {
+                                cmdlineReader.close();
+                            }
+                        } catch (Exception var17) {
+                            var17.printStackTrace();
+                        }
+
+                    }
+
+                    ActivityManager am1 = (ActivityManager)context.getSystemService(Context.ACTIVITY_SERVICE);
+                    Iterator processName1 = am1.getRunningAppProcesses().iterator();
+
+                    ActivityManager.RunningAppProcessInfo appProcess1;
+                    do {
+                        if(!processName1.hasNext()) {
+                            return null;
+                        }
+
+                        appProcess1 = (ActivityManager.RunningAppProcessInfo)processName1.next();
+                    } while(appProcess1.pid != pid);
+
+                    currentProcessName = appProcess1.processName;
+                    return currentProcessName;
+                }
+            }
+        }
     }
 }

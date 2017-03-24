@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android" 
+    android:shape="rectangle">
+
+    <!-- 边缘角度 -->
+    <corners android:radius="10dp" />
+    <!--指定使用渐变背景色，使用sweep类型的渐变颜色从红色→绿色→蓝色 -->
+    <gradient
+        android:centerColor="#0f0"
+        android:endColor="#00f"
+        android:startColor="#f00"
+        android:type="sweep" />
+    <!-- 设置背景色为透明色  实心 渐变背景色与背景色不能同时存在-->
+    <!-- <solid android:color="#0000" /> -->
+    <!-- 设置红色边框  描边 -->
+    <stroke
+        android:width="4px"
+        android:color="#f00" />
+
+</shape>

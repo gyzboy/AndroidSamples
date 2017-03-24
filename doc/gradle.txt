@@ -2,3 +2,117 @@ Gradle compile:
  如果你的jar包/依赖代码 在编译的时候需要依赖，在运行的时候也需要，那么就用compil
 Gradle providedCompile：
 如果你的jar包/依赖代码 仅在编译的时候需要，但是在运行时不需要依赖,就用providedCompile
+
+gradle 合并android资源的顺序  依赖项->主资源->构建体->构建类型
+
+默认的android构建缓存文件存储位置:<user-home>/.android/build-cache/
+
+对于build.gradle配置文件，当运行Gradle <Task> 时，Gradle会为我们创建一个Project的对象，来映射build.gradle中的内容
+其中呢，对于不属于任何Task范畴的代码，Gradle会创建一个Script类的对象，来执行这些代码；对于Task的定义，Gradle会创建Task对象，并将它会作为project的属性存在(实际上是通过getTaskName完成的)
+Project的名字是当前build.gradle所在目录的名字
+
+在gradle中，project和build.gradle文件是一一对应的，通过这个文件可以配置project的各种属性。project的初始化流程如下：
+（1）首先创建一个Settings的实例。(对应 org.gradle.api.initialization 下的 Interface Settings )
+（2）如果当前目录有settings.gradle,那么用这个文件来配置Settings实例。
+（3）用Settings实例来创建Project的层次关系。
+（4）最后，如果项目中存在build.gradle就通过它来执行每个Project。
+项目中，项目分别依次横向执行，因此子项目一定在父项目之后执行。这个规则可以通过调用evaluationdependsonchildren()或加入一个明确的依赖usingevaluationdependson（String）改变
+
+task nTask4 {
+    println "this is config"//配置这个task
+}
+nTask4 << {
+    println "nTask4 -- add action by <<" //通过 <<来增加action
+}
+nTask4.leftShift {
+    println "nTask4 -- add action by leftShift "//通过leftShift方法来增加action，等同 <<
+}
+nTask4.doFirst {
+    println "nTask4 -- doFirst" //在action队列的最前面插入一个Action
+}
+
+nTask4.doLast {
+    println "nTask4 -- doLast" //在action队列的最最后插入一个Action
+}
+
+输出结果为：
+
+# gradle nTask4
+this is config
+:nTask4
+nTask4 -- doFirst
+nTask4 -- add action by <<
+nTask4 -- add action by leftShift
+nTask4 -- doLast
+BUILD SUCCESSFUL
+
+System Properties:
+在运行java程序时，可以使用-D来设置Java的系统变量,gradle xxx -DmySystemProp=xxxx
+
+而在build.gradle中，可以这样使用这个变量：
+task printSysProps << {
+  println System.properties['system']
+}
+
+Project Properties:
+Project Properties是Gradle专门为Project定义的属性。它的最大优点在于当运行gradle的时候，我们可以使用-P来设置它的值。比如，
+
+gradle xxx -PmyProjectProp=xxxxx
+
+而在build.gradle中，可以这样使用这个变量：
+task printProps << {
+    if (project.hasProperty('commandLineProjectProp')) {
+        println commandLineProjectProp
+    }
+}
+
+Ext Properties:
+我们还可以为Project或者Task定义Ext属性，也称动态属性，我们必须使用关键字ext(对应ExtraPropertiesExtension的实例)去定义动态属性。
+
+对于Project和Task而言，动态属性定义的方式完全一样，只是作用域不一样。
+当定义完成后，我们就可以使用project.prop 或者 task.prop来访问这些动态属性了
+
+ext.projectProperties="ext projectProperties-value"
+task printExtProps << {
+  ext.taskProperties="ext.task.properties-value"
+  if (project.hasProperty('projectProperties')){
+    println "ext.projectProperties values is " + projectProperties
+  }
+  if (printExtProps.hasProperty('taskProperties')){
+    println "task has defined ext.taskProperties value is " + taskProperties
+  }
+}
+
+
+一个例子:
+apply plugin: DateAndTimePlugin
+
+dateAndTime {
+   timeFormat = 'HH:mm:ss.SSS'
+   dateFormat = 'MM/dd/yyyy'
+}
+
+class DateAndTimePlugin implements Plugin<Project> {
+   void apply(Project project) {
+       project.extensions.create("dateAndTime", DateAndTimePluginExtension)
+       project.task('showTime') << {
+           println "Current time is " + new Date().format(project.dateAndTime.timeFormat)
+       }
+       project.tasks.create('showDate') << {
+           println "Current date is " + new Date().format(project.dateAndTime.dateFormat)
+       }
+   }
+}
+
+class DateAndTimePluginExtension {
+   String timeFormat = "MM/dd/yyyyHH:mm:ss.SSS"
+   String dateFormat = "yyyy-MM-dd"
+}
+
+
+//当task添加到taskCollection中时调用
+tasks.whenTaskAdded { task ->
+    if (task.name.contains("DebugAndroidTest")) {
+        task.setEnabled(false);
+    }
+}

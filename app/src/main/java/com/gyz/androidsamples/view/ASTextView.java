@@ -1,15 +1,28 @@
 package com.gyz.androidsamples.view;
 
 import android.app.Activity;
+import android.graphics.Color;
+import android.graphics.Paint;
 import android.graphics.Typeface;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.text.Html;
 import android.text.Layout;
+import android.text.TextUtils;
+import android.text.method.HideReturnsTransformationMethod;
+import android.text.method.LinkMovementMethod;
+import android.text.method.NumberKeyListener;
+import android.text.method.PasswordTransformationMethod;
+import android.text.style.URLSpan;
+import android.text.util.Linkify;
 import android.util.TypedValue;
 import android.view.Gravity;
+import android.view.KeyEvent;
+import android.view.inputmethod.EditorInfo;
+import android.widget.EditText;
 import android.widget.FrameLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.gyz.androidsamples.R;
 
@@ -17,7 +30,7 @@ import com.gyz.androidsamples.R;
  * Created by guoyizhe on 16/7/15.
  * 邮箱:gyzboy@126.com
  */
-public class ASTextView extends Activity {
+public class ASTextView extends Activity implements TextView.OnEditorActionListener {
 
 //    android:autoLink
 //    设置是否当文本为URL链接/email/电话号码/map时，文本显示为可点击的链接。可选值(none/web/email/phone/map/all)
@@ -212,7 +225,23 @@ public class ASTextView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final TextView textView = new TextView(this);
-        setContentView(textView);
+//        setContentView(textView);
+//        forTestText(textView);
+        setContentView(R.layout.activity_text_2); //for testTextAttrs()
+        final EditText search = (EditText) findViewById(R.id.imeOption1);
+        search.setOnEditorActionListener(this);
+        EditText go = (EditText) findViewById(R.id.imeOption2);
+        go.setOnEditorActionListener(this);
+        TextView text  = (TextView) findViewById(R.id.text);
+        search.setEnabled(false);//点击后没反应
+        TextView passwd = (TextView) findViewById(R.id.passwd);
+        search.setText("2131312312");
+        final TextView text_pic = (TextView) findViewById(R.id.text_pic);
+        testTextAttrs(text,passwd,text_pic,search,go);
+
+    }
+
+    private void forTestText(TextView textView){
         FrameLayout.LayoutParams params = (FrameLayout.LayoutParams) textView.getLayoutParams();
         params.gravity = Gravity.CENTER_HORIZONTAL;
         params.topMargin = 50;
@@ -255,7 +284,6 @@ public class ASTextView extends Activity {
         textView.setTextSize(TypedValue.COMPLEX_UNIT_PX,getResources().getDimensionPixelSize(R.dimen.dimen_test));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_DIP,getResources().getDimensionPixelSize(R.dimen.dimen_test));
         textView.setTextSize(TypedValue.COMPLEX_UNIT_SP,getResources().getDimensionPixelSize(R.dimen.dimen_test));
-
     }
 
     /**
@@ -314,5 +342,107 @@ public class ASTextView extends Activity {
         System.out.println("line2FromOffset--->" + layout.getLineForOffset(73));
         System.out.println("------------------------------");
         System.out.println(layout.getLineVisibleEnd(2));
+    }
+
+    public void testTextAttrs(TextView text, TextView passwd, TextView text_pic, final EditText search, EditText go){
+        //（1）getText()和getEditableText()这两个方法是定义在android.widget.TextView控件中的，在默认情况下TextView是不可编辑的，getText().toString()能获得控件中的内容，而getEditableText()返回的值为null。
+        //（2）android.widget.EditText继承自TextView，它只稍微重写了TextView中的getText()方法，。在EditText中使用getText().toString() 和getEditableText().toString()效果是一样的
+        System.out.println(search.getEditableText());//返回作为可编辑对象的text，这里返回的就是21313
+        System.out.println(search.getLineHeight());//获得一行的高度
+        search.post(new Runnable() {//总是在最后运行
+
+            @Override
+            public void run() {
+                System.out.println(search.getLayout());//当view正在绘制时返回null，跟view的绘制一样原理
+                System.out.println(search.getLineCount());//获得行数，当view绘制完成时返回正确数值
+//				System.out.println(text_pic.getCompoundPaddingLeft());
+//				System.out.println(text_pic.getTotalPaddingLeft());
+            }
+        });
+        System.out.println(search.getLayout());//返回null
+        System.out.println(search.getLineCount());//返回0
+
+        search.setTypeface(Typeface.MONOSPACE,Typeface.BOLD);//设置字体
+
+        go.setKeyListener(new NumberKeyListener() {
+
+            @Override
+            public int getInputType() {//软键盘输入类型，这里默认数字键盘
+                // TODO Auto-generated method stub
+                return android.text.InputType.TYPE_CLASS_PHONE;
+            }
+
+            @Override
+            protected char[] getAcceptedChars() {//允许输入的字符
+                // TODO Auto-generated method stub
+                return new char[] { '1', '2', '3', '4', '5', '6', '7', '8','9', '0' };
+            }
+        });
+        text.setText("一二三：www.baidu.com");
+        text.setAutoLinkMask(Linkify.WEB_URLS);//两者协同合作,将所有text设置为链接
+        text.setLinkTextColor(Color.BLACK);//设置链接字体颜色
+        text.setMovementMethod(LinkMovementMethod.getInstance());
+
+        URLSpan[] span = text.getUrls();
+        System.out.println(span[0].getURL());//获得所设置的url
+
+        passwd.setTransformationMethod(HideReturnsTransformationMethod.getInstance());//显示密码
+        passwd.setTransformationMethod(PasswordTransformationMethod.getInstance());//隐藏密码，相当于passwd=true
+
+        System.out.println(text.getKeyListener());
+
+        System.out.println(text_pic.getCompoundPaddingLeft());
+        System.out.println(text_pic.getTotalPaddingLeft());
+
+        Drawable draw = getResources().getDrawable(R.mipmap.ic_launcher);
+        draw.setBounds(0, 0, 50, 50);
+        text.setCompoundDrawables(draw, null, null, null);//必须手动设置drawable的bounds
+
+        text.setCompoundDrawablesWithIntrinsicBounds(null, null, getResources().getDrawable(R.mipmap.ic_launcher), null);//不需要设置drawable的bounds，使用图片原有bounds
+
+
+        text.setTextAppearance(this, android.R.style.TextAppearance_DeviceDefault);//设置字体样式
+
+        System.out.println(text.getTextLocale());//获得当前文字区域
+
+//		text.setScaleX((float)0.5);
+        text.setScaleY((float)1.5);
+
+        text.setTextScaleX((float)1.5);
+
+        text.setGravity(Gravity.CENTER);//设置位置
+        text_pic.setPaintFlags(Paint.UNDERLINE_TEXT_FLAG);//添加下划线
+
+        text_pic.setHorizontallyScrolling(true);//不让超出屏幕的文本自动换行，使用滚动条
+//		text_pic.setFocusable(true);
+
+//		text_pic.setMinLines(10);//至少几行高
+//		text_pic.setMinHeight(150);//至少多高
+//		text_pic.setMaxLines(10);
+//		text_pic.setLines(5);
+//		search.setLineSpacing(1,2);//设置行间距以及倍数，分别对应lineSpacingExtra与lineSpacingMultiplier
+        search.append("444");//追加字符串
+        search.setTextKeepState(search.getText(), TextView.BufferType.EDITABLE);//保存光标位置，返回界面时依旧在原位置
+        go.setHighlightColor(Color.BLACK);//全选时的背景色
+        text_pic.setEllipsize(TextUtils.TruncateAt.MARQUEE);//文字超出后如何显示
+        text_pic.setMarqueeRepeatLimit(-1);//在设置marquee后才起效
+//		text_pic.setFocusable(true);
+        text_pic.setFocusableInTouchMode(true);//跑马灯效果三要素
+
+
+        go.setShadowLayer((float)3.0,(float)10.0,(float)8.0,Color.BLUE);//阴影效果
+    }
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        switch(actionId){
+            case EditorInfo.IME_ACTION_GO:
+                Toast.makeText(getApplicationContext(), "点击了去往", Toast.LENGTH_SHORT).show();
+                break;
+            case EditorInfo.IME_ACTION_SEARCH:
+                Toast.makeText(getApplicationContext(), "点击了搜索", Toast.LENGTH_SHORT).show();
+                break;
+        }
+        return false;
     }
 }

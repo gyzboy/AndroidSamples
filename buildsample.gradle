@@ -10,11 +10,12 @@ android {//android项目的DSL
         targetSdkVersion 23
         versionCode 1
         versionName "1.0"
+        resConfigs "en", "fr", "xxhdpi"//限定语言仅支持英语和法语并且只使用xxhdpi资源
 
         /**
          * 必须加，否则64位手机无法加载so文件
          */
-        ndk{
+        ndk {
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
 
@@ -23,89 +24,124 @@ android {//android项目的DSL
 
         release {
             applicationIdSuffix ".release"//相当于替换applicationId的作用，在最后添加后缀.release
-            minifyEnabled false
+            minifyEnabled false //是否压缩资源,会拖慢构建速度,尽量在调试过程中使用
+            useProguard false //for instant run
+//getDefaultProguardFile(‘proguard-android.txt') 方法可从 Android SDK tools/proguard/ 文件夹获取默认 ProGuard 设置。
+//提示：要想做进一步的代码压缩，可尝试使用位于同一位置的 proguard-android-optimize.txt 文件。它包括相同的 ProGuard 规则，但还包括其他在字节码一级（方法内和方法间）执行分析的优化，以进一步减小 APK 大小和帮助提高其运行速度。
+//proguard-rules.pro 文件用于添加自定义 ProGuard 规则。默认情况下，该文件位于模块根目录（build.gradle 文件旁）
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            每次构建时 ProGuard 都会输出下列文件：
+//            dump.txt
+//            说明 APK 中所有类文件的内部结构。
+//            mapping.txt  可以使用retrace脚本将mapping.txt文件和堆叠追踪生成新的可读堆叠追踪,位于tools/proguard/目录下,retrace -verbose mapping.txt obfuscated_trace.txt
+//            提供原始与混淆过的类、方法和字段名称之间的转换。
+//            seeds.txt
+//            列出未进行混淆的类和成员。
+//            usage.txt
+//            列出从 APK 移除的代码。
             debuggable false
             jniDebuggable false
-            manifestPlaceholders = [activityLabel : "android例子"]//修改manifest文件文件内容
+            manifestPlaceholders = [activityLabel: "android例子"]//修改manifest文件文件内容
             minifyEnabled false//是否混淆
             multiDexEnabled false
             renderscriptDebuggable false
             shrinkResources true
+//资源压缩只与代码压缩协同工作。代码压缩器移除所有未使用的代码后，资源压缩器便可确定应用仍然使用的资源,但不会移除values文件夹中的资源
+            //自定义需要保存的资源,在目录下建keep.xml,构建时不会将该文件打包到apk中
+//            <?xml version="1.0" encoding="utf-8"?>
+//            <resources xmlns:tools="http://schemas.android.com/tools"
+//            tools:keep="@layout/l_used*_c,@layout/l_used_a,@layout/l_used_b*"
+//            tools:discard="@layout/unused2" />
+
+            //在mapping/release/目录下有一个resources.txt的诊断文件,里面包含了那些资源引用了其他资源以及使用或者移除了哪些资源
+
             zipAlignEnabled true
             versionNameSuffix ".xx"
 
         }
-        debug{
+        debug {
+            applicationIdSuffix ".debug"
+        }
 
+        jniDebug {
+            initWith debug //从debug构建模式下copy配置
+
+            applicationIdSuffix ".jnidebug"
+            jniDebuggable true
         }
     }
 //    flavorDimensions "brand","environment" //会生成flavor1-flavor2包
-    productFlavors{//构建出的产品，多渠道包等等
+    productFlavors {//构建出的产品，多渠道包等等
         //在src文件夹下分别创建flavor1、flavor2子目录
         //将flavor1的图片放入flavor1/res/drawble中，flavor2的图片放入flavor2/res/drawable中，文件名相同，其他资源文件相同，在build时会自动合并
         //代码中的区别通过自动生成的BuildConfig.FLAVOR来判断
-        normal{
+        normal {
             applicationId "com.gyz.androidsamples"
             consumerProguardFiles //打包aar文件时的混淆文件
             jackOptions {//google新的java编译系统jack
                 enabled false
                 jackInProcess true//jack是否和gradle相同的jvm进程中
             }
-            manifestPlaceholders = [activityLabel : "android例子"]//修改manifest文件文件内容
+            manifestPlaceholders = [activityLabel: "android例子"]//修改manifest文件文件内容
             multiDexEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 //            signingConfig {
-//                storeFile file("/Users/guoyizhe/svn/FHloveSVN/xingqu.jks")
-//                storePassword '123456'
-//                keyAlias 'xingqu'
-//                keyPassword '123456'
+////                storeFile file("/Users/guoyizhe/svn/FHloveSVN/xingqu.jks")
+////                storePassword '123456'
+////                keyAlias 'xingqu'
+////                keyPassword '123456'
+//                signingConfig signingConfigs.release//从配置文件中读取密码
+//                storePassword System.getenv("KSTOREPWD")
+//                keyPassword System.getenv("KEYPWD")
+//
+//                storePassword System.console().readLine("\nKeystore password: ")//用户输入密码
+//                keyPassword System.console().readLine("\nKey password: ")
 //            }
             testApplicationId "com.gyz.androidsample.test"
             versionCode 10
             versionName "10"
         }
-        flavor1{
+        flavor1 {
 //            dimension "brand"
             applicationId "com.gyz.androidsamplesbranchone"
             manifestPlaceholders = [activityLabel: "android例子flavor1"]
         }
-        flavor2{
+        flavor2 {
 //            dimension "environment"
             applicationId "com.gyz.androidsamplesbranchtwo"
             manifestPlaceholders = [activityLabel: "android例子flavor2"]
         }
     }
-    aaptOptions{//aapt设置，会影响所有使用aapt的项目
+    aaptOptions {//aapt设置，会影响所有使用aapt的项目
 //        additionalParameters //传到aapt中的额外元素，方法数过多时调用
-        cruncherEnabled true //检测png合法性
+        cruncherEnabled true //是否检测png合法性
         failOnMissingConfigEntry false //当aapt检测配置中实体缺失时强制返回error
         ignoreAssets false //忽略对assets文件的描述
         noCompress 'foo', 'bar'
         ignoreAssetsPattern "!.svn:!.git:!.ds_store:!*.scc:.*:<dir>_*:!CVS:!thumbs.db:!picasa.ini:!*~"
     }
-    adbOptions{//adb设置,会影响所有使用adb的项目
+    adbOptions {//adb设置,会影响所有使用adb的项目
         installOptions
         timeOutInMs 3000 //超时时间
     }
-    applicationVariants{//会返回applicationVariant的DomainObjectCollection对象，可以对所有对象直接访问，也可以通过过滤器过滤
+    applicationVariants {//会返回applicationVariant的DomainObjectCollection对象，可以对所有对象直接访问，也可以通过过滤器过滤
 
     }
     android.applicationVariants.each {//过滤器访问applicationVariants对象
 
     }
-    compileOptions{//编译设置
+    compileOptions {//编译设置
         encoding "utf-8"//java文件编码格式
         sourceCompatibility JavaVersion.Version_1_8//java源文件版本
         targetCompatibility JavaVersion.Version_1_8//生成的java字节码版本
     }
-    dataBinding{//数据绑定
+    dataBinding {//数据绑定
         addDefaultAdapters
         enabled false
         version "1.0"
     }
     defaultPublishConfig "xxx"//构建默认artifact的配置名
-    dexOptions{//dex设置
+    dexOptions {//dex设置
         dexInProcess true //是否dex与gradle在同一个jvm进程中
         javaMaxHeapSize "2048m"//-xmx
         jumboMode true //可解决AGPBI 警告
@@ -115,10 +151,10 @@ android {//android项目的DSL
     }
     generatePureSplits false//是否分割或者生成多包
 
-    jacoco{//jacoco设置，一款覆盖率工具
+    jacoco {//jacoco设置，一款覆盖率工具
 
     }
-    lintOptions{//lint设置
+    lintOptions {//lint设置
         abortOnError false //当lint发现errors时是否退出
         absolutePaths false //lint输出错误时是否显示绝对路径
         checkAllWarnings false//是否检测所有警告
@@ -135,12 +171,12 @@ android {//android项目的DSL
 //        <issue id="MissingTranslation" severity="warning" />
 //        </lint>
         severityOverrides {
-            ["MissingTranslation" : "warning"]
+            ["MissingTranslation": "warning"]
         }
         showAll false
         warningsAsErrors false
     }
-    packagingOptions{//包设置
+    packagingOptions {//包设置
         exclude 'LICENSE.txt'//不引入的路径，常用于解决包冲突
         exclude 'META-INF/LICENSE.txt'
 
@@ -149,14 +185,14 @@ android {//android项目的DSL
     }
     resourcePrefix "as"//创建新资源时的前缀，通过studio使用
 
-    signingConfigs{//签名设置
+    signingConfigs {//签名设置
 
     }
-    splits{//apk多区域
+    splits {//根据屏幕密度或者区域语言生成多个apk
         abi {
             enable true
-            reset()
-            include  'armeabi', 'armeabi-v7a','x86'
+            reset()//重置为none
+            include 'armeabi', 'armeabi-v7a', 'x86'
             universalApk true
         }
 
@@ -169,7 +205,22 @@ android {//android项目的DSL
             enable true
         }
     }
-    testOptions{//test设置
+    testOptions {//test设置
+        unitTests {
+            //默认状态下,单元测试遇到代码试图访问android api时会抛出异常,设置为true后,会返回null或者0
+            returnDefaultValues true
+            all {
+                jvmArgs '-XX:MaxPermSize=256m'
+
+                if (it.name == 'testDebug') {
+                    systemProperty 'debug', 'true'
+                }
+
+                if (it.name == 'connectedDebugAndroidTest') {
+
+                }
+            }
+        }
 
     }
     useLibrary 'org.apache.http.legacy'//运行需要的Library
@@ -224,6 +275,7 @@ dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
+//    provided compile 'xxx.jar'//指定 Gradle 不与应用的 APK 一起打包的编译时依赖项。如果运行时无需此依赖项，这将有助于缩减 APK 的大小。您可以将此配置与 JAR 二进制依赖项一起使用，而不能与其他库模块依赖项或 AAR 二进制依赖项一起使用。
 }
 
 task updateIcon << {
@@ -235,4 +287,24 @@ task updateIcon << {
     }
 }
 preBuild.dependsOn updateIcon
+
+afterEvaluate()
+
+//map for abi version code
+ext.abiCodes = ['armeabi-v7a': 1, mips: 2]
+
+import com.android.build.OutputFile
+
+android.applicationVariants.all { variant ->
+    variant.outputs.each { output ->
+        def baseAbiVersionCode = project.ext.abiCodes.get(output.getFilter(OutputFile.ABI))
+        if (baseAbiVersionCode != null) {
+            output.versionCodeOverride = baseAbiVersionCode * 1000 + variant.versionCode
+        }
+
+    }
+
+}
+
+
 

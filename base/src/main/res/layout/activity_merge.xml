@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!-- 所有activity的布局文件父容器其实是一个FrameLayout -->
+<!-- 使用FrameLayout使用hierarchyviewer查看的时候会显示有两层FrameLayout -->
+<!-- <FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"   
+        android:scaleType="center"  
+        android:src="@drawable/ic_launcher" />  
+  
+    <TextView  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:text="Golden Gate" />  
+
+</FrameLayout> -->
+
+<!-- 使用Merge就不会出现嵌套情况 -->
+<!-- merge还有一种使用方法，当应用Include或者ViewStub标签从外部导入xml结构时，
+可以将被导入的xml用merge作为根节点表示，这样当被嵌入父级结构中后可以很好的将它所包含的子集融合到父级结构中，而不会出现冗余的节点。 -->
+<!-- 另外有两点需要特别注意：
+1、<merge />只可以作为xml layout的根节点。
+2、当需要扩充的xml layout本身是由merge作为根节点的话，需要将被导入的xml layout置于viewGroup中，同时需要设置attachToRoot为True。 -->
+<merge xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent" >
+    <ImageView  
+        android:layout_width="fill_parent"  
+        android:layout_height="fill_parent"   
+        android:scaleType="center"  
+        android:src="@mipmap/ic_launcher" />
+  
+    <TextView  
+        android:layout_width="wrap_content"  
+        android:layout_height="wrap_content"  
+        android:text="这是Merge标签的一层" />
+
+</merge>

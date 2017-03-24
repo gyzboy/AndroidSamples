@@ -18,3 +18,68 @@ Allocation Tracker:
 
 Method Tracer:
 查看方法的执行时间、次数
+x-axis:
+Wall Clock Time - 方法调用、返回所消耗的cpu时间
+Thread Time - JRE分配给线程的执行时间,可能比Wall Clock Time短(被打断)或者相等
+
+System Information:
+Activity Manager State - dumpsys activity
+Package Information - dumpsys package
+Memory Usage - dumpsys meminfo
+Memory Use Over Time - dumpsys procstats
+Graphics State - dumpsys gfxinfo
+
+LayoutInspector:查看布局
+Screen Capture:截图
+Screen Record:录屏
+
+Systrace:UI性能分析工具,允许收集、查看android系统的所有时间信息
+python systrace.py --time=10 -o mynewtrace.html sched gfx view wm
+w:用于变大
+s:用于缩小
+d:左边移动
+a:右边移动
+我们主要查看界面上的Alert、Frames，其中可以用绿色、黄色、红色来区分当前界面的性能等级分别是优、良、差。当遇到红色的时候肯定当前的性能需要优化
+当我们点击了Alerts或者点击右边的Alerts列表中的任何一点我们可以看到在界面的最底部会相对应的优化提示以及可能会出现优化的视频教程链接。
+我们可以根据Description来很明白的看到提示的内容是什么。
+然后我们可以点击一块Frames中的F来查看,同样的它会生成一份跟Alerts类似的报告结果并放在界面的最低端。我们可以通过按下m键查看这一帧到下一帧所花费的时间以及哪个方法被调用的最长。
+可以明显看到这时间>16.6ms，系统要求UI的60fps水准所以系统会报出黄色的警告。照样我们从Description中可以读出到底是哪里出了问题
+
+public void ProcessPeople() {
+    Trace.beginSection("ProcessPeople");
+    try {
+        Trace.beginSection("Processing Jane");
+        try {
+            // code for Jane task...
+        } finally {
+            Trace.endSection(); // ends "Processing Jane"
+        }
+
+        Trace.beginSection("Processing John");
+        try {
+            // code for John task...
+        } finally {
+            Trace.endSection(); // ends "Processing John"
+        }
+    } finally {
+        Trace.endSection(); // ends "ProcessPeople"
+    }
+}
+
+traceview:强大的性能分析工具
+
+使用android.os.Debug.startMethodTracing();和android.os.Debug.stopMethodTracing();方法，
+当运行了这段代码的时候，就会有一个trace文件在/sdcard目录中生成，也可以调用startMethodTracing(String traceName) 设置trace文件的文件名，最后你可以使用adb pull /sdcard/test.trace /tmp 命令将trace文件复制到你的电脑中，然后用DDMS工具打开就会出现第一幅图了
+
+纵轴:
+Parent表示调用这个方法的方法，可以叫做父方法
+Children表示这个方法中调用的其他方法，可以叫做子方法
+
+横轴:
+Incl Cpu Time:某函数占用的CPU时间，包含内部调用其它函数的CPU时间
+Excl Cpu Time:某函数占用的CPU时间，但不含内部调用其它函数所占用的CPU时间
+Incl Real Time:某函数运行的真实时间（以毫秒为单位），内含调用其它函数所占用的真实时间
+Excl Real Time:某函数运行的真实时间（以毫秒为单位），不含调用其它函数所占用的真实时间
+Calls + Recur Calls / Total:某函数被调用次数以及递归调用占总调用次数的百分比
+Cpu Time/Call:某函数调用CPU时间与调用次数的比。相当于该函数平均执行时间
+Real Time/Call:同CPU Time/Call类似，只不过统计单位换成了真实时间

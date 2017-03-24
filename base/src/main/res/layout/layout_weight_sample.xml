@@ -1,0 +1,40 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="horizontal">
+<!-- 
+解惑：
+第一种情况：控件宽度设置为wrap_content，比例分配为1:2:3，界面显示就是按照分配的比例进行显示的
+第二种情况：控件宽度设置为match_parent，比例分配为1:2:2，界面显示效果为2:1:1
+第三中情况：控件宽度设置为match_parent，比例分配为1:2:3，界面显示为2:1
+
+原因是因为layout_weight计算的是当分配完控件的宽度后占剩余空间的比例，weight默认为0
+
+计算公式为：
+剩余空间=父控件宽度-所有控件宽度和
+所占父控件空间=控件宽度+占剩余空间的比例*剩余空间
+
+都拿第一个控件举例：
+当设置为wrap_content，剩余空间=父控件宽度 - 3 * 0，所占父控件空间=0+1/6 * 父控件宽度=1/6*父控件宽度，剩余两个控件类似
+当设置为match_parent时，剩余空间=父控件宽度-3*父控件宽度=-2父控件宽度，所占父控件空间=父控件宽度+1/5*(-2*父控件宽度)=3/5父控件宽度，类似的剩余两个分别占1/5
+比例变为1:2:3时，第一个控件的所占空间=父控件宽度+1/6*（-2*父控件宽度）=2/3父控件宽度，第二个为1/3父控件宽度，第三个为0，所以第三个控件就看不到了
+
+ -->
+    <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="1"
+        />
+       <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="2"
+        />
+         <Button 
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="3"
+        />
+
+</LinearLayout>

@@ -34,6 +34,7 @@
         <meta-data
             android:name="123"
             android:value="333" />
+
         <activity
             android:name=".LaucherActivity"
             android:configChanges="orientation|keyboardHidden">
@@ -46,15 +47,15 @@
 
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|keyboardHidden">
-        </activity>
+            android:configChanges="orientation|keyboardHidden"></activity>
+
         <activity-alias
             android:name=".ChangeIconActivity"
-            android:targetActivity=".MainActivity"
-            android:label="IconChanged"
-            android:icon="@drawable/star_half"
+            android:configChanges="orientation|keyboardHidden"
             android:enabled="false"
-            android:configChanges="orientation|keyboardHidden">
+            android:icon="@drawable/star_half"
+            android:label="IconChanged"
+            android:targetActivity=".MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -481,6 +482,15 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.ASViewStub"
+            android:label="views/ViewStub">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
         <activity
             android:name=".view.ASProgressbar"
             android:label="views/Progressbar">
@@ -507,7 +517,22 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
-
+        <activity
+            android:name=".view.spannablestring.ASSpannableString"
+            android:label="views/SpannableString/1"><!--还有SpannableString2-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.spannablestring.ASSpannableString2"
+            android:label="views/SpannableString/2"><!--还有SpannableString2-->
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
         <!-- ************************************* -->
         <!--                 Utils                 -->
@@ -671,7 +696,8 @@
         <!--                support包              -->
         <!-- ************************************* -->
 
-        <activity android:name=".support.ASAysncInflate"
+        <activity
+            android:name=".support.ASAysncInflate"
             android:label="support/AysncInflate">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -717,7 +743,7 @@
         <!--                Loader                 -->
         <!-- ************************************* -->
         <activity
-            android:name=".loader.MainActivity"
+            android:name=".loaderandprovider.MainActivity"
             android:label="Loader">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -725,8 +751,8 @@
             </intent-filter>
         </activity>
         <provider
-            android:authorities="com.gyz.androidsamples"
-            android:name="com.gyz.androidsamples.loader.MyProvider"></provider>
+            android:name="com.gyz.androidsamples.loaderandprovider.MyProvider"
+            android:authorities="com.gyz.androidsamples"></provider>
         <!-- ************************************* -->
         <!--             Notification              -->
         <!-- ************************************* -->
@@ -783,7 +809,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.glide.GlideBaseUse"
+        <activity
+            android:name="com.gyz.androidopensamples.glide.GlideBaseUse"
             android:label="Glide">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -791,7 +818,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.weex.WeexMainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.weex.WeexMainActivity"
             android:label="Weex"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -800,7 +828,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.MainActivity"
             android:label="RxAndroid"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -809,29 +838,30 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.BindingActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.LambdaActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.SafeActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.MoreActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkDetailActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.rxandroidandretrofit.SimpleActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.BindingActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.LambdaActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.SafeActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.MoreActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.NetworkDetailActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.rxandroidandretrofit.SimpleActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name="com.gyz.androidopensamples.crashconsume.CCActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.crashconsume.CCActivity"
             android:label="CrashConsume"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -840,7 +870,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.permission.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.permission.MainActivity"
             android:label="EasyPermission"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -849,7 +880,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.optimization.startup.StartUpActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.optimization.startup.StartUpActivity"
             android:label="Optimization/startup"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -858,7 +890,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.changeskin.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.changeskin.MainActivity"
             android:label="ChangeSkin"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -867,7 +900,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.uccopypaste.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.uccopypaste.MainActivity"
             android:label="UCCopyPaste"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -876,7 +910,8 @@
             </intent-filter>
         </activity>
 
-        <activity android:name="com.gyz.androidopensamples.vlayout.VLayoutActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.vlayout.VLayoutActivity"
             android:label="VLayout"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -884,11 +919,12 @@
                 <category android:name="androidOpenSample" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gyz.androidopensamples.vlayout.TestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name="com.gyz.androidopensamples.vlayout.TestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.aop.sample.activity.MainActivity"
             android:label="AOP"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -896,17 +932,18 @@
                 <category android:name="androidOpenSample" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.FrameLayoutTestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.LinearLayoutTestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
-        <activity android:name="com.gyz.androidopensamples.aop.sample.activity.RelativeLayoutTestActivity"
-            android:theme="@style/AppTheme.NoActionBar">
-        </activity>
+        <activity
+            android:name="com.gyz.androidopensamples.aop.sample.activity.FrameLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.aop.sample.activity.LinearLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+        <activity
+            android:name="com.gyz.androidopensamples.aop.sample.activity.RelativeLayoutTestActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
 
-        <activity android:name="com.gyz.androidopensamples.eventdetector.MainActivity"
+        <activity
+            android:name="com.gyz.androidopensamples.eventdetector.MainActivity"
             android:label="EventDetector"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -914,9 +951,20 @@
                 <category android:name="androidOpenSample" />
             </intent-filter>
         </activity>
-        <activity android:name="com.gyz.androidopensamples.eventdetector.TouchActivity"
+
+        <activity
+            android:name="com.gyz.androidopensamples.multithreaddownload.MainActivity"
+            android:label="MultiDownload"
             android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
         </activity>
+        <activity
+            android:name="com.gyz.androidopensamples.eventdetector.TouchActivity"
+            android:theme="@style/AppTheme.NoActionBar"></activity>
+
         <service
             android:name="com.gyz.androidopensamples.uccopypaste.ListenClipboardService"
             android:enabled="true"

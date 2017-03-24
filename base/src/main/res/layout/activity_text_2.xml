@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <!-- 设置字体为20pt，文本框结尾处绘制图片 -->
+
+    <TextView
+        android:id="@+id/text_pic"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:drawableEnd="@mipmap/ic_launcher"
+        android:drawablePadding="10dp"
+        android:text="我爱Android我爱Android我爱Android我爱Android"
+        android:paddingLeft="10dp"
+        android:textSize="20pt" />
+    <!-- 设置中间省略， 所有字母大写  ellipsize属性设置当字体数量超过显示宽度时的显示方式，省略号或者跑马灯 edittext没有此属性-->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:ellipsize="marquee"
+        android:singleLine="true"
+        android:text="Android我爱Android我爱Androidaaaaa我爱Android我爱Android我爱Android我爱Android我爱Android我爱Android我爱Android我爱Android我爱Android"
+        android:textAllCaps="true" />
+    <!-- 对邮件、电话增加链接 -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:autoLink="email|phone"
+        android:singleLine="true"
+        android:text="邮件是gyz@126.com，电话是02088888888" />
+    <!-- 设置文字颜色 、大小，并使用阴影 -->
+
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:shadowColor="#0000ff"
+        android:shadowDx="10.0"
+        android:shadowDy="8.0"
+        android:shadowRadius="3.0"
+        android:text="测试文字"
+        android:textColor="#f00"
+        android:textSize="18pt" />
+    <!-- 测试密码框 -->
+
+    <TextView
+        android:id="@+id/passwd"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:password="true"
+        android:text="1556452943" />
+    <!-- 输入指定类型文本 -->
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:digits="15"
+        android:textSize="20sp" />
+    <!-- 通过android:background指定背景 -->
+    <TextView
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:text="圆角边框、渐变背景的文本"
+        android:textSize="24pt"
+        android:background="@drawable/my_bg_border"
+        />
+    <!-- 点击确定键时进行了搜索操作,小米上无效 -->
+    <EditText
+        android:id="@+id/imeOption1"
+        android:layout_width="50dp"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionSearch"
+        />
+    <EditText
+        android:id="@+id/imeOption2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:imeOptions="actionGo"
+        />
+
+    <TextView
+        android:id="@+id/text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="555555adfsa"
+        />
+
+</LinearLayout>

@@ -3,6 +3,7 @@ package com.gyz.androidsamples.application;
 import android.app.Application;
 import android.content.ComponentCallbacks;
 import android.content.Context;
+import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
@@ -214,5 +215,15 @@ public class ASApplication extends Application {
 
     public void setAppCount(int appCount) {
         this.appCount = appCount;
+    }
+
+
+    /**
+     * 是否是debug模式,比单纯的使用BuildConfig文件中的debug准确
+     * @param context
+     * @return
+     */
+    private static Boolean isDebug(Context context){
+        return  context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
     }
 }
