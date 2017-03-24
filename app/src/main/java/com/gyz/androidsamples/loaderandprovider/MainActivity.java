@@ -1,4 +1,4 @@
-package com.gyz.androidsamples.loader;
+package com.gyz.androidsamples.loaderandprovider;
 
 import android.app.Activity;
 import android.app.LoaderManager;
@@ -16,8 +16,6 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyz.androidsamples.R;
-
-import org.w3c.dom.Text;
 
 
 public class MainActivity extends Activity implements LoaderManager.LoaderCallbacks<Cursor> {

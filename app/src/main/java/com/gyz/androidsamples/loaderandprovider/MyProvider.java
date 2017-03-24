@@ -1,4 +1,4 @@
-package com.gyz.androidsamples.loader;
+package com.gyz.androidsamples.loaderandprovider;
 
 import android.content.ContentProvider;
 import android.content.ContentUris;

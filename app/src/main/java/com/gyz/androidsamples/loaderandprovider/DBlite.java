@@ -1,4 +1,4 @@
-package com.gyz.androidsamples.loader;
+package com.gyz.androidsamples.loaderandprovider;
 
 import android.content.Context;
 import android.database.sqlite.SQLiteDatabase;

@@ -1,0 +1,20 @@
+HPROF：查看内存泄露问题
+Total Count	实例的总数
+Heap Count	实例在所选堆中的数量 分为Image Heap (当前app在disk上的mapping),Zygote Heap (所有app运行时类和数据的存放堆)
+Sizeof	实例的大小,如果实例是可变的,在这里会显示0
+Shallow Size	堆中所有实例的大小
+Retained Size	堆中留存的实例大小
+Reference Tree	引用数
+Depth	引用深度
+Shallow Size	实例大小
+Dominating Size	实例留存的大小
+
+红色代表有引用未释放
+
+Allocation Tracker:
+1、显示代码分配对象的类型、大小、线程、堆栈信息
+2、帮助定位内存抖动问题
+3、帮助定位内存泄露问题,比如当发现一个bitmap对象在堆上的内存没有被释放,你可以通过allocation tracker去定位这个bitmap的分配位置
+
+Method Tracer:
+查看方法的执行时间、次数
