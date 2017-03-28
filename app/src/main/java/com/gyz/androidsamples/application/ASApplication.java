@@ -31,6 +31,8 @@ import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
 
+import net.danlew.android.joda.JodaTimeAndroid;
+
 import java.lang.reflect.Field;
 
 
@@ -82,28 +84,31 @@ public class ASApplication extends Application {
         registerComponentCallbacks(new ASComponentCallbacks());
 
         initWeex();
+        JodaTimeAndroid.init(this);
 
-        CCHandler.install(new CCHandler.ExceptionHandler(){
+        if (!isDebug(this)) {
+            CCHandler.install(new CCHandler.ExceptionHandler(){
 
-            // handlerException内部建议手动try{  你的异常处理逻辑  }catch(Throwable e){ } ，以防handlerException内部再次抛出异常，导致循环调用handlerException
+                // handlerException内部建议手动try{  你的异常处理逻辑  }catch(Throwable e){ } ，以防handlerException内部再次抛出异常，导致循环调用handlerException
 
-            @Override
-            public void handlerException(final Thread thread, final Throwable throwable) {
-                new Handler(Looper.getMainLooper()).post(new Runnable() {
-                    @Override
-                    public void run() {
-                        try {
-                            Log.d("Cockroach", thread + "\n" + throwable.toString());
-                            throwable.printStackTrace();
-                            Toast.makeText(ASApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
+                @Override
+                public void handlerException(final Thread thread, final Throwable throwable) {
+                    new Handler(Looper.getMainLooper()).post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                Log.d("Cockroach", thread + "\n" + throwable.toString());
+                                throwable.printStackTrace();
+                                Toast.makeText(ASApplication.this, "Exception Happend\n" + thread + "\n" + throwable.toString(), Toast.LENGTH_SHORT).show();
 //                        throw new RuntimeException("..."+(i++));
-                        } catch (Throwable e) {
+                            } catch (Throwable e) {
 
+                            }
                         }
-                    }
-                });
-            }
-        });
+                    });
+                }
+            });
+        }
 
     }
 

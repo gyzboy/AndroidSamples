@@ -19,6 +19,7 @@
     <uses-permission android:name="android.permission.ACCESS_WIFI_STATE" />
     <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <!-- 配置权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
@@ -961,6 +962,38 @@
                 <category android:name="androidOpenSample" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name="com.gyz.androidopensamples.jodatime.JodaSampleActivity"
+            android:label="JodaTime"
+            android:theme="@style/AppTheme.NoActionBar">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name="com.gyz.androidopensamples.keyboardwatcher.MainActivity"
+            android:label="KeboardWatcher"
+            android:theme="@style/AppTheme.NoActionBar"
+            android:windowSoftInputMode="adjustResize">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name="com.gyz.androidopensamples.EasyImage.MainActivity"
+            android:label="EasyImage"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name="com.gyz.androidopensamples.eventdetector.TouchActivity"
             android:theme="@style/AppTheme.NoActionBar"></activity>
@@ -982,6 +1015,18 @@
         <meta-data
             android:name="com.gyz.androidopensamples.glide.modules.CustomModule"
             android:value="CustomModule" />
+
+        <provider
+            android:name="android.support.v4.content.FileProvider"
+            android:authorities="${applicationId}.easyphotopicker.fileprovider"
+            android:exported="false"
+            android:grantUriPermissions="true"
+            >
+            <meta-data
+                android:name="android.support.FILE_PROVIDER_PATHS"
+                android:resource="@xml/filepaths"
+                />
+        </provider>
 
     </application>
 

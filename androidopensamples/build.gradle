@@ -98,6 +98,12 @@ dependencies {
     //android aop 实现
     compile 'org.aspectj:aspectjrt:1.8.10'
 
+    provided 'org.jetbrains:annotations:13.0'
+
+    //一个android特有的日期库,避免了从jar中加载文件造成的内存问题
+    compile 'net.danlew:android.joda:2.9.9'
+
+    compile 'com.google.android.gms:play-services-appindexing:8.4.0'
 }
 
 android.libraryVariants.all { variant ->
