@@ -1,6 +1,7 @@
 package com.gyz.androidsamples.view;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.app.DownloadManager;
 import android.content.ClipboardManager;
@@ -424,6 +425,15 @@ public class ASWebview extends Activity {
         ((LinearLayout) wb.getRootView()).removeView(wb);//调用destroy之前调用
         wb.destroy();
 //        wb.removeJavascriptInterface();//为了安全,需要移除内部的一些jsInterface
+        if(Build.VERSION.SDK_INT > 10 && Build.VERSION.SDK_INT < 17) {
+            try {
+                wb.removeJavascriptInterface("searchBoxJavaBridge_");
+                wb.removeJavascriptInterface("accessibility");
+                wb.removeJavascriptInterface("accessibilityTraversal");
+            } catch (Throwable var8) {
+                var8.printStackTrace();
+            }
+        }
     }
 
 
@@ -483,6 +493,9 @@ public class ASWebview extends Activity {
         CookieManager cookieManager = CookieManager.getInstance();
         cookieManager.setAcceptCookie(true);
         cookieManager.setCookie(url, value);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            cookieManager.flush();//强制刷新cookie
+        }
         if (Build.VERSION.SDK_INT <= Build.VERSION_CODES.GINGERBREAD_MR1) {
             CookieSyncManager.getInstance().sync();
         }
@@ -496,6 +509,7 @@ public class ASWebview extends Activity {
      * @param event
      * @return
      */
+    @Override
     public boolean onKeyDown(int keyCoder, KeyEvent event) {
         if (wb.canGoBack() && keyCoder == KeyEvent.KEYCODE_BACK) {
             wb.goBack(); //goBack()表示返回webView的上一页面
@@ -631,6 +645,13 @@ public class ASWebview extends Activity {
                     break;
             }
         }
+    }
+
+    /**
+     * 预加载资源策略
+     */
+    private void preLoadData(){
+        //通过下载zip包加载网页资源,通过cache-control或者etag控制过期时间
     }
 
     private class Copy implements MenuItem.OnMenuItemClickListener {

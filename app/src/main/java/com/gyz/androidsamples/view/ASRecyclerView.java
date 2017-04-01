@@ -15,10 +15,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.webkit.WebView;
+import android.widget.Button;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.gyz.androidsamples.R;
+
+import java.util.ArrayList;
+
 
 /**
  * Created by guoyizhe on 16/9/8.
@@ -39,8 +43,13 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
     //itemview执行顺序:getFromPool---->onBind---->attached---->detached
     private RecyclerView rvView;
     private String[] arr;
+    private ArrayList<String> arrayList;
     private int lastInVisPos = 0;
     private int lastVisPos = 0;
+
+    private Button btn_notifyDataChanged;
+    private Button btn_notifyItemInsert;
+    private MyAdapter adapter;
 
     private CustomViewCacheExtension mCacheExtension;//自定义二级缓存
 
@@ -52,12 +61,32 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
         setContentView(R.layout.activity_recyclerview);
 
         rvView = (RecyclerView) findViewById(R.id.rv);
+        btn_notifyItemInsert = (Button) findViewById(R.id.notifyItemInsert);
+        btn_notifyDataChanged = (Button) findViewById(R.id.notifyDataChange);
+        btn_notifyItemInsert.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList.add(5,"notifyItemInsert");
+                adapter.notifyItemChanged(5);
+            }
+        });
+        btn_notifyDataChanged.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                arrayList.add("notifyDataChanged");
+                adapter.notifyDataSetChanged();
+            }
+        });
         LinearLayoutManager llM = new LinearLayoutManager(this);
         rvView.setLayoutManager(llM);
         rvView.addItemDecoration(mItemDecoration);
         arr = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
-
-        MyAdapter adapter = new MyAdapter(arr);
+        arrayList = new ArrayList<>();
+        for (int i = 0; i < 16; i++) {
+            arrayList.add("" + i);
+        }
+//        MyAdapter adapter = new MyAdapter(arr);
+        adapter = new MyAdapter(arrayList);
         rvView.setAdapter(adapter);
         adapter.setInterface(this);
 
@@ -102,7 +131,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
 // cached集合的大小默认为２，exCached是需要我们通过RecyclerView.ViewCacheExtension自己实现的，默认没有；
 // recycled集合其实是一个Map，定义在RecyclerView.RecycledViewPool中，将ItemView以ItemType分类保存了下来
         rvView.setRecycledViewPool(rPool);
-        rPool.setMaxRecycledViews(0,10);//这里假设设置type为0的view缓存设置大小为10个
+//        rPool.setMaxRecycledViews(0, 10);//这里假设设置type为0的view缓存设置大小为10个
 
         //rv回收监听，当itemView被回收时调用
         rvView.setRecyclerListener(new RecyclerView.RecyclerListener() {
@@ -212,12 +241,12 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
 
 
     //自定义二级缓存
-    public class CustomViewCacheExtension extends RecyclerView.ViewCacheExtension{
+    public class CustomViewCacheExtension extends RecyclerView.ViewCacheExtension {
 
 
         public View cachedView;
 
-        public void setCached(View cacheView){
+        public void setCached(View cacheView) {
             cachedView = cacheView;
         }
 
@@ -234,7 +263,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
     /**
      * 自定义LinearLayoutManager
      */
-    private class CustomLinearLayout extends LinearLayoutManager{
+    private class CustomLinearLayout extends LinearLayoutManager {
 
         public CustomLinearLayout(Context context) {
             super(context);
@@ -260,6 +289,11 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
         Toast.makeText(getApplicationContext(), "getLayoutPosition:" + holder.getLayoutPosition()
                         + "  getAdapterPosition: " + holder.getAdapterPosition()
                 , Toast.LENGTH_SHORT).show();
+// getLayoutPosition与getAdapterPosition具体区别就是adapter和layout的位置会有时间差(<16ms), 如果你改变了Adapter的数据然后刷新视图,
+// layout需要过一段时间才会更新视图, 在这段时间里面, 这两个方法返回的position会不一样.
+//另外, 在notifyDataSetChanged之后并不能马上获取Adapter中的position, 要等布局结束之后才能获取到.
+//而对于Layout的position, 在notifyItemInserted之后, Layout不能马上获取到新的position, 因为布局还没更新(需要<16ms的时间刷新视图),
+// 所以只能获取到旧的, 但是Adapter中的position就可以马上获取到最新的position.
     }
 }
 
@@ -268,9 +302,14 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     public static final String TAG = ASRecyclerView.class.getSimpleName();
 
     public String[] datas = null;
+    private ArrayList<String> arrList;
 
     public MyAdapter(String[] datas) {
         this.datas = datas;
+    }
+
+    public MyAdapter(ArrayList<String> list) {
+        arrList = list;
     }
 
     interface onItemClickLsn {
@@ -287,12 +326,7 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup viewGroup, int viewType) {
         Log.e(TAG, "onCreateViewHolder: " + viewType);
-        View view;
-        if (0 == viewType) {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_rv, viewGroup, false);
-        } else {
-            view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_rv2, viewGroup, false);
-        }
+        View view = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.item_rv2, viewGroup, false);
         ViewHolder vh = new ViewHolder(view);
         return vh;
     }
@@ -301,51 +335,58 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
     @Override
     public void onBindViewHolder(final ViewHolder viewHolder, final int position) {
         Log.e(TAG, "onBindViewHolder: " + position);
-        if (position == 10) {
-            viewHolder.mWebView.post(new Runnable() {
-                @Override
-                public void run() {
-                    viewHolder.mWebView.loadUrl("www.baidu.com");
-                }
-            });
-        } else {
+//        if (position == 10) {
+//            viewHolder.mWebView.setVisibility(View.VISIBLE);
+//            viewHolder.mTextView.setVisibility(View.GONE);
+//            viewHolder.mWebView.post(new Runnable() {
+//                @Override
+//                public void run() {
+//                    viewHolder.mWebView.loadUrl("www.baidu.com");
+//                }
+//            });
+//        } else {
+//            viewHolder.mWebView.setVisibility(View.GONE);
+        viewHolder.mTextView.setVisibility(View.VISIBLE);
+        if (datas != null) {
             viewHolder.mTextView.setText(datas[position]);
-            viewHolder.mTextView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    mInterface.click(position);
-                }
-            });
+        } else {
+            viewHolder.mTextView.setText(arrList.get(position));
         }
+        viewHolder.mTextView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mInterface.click(position);
+            }
+        });
+//        }
     }
 
     //获取数据的数量
     @Override
     public int getItemCount() {
-        return datas.length;
+        if (datas != null) {
+            return datas.length;
+        }
+        return arrList.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (position == 10) {
-            return 1;
-        }
+//        if (position == 10) {
+//            return 1;
+//        }
         return 0;
     }
 
     //自定义的ViewHolder，持有每个Item的的所有界面元素
     public class ViewHolder extends RecyclerView.ViewHolder {
         public TextView mTextView;
-        private WebView mWebView;
+//        public WebView mWebView;
 
         public ViewHolder(View view) {
             super(view);
-            if (getItemViewType() == 0) {
-                mTextView = (TextView) view.findViewById(R.id.tv_text);
-            } else {
-                mWebView = (WebView) view.findViewById(R.id.rv_wb);
-            }
-
+            mTextView = (TextView) view.findViewById(R.id.tv_text_rv);
+//            mWebView = (WebView) view.findViewById(R.id.rv_wb);
         }
     }
 

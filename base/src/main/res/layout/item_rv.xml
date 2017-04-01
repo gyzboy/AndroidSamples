@@ -9,7 +9,7 @@
         android:layout_height="wrap_content"
         android:textSize="60sp"
         android:background="@color/light_blue"
-        android:id="@+id/tv_text"
+        android:id="@+id/tv_text_rv"
         android:gravity="center"
         android:text="tttt"/>
 </LinearLayout>
