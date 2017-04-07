@@ -1,0 +1,25 @@
+apply plugin: 'groovy' //加上这句后才会正确识别groovy以及资源文件夹
+apply plugin: 'maven' //用来创建jar文件并且存储到本地仓库中
+
+dependencies {
+    compile gradleApi()//设置可以使用org.gradle.api包下的api
+    compile localGroovy()
+}
+
+repositories {
+    mavenCentral()
+}
+
+//发布到仓库代码
+group='com.gyz.androidsamples.gradle.plugin'
+version='1.0.0'
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            repository(url: uri('../repo'))//存储到项目目录下repo文件夹下
+        }
+    }
+}
+
+//apply from: '../bintray.gradle'//上传到远端maven仓库

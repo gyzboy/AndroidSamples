@@ -1099,6 +1099,20 @@ class AdvancedWebView extends WebView {
                 }
             }
 
+            /**
+             *
+             * 从asset目录中加载资源
+             * create by guoyizhe
+             */
+            private WebResourceResponse editResponse(String fileName){
+                try {
+                    return new WebResourceResponse("application/x-javascript","utf-8",context.getAssets().open(fileName));
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+                return null;
+            }
+
             @SuppressLint("NewApi")
             @SuppressWarnings("all")
             public WebResourceResponse shouldInterceptRequest(WebView view, WebResourceRequest request) {
@@ -1501,6 +1515,17 @@ class AdvancedWebView extends WebView {
             }
 
         });
+    }
+
+
+    @Override
+    protected void onScrollChanged(int l, int t, int oldl, int oldt) {
+        super.onScrollChanged(l, t, oldl, oldt);
+        if (t == 0) {
+            //到达webview顶部,可以禁止下拉刷新
+        }else{
+
+        }
     }
 
     @Override

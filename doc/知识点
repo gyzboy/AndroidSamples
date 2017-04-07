@@ -1,0 +1,39 @@
+1、apk的启动流程:
+一. Launcher通过Binder进程间通信机制通知ActivityManagerService，它要启动一个Activity；
+二. ActivityManagerService通过Binder进程间通信机制通知Launcher进入Paused状态；
+三. Launcher通过Binder进程间通信机制通知ActivityManagerService，它已经准备就绪进入Paused状态，
+    于是ActivityManagerService就创建一个新的进程，这个进程就是相应的应用进程。
+    ActivityManagerService 通过 Socket 通信的方式和 Zygote 进行协商，Zygote 在其监听的 /dev/socket/zygote socket 中发现有需要创建进程的请求后，
+    会 fork 自身，并返回相应的 Process Id用来启动一个ActivityThread实例，即将要启动的Activity就是在这个ActivityThread实例中运行；
+四. ActivityThread通过Binder进程间通信机制将一个ApplicationThread类型的Binder对象传递给ActivityManagerService，
+    以便以后ActivityManagerService能够通过这个Binder对象和它进行通信；
+五. ActivityManagerService通过Binder进程间通信机制通知ActivityThread，上面创建的Process 会进行相应的初始化，使得其具备与系统服务进行 IPC 通信的能力,
+在此之后，调用 ActivityThread 中的 main 方法，开启 Looper，主线程启动。
+
+2.LruCache原理:
+LruCache使用一个LinkedHashMap简单的实现内存的缓存，没有软引用，都是强引用。如果添加的数据大于设置的最大值，就删除最先缓存的数据来调整内存。
+他的主要原理在trimToSize方法中。需要了解两个主要的变量size和maxSize
+maxSize是通过构造方法初始化的值，他表示这个缓存能缓存的最大值是多少。size在添加和移除缓存都被更新值，他通过safeSizeOf这个方法更新值。
+safeSizeOf默认返回1，但一般我们会根据maxSize重写这个方法，比如认为maxSize代表是KB的话，那么就以KB为单位返回该项所占的内存大小。
+除异常外首先会判断size是否超过maxSize,，如果超过了就取出最先插入的缓存，如果不为空就删掉（一般来说只要map不为空都不会返回null，因为他是个双休链表），并把size减去该项所占的大小。这个操作将一直循环下去，直到size比maxSize小或者缓存为空。
+
+3.Webview相关
+一、WebView缓存:
+1）浏览器缓存机制；
+2）Dom Storage（Web Storage）存储机制；
+3）Web SQL Database 数据库缓存机制；
+   String databaseDirPath = context.getDir("database",0).getPath();
+   mWebView.getSettings().setDatabasePath(databaseDirPath);
+4）Application Cache（AppCache）机制；
+   String cacheDirPath = context.getDir("app_cache",0).getPath();
+   mWebView.getSettings().setAppCachePath(cacheDirPath);
+5）Indexed Database （IndexedDB）；
+6）File System API；
+
+二、WebView内存泄露:
+1) 创建新进程承载webview,使用完后清除进程避免内存泄露
+2) 使用自己封装的WebView:
+   WebView webview = new WebView(context, attrs);
+   ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+   webview.setLayoutParams(lp);
+   swipeContainer.addView(webview);

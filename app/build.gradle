@@ -49,3 +49,28 @@ task updateIcon << {
 }
 //preBuild.dependsOn updateIcon
 
+buildscript {
+    repositories {
+        maven {
+            url uri('../repo')
+        }
+    }
+
+    dependencies {
+        classpath group: 'com.gyz.androidsamples.gradle.plugin',
+                name: 'plugin',//这里的plugin取的就是plugin的项目名
+                version: '1.0.0'
+    }
+}
+
+apply plugin: 'com.gyz.androidsamples.plugin'
+
+myArgs {
+    sender='gyzboy'
+    message='Gradle is so simple.'
+    nestArgs {
+        receiver='gyzboy'
+        email='gyzboy@126.com'
+    }
+
+}
