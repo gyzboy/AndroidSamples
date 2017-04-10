@@ -15,6 +15,8 @@ import android.content.Context;
 import android.content.res.AssetManager;
 import android.content.res.Resources;
 import android.os.Build;
+import android.support.v4.app.NavUtils;
+import android.support.v7.widget.ViewUtils;
 import android.util.ArrayMap;
 import android.util.Log;
 import android.util.LongSparseArray;
@@ -40,7 +42,6 @@ public class MonkeyPatcher {
 					.forName("android.app.ActivityThread");
 			Object currentActivityThread = getActivityThread(context,
 					activityThread);
-
 			Field mInitialApplication = activityThread
 					.getDeclaredField("mInitialApplication");
 			mInitialApplication.setAccessible(true);

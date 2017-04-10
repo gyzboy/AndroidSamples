@@ -37,3 +37,35 @@ safeSizeOf默认返回1，但一般我们会根据maxSize重写这个方法，�
    ViewGroup.LayoutParams lp = new ViewGroup.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
    webview.setLayoutParams(lp);
    swipeContainer.addView(webview);
+
+
+三、Android Studio调试
+1、异常断点:右键断点,勾选Java Exception Breakpoints，也可以在左上角选择Java Exception Breakpoints这样在发生
+java异常时就会断点在发生异常的位置
+2、条件断点:在断点处右键输入condition就可以当满足条件时自动挂起
+3、日志断点:右键断点处,去掉suspend挂起状态,勾选上log的选项,在输入框里输入log内容,会输出到console目录
+4、域断点:在对应域上加上断点即可,当这个域被修改时自动回调到修改处
+
+四、android命令
+dumpsys可以查看系统服务和状态，非常强大，可通过如下查看所有支持的子命令
+adb shell dumpsys | grep "DUMP OF SERVICE" 列出dumpsys所支持的所有命令
+
+adb install -r APK_FILE 重新安装并保留所有数据
+adb shell am start PACKAGE_NAME/ACTIVITY_IN_PACKAGE 启动activity
+
+adb shell input keyevent 82 解锁屏幕
+
+adb logcat -s TAG_NAME_1 TAG_NAME_2 按签名过滤日志
+adb logcat "*:W" 按日志等级过滤日志
+adb logcat -s TEST: W 按签名和优先级同时过滤日志
+adb logcat | grep "Exception\|Error"
+adb logcat -c 清除缓存区并清除旧的日志
+
+adb push /user/XXX sdcard/xx 电脑文件push到手机
+
+adb bugreport > bugreport.txt  <= 6.0
+adb bugreport bugreport.zip  >7.0
+然后使用google的battery-historian 或者sony的ChkBugReport进行bug分析
+
+
+
