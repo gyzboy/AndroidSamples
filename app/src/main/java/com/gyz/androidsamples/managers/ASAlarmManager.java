@@ -58,6 +58,7 @@ public class ASAlarmManager extends Activity {
     TextView tv;
     StringBuilder sb = new StringBuilder();
     int i = 0;
+    boolean isRegistered = false;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -70,6 +71,7 @@ public class ASAlarmManager extends Activity {
             @Override
             public void onClick(View v) {
                 registerReceiver(TimeReceiver, filter);
+                isRegistered = true;
             }
         });
 //        calendar = Calendar.getInstance();
@@ -104,7 +106,9 @@ public class ASAlarmManager extends Activity {
     @Override
     protected void onDestroy() {
         am.cancel(pendingIntent);
-        unregisterReceiver(TimeReceiver);
+        if (isRegistered) {
+            unregisterReceiver(TimeReceiver);
+        }
         super.onDestroy();
     }
 

@@ -12,11 +12,11 @@ import android.util.Log;
 import android.widget.Toast;
 
 import com.gyz.androidopensamples.crashconsume.CCHandler;
-import com.gyz.androidopensamples.onlinemonitor.ActivityLifecycleCallback;
-import com.gyz.androidopensamples.onlinemonitor.LoadTimeCalculate;
-import com.gyz.androidopensamples.onlinemonitor.OnLineMonitor;
-import com.gyz.androidopensamples.onlinemonitor.OnLineMonitorApp;
-import com.gyz.androidopensamples.onlinemonitor.SmoothCalculate;
+//import com.gyz.androidopensamples.onlinemonitor.ActivityLifecycleCallback;
+//import com.gyz.androidopensamples.onlinemonitor.LoadTimeCalculate;
+//import com.gyz.androidopensamples.onlinemonitor.OnLineMonitor;
+//import com.gyz.androidopensamples.onlinemonitor.OnLineMonitorApp;
+//import com.gyz.androidopensamples.onlinemonitor.SmoothCalculate;
 import com.gyz.androidopensamples.utilCode.ProcessUtils;
 import com.gyz.androidopensamples.weex.ImageAdapter;
 import com.gyz.androidopensamples.weex.extend.PlayDebugAdapter;
@@ -66,9 +66,9 @@ public class ASApplication extends Application {
                 } catch (Exception var7) {
                     var7.printStackTrace();
                 }
-                OnLineMonitorApp.setBootInfo(e,launchTime);
-                OnLineMonitorApp.init(this, base, (ActivityLifecycleCallback)null, (LoadTimeCalculate)null, (SmoothCalculate)null);
-                OnLineMonitor.start();
+//                OnLineMonitorApp.setBootInfo(e,launchTime);
+//                OnLineMonitorApp.init(this, base, (ActivityLifecycleCallback)null, (LoadTimeCalculate)null, (SmoothCalculate)null);
+//                OnLineMonitor.start();
             } catch (Exception var8) {
                 var8.printStackTrace();
             }
