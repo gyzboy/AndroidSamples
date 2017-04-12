@@ -1,0 +1,70 @@
+TCP/UDP常见端口:
+443 https
+554 rtsp
+21  ftp
+80  http
+15  netstat
+8080  webcache
+
+
+HTTP的头域包括通用头、请求头、响应头和实体头四个部分。每个头域由一个域名，冒号（:）和域值三部分组成。
+1、通用头部是客户端和服务器都可以使用的头部，可以在客户端、服务器和其他应用程序之间提供一些非常有用的通用功能，如Date头部。
+2、请求头部是请求报文特有的，它们为服务器提供了一些额外信息，比如客户端希望接收什么类型的数据，如Accept头部。
+3、响应头部便于客户端提供信息，比如，客服端在与哪种类型的服务器进行交互，如Server头部。
+4、实体头部指的是用于应对实体主体部分的头部，比如，可以用实体头部来说明实体主体部分的数据类型，如Content-Type头部。
+
+
+HTTP通用头:
+    1、cache-control:
+no-cache：指示请求或响应消息不能缓存，实际上是可以存储在本地缓存区中的，只是在与原始服务器进行新鲜度验证之前，缓存不能将其提供给客户端使用。　
+no-store：缓存应该尽快从存储器中删除文档的所有痕迹，因为其中可能会包含敏感信息。
+max-age：缓存无法返回缓存时间长于max-age规定秒的文档，若不超规定秒浏览器将不会发送对应的请求到服务器，数据由缓存直接返回；
+        超过这一时间段才进一步由服务器决定是返回新数据还是仍由缓存提供。若同时还发送了max-stale指令，则使用期可能会超过其过期时间。
+min-fresh：至少在未来规定秒内文档要保持新鲜，接受其新鲜生命期大于其当前 Age 跟 min-fresh 值之和的缓存对象。
+max-stale：指示客户端可以接收过期响应消息，如果指定max-stale消息的值，那么客户端可以接收过期但在指定值之内的响应消息。
+only-if-cached：只有当缓存中有副本存在时，客户端才会获得一份副本。
+Public：指示响应可被任何缓存区缓存，可以用缓存内容回应任何用户。
+Private：指示对于单个用户的整个或部分响应消息，不能被共享缓存处理，只能用缓存内容回应先前请求该内容的那个用户。
+    2、Pragma:
+Pragma头域用来包含实现特定的指令，最常用的是Pragma:no-cache
+    3、Connection:
+Close：告诉WEB服务器或者代理服务器，在完成本次请求的响应后，断开连接，不要等待本次连接的后续请求了。
+Keepalive：告诉WEB服务器或者代理服务器，在完成本次请求的响应后，保持连接，等待本次连接的后续请求。
+Keep-Alive：如果浏览器请求保持连接，则该头部表明希望 WEB 服务器保持连接多长时间（秒），如Keep-Alive：300。
+    4、Date:
+Date头域表示消息发送的时间，服务器响应中要包含这个头部
+    5、Transfer-Encoding:
+WEB 服务器表明自己对本响应消息体（不是消息体里面的对象）作了怎样的编码，比如是否分块（chunked）
+    6、Via:
+列出从客户端到 OCS 或者相反方向的响应经过了哪些代理服务器，他们用什么协议（和版本）发送的请求
+
+
+HTTP请求头:
+     Accept-Language: zh-cn,zh;q=0.5    浏览器支持的语言 优先中文简体 权重值为0.5
+　　 Accept-Charset: GB2312,utf-8;q=0.7,*;q=0.7  浏览器支持的编码格式
+　　 Accept: text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8  浏览器支持的MIME值
+　　 Accept-Encoding: gzip, deflate  浏览器支持的压缩编码
+　　 User-Agent: Mozilla/5.0 (compatible; 域名)  是服务器识别客户端所使用的版本、CPU、插件等
+　　 Host: 域名
+    If-Match:如果对象的 ETag 没有改变，其实也就意味著对象没有改变，才执行请求的动作，获取文档。
+    If-None-Match:如果对象的 ETag 改变了，其实也就意味著对象也改变了，才执行请求的动作，获取文档
+    If-Modified-Since：只有当所请求的内容在指定的日期之后又经过修改才返回它，否则返回304“Not Modified”应答。
+    If-Range:浏览器告诉 WEB 服务器，如果我请求的对象没有改变，就把我缺少的部分给我，如果对象改变了，就把整个对象给我。
+ 浏览器通过发送请求对象的ETag 或者自己所知道的最后修改时间给 WEB 服务器，让其判断对象是否改变了。总是跟 Range 头部一起使用。
+    Range:浏览器（比如 Flashget 多线程下载时）告诉 WEB 服务器自己想取对象的哪部分。例如：Range: bytes=1173546
+    Cookie:xxxxx   用户访问的信息,存储一些用户信息,用于用户再次访问或者购物车等操作 与之对应的session是存储在服务器端的
+    一种针对用户访问信息的存储手段 一种hashmap
+
+HTTP响应头:
+    Age:当代理服务器用自己缓存的实体去响应请求时，用该头部表明该实体从产生到现在经过多长时间了。
+    Server:WEB 服务器表明自己是什么软件及版本等信息。例如：Server：Apache/2.0.61 (Unix)
+
+HTTP实体头:
+    Content-Type: application/x-www-form-urlencoded  POST请求中表明请求主体的内容是如何编码的
+    Content-Length:WEB服务器告诉浏览器自己响应的对象的长度或尺寸，例如：Content-Length: 26012
+    Content-Encoding:WEB服务器表明自己使用了什么压缩方法（gzip，deflate）压缩响应中的对象。例如：Content-Encoding：gzip
+    Content-Type:WEB 服务器告诉浏览器自己响应的对象的类型。例如：Content-Type：application/xml
+    Etag:就是一个对象（比如URL）的标志值
+    Expires:WEB服务器表明该实体将在什么时候过期，对于过期了的对象，只有在跟WEB服务器验证了其有效性后，才能用来响应客户请求。
+    Last-Modified WEB服务器认为对象的最后修改时间，比如文件的最后修改时间，动态页面的最后产生时间等等。客户可以通过If-Modified-Since请求头提供一个日期，该请求将被视为一个条件GET，只有改动时间迟于指定时间的文档才会返回，
+否则返回一个304（Not Modified）状态。Last-Modified也可用setDateHeader方法来设置
