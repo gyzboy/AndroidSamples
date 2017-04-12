@@ -25,6 +25,12 @@ android {//android项目的DSL
         debug {
             buildConfigField "long", "launchTime", "0"
         }
+        release {
+            minifyEnabled true
+            useProguard true
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+
+        }
     }
 }
 
@@ -66,11 +72,11 @@ buildscript {
 apply plugin: 'com.gyz.androidsamples.plugin'
 
 myArgs {
-    sender='gyzboy'
-    message='Gradle is so simple.'
+    sender = 'gyzboy'
+    message = 'Gradle is so simple.'
     nestArgs {
-        receiver='gyzboy'
-        email='gyzboy@126.com'
+        receiver = 'gyzboy'
+        email = 'gyzboy@126.com'
     }
 
 }
