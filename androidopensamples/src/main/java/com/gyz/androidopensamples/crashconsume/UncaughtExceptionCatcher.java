@@ -131,7 +131,7 @@ class UncaughtExceptionLinsterAdapterCopyOnWriteArrayList extends CopyOnWriteArr
     }
 
     @Override
-    public boolean remove(Object o) {
+    public synchronized boolean remove(Object o) {
         Iterator i = this.iterator();
 
         UncaughtExceptionLinster linster;

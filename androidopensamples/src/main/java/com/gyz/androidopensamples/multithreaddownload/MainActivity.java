@@ -127,6 +127,7 @@ public class MainActivity extends Activity {
                 if(loader!=null) loader.exit();
             }
 
+            @Override
             public void run() {
                 try {
                     loader = new FileDownloader(getApplicationContext(), path, saveDir, 3);

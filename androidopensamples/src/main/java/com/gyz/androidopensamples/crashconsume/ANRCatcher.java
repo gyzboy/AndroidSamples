@@ -39,7 +39,7 @@ public class ANRCatcher {
         this.mSystemTraceFile = new File(this.mSystemTraceFilePath);
         if(!this.mSystemTraceFile.exists()) {
             String propSystemTraceFilePath = SystemPropertiesUtils.get("dalvik.vm.stack-trace-file");
-            if(!this.mSystemTraceFile.equals(propSystemTraceFilePath)) {
+            if(!this.mSystemTraceFile.getName().equals(propSystemTraceFilePath)) {
                 try {
                     this.mSystemTraceFile = new File(propSystemTraceFilePath);
                     this.mSystemTraceFilePath = propSystemTraceFilePath;
@@ -105,7 +105,7 @@ public class ANRCatcher {
             BufferedReader reader = null;
 
             try {
-                reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.mSystemTraceFile)));
+                reader = new BufferedReader(new InputStreamReader(new FileInputStream(this.mSystemTraceFile),"UTF-8"));
 
                 String e;
                 while(null != (e = reader.readLine()) && StringUtils.isBlank(e)) {

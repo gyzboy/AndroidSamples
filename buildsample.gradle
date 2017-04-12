@@ -19,6 +19,12 @@ android {//android项目的DSL
             abiFilters "armeabi", "armeabi-v7a", "x86"
         }
 
+        //for android < 5.0
+        vectorDrawables{
+            generatedDensities = ["mdpi","hdpi"]
+        }
+        vectorDrawables.useSupportLibrary = true;//for android < 5.0 use Appcompat
+
     }
     buildTypes {//build的种类，在assemble时会表现出来，例如assembleDebug，assembleRelease等，可与productFlavors配合使用
 

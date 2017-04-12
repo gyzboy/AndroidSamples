@@ -38,7 +38,7 @@ public class ProcFile extends File implements Parcelable {
         BufferedReader reader = null;
         try {
             StringBuilder output = new StringBuilder();
-            reader = new BufferedReader(new FileReader(path));
+            reader = new BufferedReader(new FileReader(path),8192);
             for (String line = reader.readLine(), newLine = ""; line != null; line = reader.readLine()) {
                 output.append(newLine).append(line);
                 newLine = "\n";

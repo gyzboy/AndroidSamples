@@ -107,6 +107,7 @@ public class MainActivity extends ListActivity {
             new Comparator<Map<String, Object>>() {
                 private final Collator collator = Collator.getInstance();
 
+                @Override
                 public int compare(Map<String, Object> map1, Map<String, Object> map2) {
                     return collator.compare(map1.get("title"), map2.get("title"));
                 }
