@@ -27,7 +27,6 @@ import android.text.style.UnderlineSpan;
 import android.widget.TextView;
 
 import com.gyz.androidsamples.R;
-
 import org.xmlpull.v1.XmlPullParserException;
 
 import java.io.IOException;
@@ -100,7 +99,7 @@ public class ASSpannableString2 extends Activity {
         //设置字体（依次包括字体名称，字体大小，字体样式，字体颜色，链接颜色）
         ColorStateList csllink = null;
         ColorStateList csl = null;
-        XmlResourceParser xppcolor=getResources().getXml (R.color.color);
+        XmlResourceParser xppcolor=getResources().getXml (R.xml.color);
         try {
             csl= ColorStateList.createFromXml(getResources(),xppcolor);
         }catch(XmlPullParserException e){
@@ -111,7 +110,7 @@ public class ASSpannableString2 extends Activity {
             e.printStackTrace();
         }
 
-        XmlResourceParser xpplinkcolor=getResources().getXml(R.color.linkcolor);
+        XmlResourceParser xpplinkcolor=getResources().getXml(R.xml.linkcolor);
         try {
             csllink= ColorStateList.createFromXml(getResources(),xpplinkcolor);
         }catch(XmlPullParserException e){

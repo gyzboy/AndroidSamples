@@ -37,7 +37,7 @@ public class ASActivityManager extends Activity {
         button.setVisibility(View.GONE);
 
         StringBuilder sb = new StringBuilder();
-        List<ActivityManager.AppTask> tasks = am.getAppTasks();
+//        List<ActivityManager.AppTask> tasks = am.getAppTasks();
 //获得系统运行的进程
         sb.append("获得系统运行的进程:");
         List<ActivityManager.RunningAppProcessInfo> appList1 = am
