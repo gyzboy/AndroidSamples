@@ -1882,6 +1882,9 @@ class AdvancedWebView extends WebView {
 /**
  * 一个Fragment与webview结合使用正常保存状态的伪代码
  */
+
+/**
+
 class FragmentWithWebview extends Fragment {
 //            WebView的状态保存和恢复不像其他原生View一样是自动完成的.
 //            WebView不是继承自View的.
@@ -1930,3 +1933,4 @@ class FragmentWithWebview extends Fragment {
         }
     }
 }
+*/
