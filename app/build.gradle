@@ -28,8 +28,9 @@ android {//android项目的DSL
         release {
             minifyEnabled true
             useProguard true
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+//            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
 
+            proguardFile file('../proguard.cfg')
         }
     }
 }
