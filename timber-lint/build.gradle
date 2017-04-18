@@ -1,0 +1,18 @@
+apply plugin: 'java'
+
+configurations {
+  lintChecks
+}
+
+dependencies {
+  compile  "com.android.tools.lint:lint-api:25.3.0"
+  compile  "com.android.tools.lint:lint-checks:25.3.0"
+
+  lintChecks files(jar)
+}
+
+jar {
+  manifest {
+    attributes('Lint-Registry': 'timber.lint.IssueRegistry')
+  }
+}

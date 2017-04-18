@@ -34,14 +34,21 @@ android {//android项目的DSL
         }
     }
 
-    lintOptions{
+    lintOptions {
         abortOnError false
-        xmlReport false
-        htmlReport true
-        lintConfig file("$rootProject/lint.xml") // 配置 lint 检查规则
-        htmlOutput file("$reportsDir/lint/lint-result.html") // 配置 lint 输出文件
-        xmlOutput file("$reportsDir/lint/lint-result.xml") // 配置 lint 输出文件
+//        xmlReport false
+//        htmlReport true
+//        lintConfig file("$rootProject/lint.xml") // 配置 lint 检查规则
+//        htmlOutput file("$reportsDir/lint/lint-result.html") // 配置 lint 输出文件
+//        xmlOutput file("$reportsDir/lint/lint-result.xml") // 配置 lint 输出文件
+
+        textReport true
+        textOutput 'stdout'
     }
+}
+
+configurations {
+    lintChecks
 }
 
 dependencies {
@@ -53,6 +60,21 @@ dependencies {
     compile 'com.android.support:support-annotations:24.2.1'
     compile project(':androidopensamples')
     compile project(':base')
+
+    provided 'org.jetbrains:annotations:13.0'
+    lintChecks project(path: ':timber-lint', configuration: 'lintChecks')
+}
+
+task copyLintJar(type: Copy) {
+    from(configurations.lintChecks) {
+        rename { 'lint.jar' }
+    }
+    into 'build/intermediates/lint/'
+}
+
+project.afterEvaluate {
+    def compileLintTask = project.tasks.find { it.name == 'compileLint' }
+    compileLintTask.dependsOn(copyLintJar)
 }
 
 task updateIcon << {
