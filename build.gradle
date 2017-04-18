@@ -52,3 +52,8 @@ repositories {
 //configurations.errorprone {
 //    resolutionStrategy.force 'com.google.errorprone:error_prone_core:2.0.19'
 //}
+
+//使用gradle allDeps查看所有依赖树,默认gradle查找的是根目录依赖树
+subprojects {
+    task allDeps(type: DependencyReportTask) {}
+}

@@ -33,6 +33,15 @@ android {//android项目的DSL
             proguardFile file('../proguard.cfg')
         }
     }
+
+    lintOptions{
+        abortOnError false
+        xmlReport false
+        htmlReport true
+        lintConfig file("$rootProject/lint.xml") // 配置 lint 检查规则
+        htmlOutput file("$reportsDir/lint/lint-result.html") // 配置 lint 输出文件
+        xmlOutput file("$reportsDir/lint/lint-result.xml") // 配置 lint 输出文件
+    }
 }
 
 dependencies {
@@ -80,4 +89,43 @@ myArgs {
         email = 'gyzboy@126.com'
     }
 
+}
+
+//对文件进行checkstyle检查 默认输出路径为${project}/app/build/reports/checkstyle/checkstyle.html
+apply plugin: 'checkstyle'
+
+task checkstyle(type: Checkstyle) {
+    configFile rootProject.file('checkstyle.xml')
+    source 'src/main/java'
+    ignoreFailures true// 忽略检查失败的情况，避免gradle命令执行中止
+    showViolations true
+    include '**/*.java'
+    exclude '**/gen/**' // 排除生成的代码
+
+    classpath = files()
+}
+
+//对项目进行findbugs检查
+apply plugin: 'findbugs'
+
+task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
+    ignoreFailures = false
+    effort = "max"
+    reportLevel = "high"
+    classes = files("${project.rootDir}/app/build/intermediates/classes")
+    source 'src'
+    include '**/*.java'
+    exclude '**/gen/**'
+    reports {
+        xml.enabled = false
+        html.enabled = true
+        xml {
+            destination "$reportsDir/findbugs/findbugs.xml"
+        }
+        html {
+            destination "$reportsDir/findbugs/findbugs.html"
+        }
+    }
+    classpath = files()
+    ignoreFailures true  // 避免检查失败 gradle 执行中止
 }
