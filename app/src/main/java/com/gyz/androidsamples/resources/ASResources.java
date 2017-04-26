@@ -21,30 +21,35 @@ public class ASResources extends Activity {
         super.onCreate(savedInstanceState);
         Resources res = getResources();
 
-//        res.getSystem();//只访问系统资源
+        //        res.getSystem();//只访问系统资源
 
-//        getDimension返回float，
-//        getDimensionPixelOffset返回int
-//        getDimensionPixelSize则不管写的是dp还是sp还是px,都会乘以denstiy.
+        //        getDimension返回float，
+        //        getDimensionPixelOffset  会去掉小数点后的数字
+        //        getDimensionPixelSize    会正常四舍五入
+
+        //dp、sp都会乘以密度
         TextView tv = new TextView(this);
 
-        float a1=getResources().getDimension(R.dimen.dp_01);
-        int a2=getResources().getDimensionPixelOffset(R.dimen.dp_01);
-        int a3=getResources().getDimensionPixelSize(R.dimen.dp_01);
+        float a1 = getResources().getDimension(R.dimen.dp_01);
+        int a2 = getResources().getDimensionPixelOffset(R.dimen.dp_01);
+        int a3 = getResources().getDimensionPixelSize(R.dimen.dp_01);
 
-        float b1=getResources().getDimension(R.dimen.px_01);
-        int b2=getResources().getDimensionPixelOffset(R.dimen.px_01);
-        int b3=getResources().getDimensionPixelSize(R.dimen.px_01);
+        float b1 = getResources().getDimension(R.dimen.px_01);
+        int b2 = getResources().getDimensionPixelOffset(R.dimen.px_01);
+        int b3 = getResources().getDimensionPixelSize(R.dimen.px_01);
 
-        float c1=getResources().getDimension(R.dimen.sp_01);
-        int c2=getResources().getDimensionPixelOffset(R.dimen.sp_01);
-        int c3=getResources().getDimensionPixelSize(R.dimen.sp_01);
+        float c1 = getResources().getDimension(R.dimen.sp_01);
+        int c2 = getResources().getDimensionPixelOffset(R.dimen.sp_01);
+        int c3 = getResources().getDimensionPixelSize(R.dimen.sp_01);
 
         DisplayMetrics dm = getResources().getDisplayMetrics();
         tv.append("density is" + dm.density);
-        tv.append("\ngetDimension= "+a1+", getDimensionPixelOffset="+a2+",getDimensionPixelSize="+a3);
-        tv.append("\ngetDimension= "+b1+", getDimensionPixelOffset="+b2+",getDimensionPixelSize="+b3);
-        tv.append("\ngetDimension= "+c1+", getDimensionPixelOffset="+c2+",getDimensionPixelSize="+c3);
+        tv.append(
+            "\n 16dp : " + " getDimension= " + a1 + ", getDimensionPixelOffset=" + a2 + ",getDimensionPixelSize=" + a3);
+        tv.append(
+            "\n 16PX :" + "getDimension= " + b1 + ", getDimensionPixelOffset=" + b2 + ",getDimensionPixelSize=" + b3);
+        tv.append(
+            "\n 16SP : " + "getDimension= " + c1 + ", getDimensionPixelOffset=" + c2 + ",getDimensionPixelSize=" + c3);
 
         setContentView(tv);
         /*
@@ -71,7 +76,8 @@ public class ASResources extends Activity {
         但是，如需访问原始文件名和文件层次结构，则可以考虑将某些资源保存在 assets/ 目录下（而不是 res/raw/）。assets/ 中的文件没有资源 ID，因此您只能使用 AssetManager 读取这些文件。
 
         values/ 包含字符串、整型数和颜色等简单值的 XML 文件。
-        其他 res/ 子目录中的 XML 资源文件是根据 XML 文件名定义单个资源，而目录中的 values/ 文件可描述多个资源。对于此目录中的文件，<resources> 元素的每个子元素均定义一个资源。例如，<string> 元素创建 R.string 资源，<color> 元素创建 R.color 资源。
+        其他 res/ 子目录中的 XML 资源文件是根据 XML 文件名定义单个资源，而目录中的 values/ 文件可描述多个资源。对于此目录中的文件，<resources>
+        元素的每个子元素均定义一个资源。例如，<string> 元素创建 R.string 资源，<color> 元素创建 R.color 资源。
             arrays.xml，用于资源数组（类型化数组）。
             colors.xml：颜色值。
             dimens.xml：尺寸值。
@@ -83,7 +89,7 @@ public class ASResources extends Activity {
         */
 
         //寻找资源匹配的步骤:
-//        1.硬件设置 locale地域
-//        2.MCC(移动信号国家码)->MNC(移动网络号码)->language->..
+        //        1.硬件设置 locale地域
+        //        2.MCC(移动信号国家码)->MNC(移动网络号码)->language->..
     }
 }

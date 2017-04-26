@@ -10,7 +10,7 @@
 
     <dimen name="dimen_test">20dp</dimen>
 
-    <dimen name="dp_01">16dp</dimen>
-    <dimen name="px_01">16px</dimen>
-    <dimen name="sp_01">16sp</dimen>
+    <dimen name="dp_01">16.8dp</dimen>
+    <dimen name="px_01">16.8px</dimen>
+    <dimen name="sp_01">16.8sp</dimen>
 </resources>
