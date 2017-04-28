@@ -66,7 +66,7 @@ dependencies {
 
 //for Weex
     compile 'com.alibaba:fastjson:1.1.46.android'
-    compile 'com.taobao.android:weex_sdk:0.8.0.2@aar'
+    compile 'com.taobao.android:weex_sdk:0.10.0@aar'
     compile 'com.squareup.okhttp:okhttp-ws:2.3.0'
     compile 'com.squareup.okio:okio:1.0.1'
     compile 'com.alibaba:fastjson:1.1.46.android'
