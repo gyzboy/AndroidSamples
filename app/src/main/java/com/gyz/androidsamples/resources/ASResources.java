@@ -5,6 +5,7 @@ import android.content.res.Resources;
 import android.os.Bundle;
 import android.text.format.Formatter;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.widget.TextView;
 
 import com.gyz.androidsamples.R;
@@ -91,5 +92,20 @@ public class ASResources extends Activity {
         //寻找资源匹配的步骤:
         //        1.硬件设置 locale地域
         //        2.MCC(移动信号国家码)->MNC(移动网络号码)->language->..
+
+
+        //通过getIdentifier知道资源名称获取资源ID
+        final String packageName = getPackageName();
+        int imageResId = res.getIdentifier("ic_launcher", "mipmap", packageName);
+        int imageResIdByAnotherForm = res.getIdentifier(packageName + ":mipmap/ic_launcher", null, null);
+
+        int musicResId = res.getIdentifier("test", "raw", packageName);
+
+        int notFoundResId = res.getIdentifier("activity_main", "layout", packageName);
+
+        Log.i("IdentifierId", "testGetResourceIds imageResId = " + imageResId
+            + ";imageResIdByAnotherForm = " + imageResIdByAnotherForm
+            + ";musicResId=" + musicResId
+            + ";notFoundResId =" + notFoundResId);
     }
 }
