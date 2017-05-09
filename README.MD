@@ -1,3 +1,8 @@
+<p align="center">
+<img src="lufei.jpeg">
+</p>
+
+平时工作、学习中记录的代码、例子,方便自己快速查找代码段^_^
 项目结构:
 
 |---------androidopensample包:一些开源项目使用用例,带上了自己的理解  
