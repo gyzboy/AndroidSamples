@@ -1,0 +1,21 @@
+1、LeakCanary
+核心:
+检测内存是否泄漏时构造了一个KeyedReferenceQueue,每次当WeakReference所指向的对象被GC后,这个弱引用都会放入这个与之相关连的ReferenceQueue队列中,
+在reference类加载的时候，java虚拟机会创建一个最大优先级的后台线程，这个线程的工作原理就是不断检测pending是否为null，
+如果不为null，就将其放入ReferenceQueue中，pending不为null的情况就是，引用所指向的对象已被GC，变为不可达。
+只要我们在构造弱引用的时候指定了ReferenceQueue，每当弱引用所指向的对象被内存回收的时候，我们就可以在queue中找到这个引用。
+如果我们期望一个对象被回收，那如果在接下来的预期时间之后，我们发现它依然没有出现在ReferenceQueue中，那就可以判定它的内存泄露了
+
+检测时机:
+LeakCanary注册了Activity的生命周期回调,在destroy时调用watch方法,
+AndroidWatchExecutor会在主线程空闲的时候，使用IdleHandler派发一个后台任务，这个后台任务会在DELAY_MILLIS时间之后执行。LeakCanary设置的是5秒。
+
+二次确认保证内存泄漏准确性,然后使用Debug.dumpHprofData(filePath) dump出文档信息
+
+显示泄漏信息:
+LeakCanary在dump出hprof文件后，会启动一个IntentService进行分析：HeapAnalyzerService在分析出结果之后会启动DisplayLeakService用来发起Notification 以及将结果记录下来写在文件里面。
+以后每次启动LeakAnalyzerActivity就从文件里读取历史结果。
+
+
+2、Block
+

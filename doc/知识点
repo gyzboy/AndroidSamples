@@ -71,6 +71,8 @@ adb shell --> sqlite3访问数据库
 cat /proc/meminfo 查看内存信息
 cat /proc/cpuinfo 查看CPU信息
 
+adb shell -> run as packageName cd data/data/...访问私有文件
+
 
 五、Linux命令
 which 查看命令路径 对应$PATH中的路径  which adb

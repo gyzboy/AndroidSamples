@@ -62,36 +62,36 @@ public class GlideBaseUse extends Activity {
 
         imageView = (ImageView) findViewById(R.id.iv_image);
         picUrl = "http://pic.pp3.cn/uploads//201510/2015101803.jpg";
-//        Glide.with(this)//传入Activity或者Fragment与其生命周期相同
-//                .load(R.mipmap.ic_launcher)
-//                .placeholder(R.mipmap.big) //设置占位图
-//                .error(R.mipmap.icon) //设置错误图片
-//                .crossFade() //设置淡入淡出效果，默认300ms，可以传参
-//                //.dontAnimate() //不显示动画效果
-//                .priority(Priority.NORMAL)//4个级别
-//                .override(200, 200)//现在图片大小
-////                .centerCrop()
-//                .listener(new RequestListener<Integer, GlideDrawable>() {//可以用于监控请求发生错误来源，以及图片来源 是内存还是磁盘
-//                    @Override
-//                    public boolean onException(Exception e, Integer model, Target<GlideDrawable> target, boolean isFirstResource) {
-//                        return false;
-//                    }
-//
-//                    @Override
-//                    public boolean onResourceReady(GlideDrawable resource, Integer model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
-// true 表示已经处理完这个target上的资源
-//false 表示允许glide去继续请求更新target上的资源属性
-//                        return false;
-//                    }
-//                })
-//                .thumbnail(0.1f)
-//                .skipMemoryCache(true)//跳过内存缓存
-//                .diskCacheStrategy(DiskCacheStrategy.ALL)//设置磁盘缓存
-//                .into(imageView);
+        Glide.with(this)//传入Activity或者Fragment与其生命周期相同
+                .load(R.mipmap.ic_launcher)
+                .placeholder(R.mipmap.big) //设置占位图
+                .error(R.mipmap.icon) //设置错误图片
+                .crossFade() //设置淡入淡出效果，默认300ms，可以传参
+                //.dontAnimate() //不显示动画效果
+                .priority(Priority.NORMAL)//4个级别
+                .override(200, 200)//现在图片大小
+//                .centerCrop()
+                .listener(new RequestListener<Integer, GlideDrawable>() {//可以用于监控请求发生错误来源，以及图片来源 是内存还是磁盘
+                    @Override
+                    public boolean onException(Exception e, Integer model, Target<GlideDrawable> target, boolean isFirstResource) {
+                        return false;
+                    }
 
-        download();
+                    @Override
+                    public boolean onResourceReady(GlideDrawable resource, Integer model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+ //true 表示已经处理完这个target上的资源
+//false 表示允许glide去继续请求更新target上的资源属性
+                        return false;
+                    }
+                })
+                .thumbnail(0.1f)
+                .skipMemoryCache(true)//跳过内存缓存
+                .diskCacheStrategy(DiskCacheStrategy.ALL)//设置磁盘缓存
+                .into(imageView);
+
+        //download();
 //        loadFromCache();
-        loadWithCustomTransformation();
+//        loadWithCustomTransformation();
 //        loadWithCustomSignatureKey();
     }
 

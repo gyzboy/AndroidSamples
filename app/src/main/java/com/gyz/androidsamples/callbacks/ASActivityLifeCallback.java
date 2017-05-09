@@ -23,22 +23,23 @@ public class ASActivityLifeCallback implements ActivityLifecycleCallbacks {
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-
+        System.out.println("lifeCallback activityCreated");//ActivityLifecycleCallbacks 中所有方法的调用时机都是在 Activity 对应生命周期的 Super 方法中进行的
     }
 
     @Override
     public void onActivityStarted(Activity activity) {
         appCount++;
+        System.out.println("lifeCallback activityStarted");
     }
 
     @Override
     public void onActivityResumed(Activity activity) {
-
+        System.out.println("lifeCallback activityResumed");
     }
 
     @Override
     public void onActivityPaused(Activity activity) {
-
+        System.out.println("lifeCallback activityPaused");
     }
 
     @Override

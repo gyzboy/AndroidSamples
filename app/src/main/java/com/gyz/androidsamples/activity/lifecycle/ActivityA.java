@@ -46,6 +46,7 @@ public class ActivityA extends Activity {
         mStatusAllView = (TextView) findViewById(R.id.status_view_all_a);
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_create));
         Utils.printStatus(mStatusView, mStatusAllView);
+        System.out.println("activityCreated");
     }
 
     @Override
@@ -53,6 +54,7 @@ public class ActivityA extends Activity {
         super.onStart();
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_start));
         Utils.printStatus(mStatusView, mStatusAllView);
+        System.out.println("activityStarted");
     }
 
     @Override
@@ -71,6 +73,7 @@ public class ActivityA extends Activity {
         // by the Activity but suspended when it was inactive.
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_resume));
         Utils.printStatus(mStatusView, mStatusAllView);
+        System.out.println("activityResumed");
     }
 
     @Override
@@ -91,6 +94,7 @@ public class ActivityA extends Activity {
         // the active foreground Activity.
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_pause));
         Utils.printStatus(mStatusView, mStatusAllView);
+        System.out.println("activityPause");
     }
 
     @Override

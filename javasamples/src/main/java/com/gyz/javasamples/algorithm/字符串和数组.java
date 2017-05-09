@@ -4,6 +4,8 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Set;
 
+import com.sun.tools.javac.util.StringUtils;
+
 /**
  * Created by guoyizhe on 2017/3/22.
  * 邮箱:gyzboy@126.com
@@ -11,22 +13,24 @@ import java.util.Set;
 
 public class 字符串和数组 {
     public static void main(String[] args) {
-//        _1_1(new int[]{1,2,3,4,5,6,7},3);
-//        _1_2(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
-//        _1_3(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+        //        _1_1(new int[]{1,2,3,4,5,6,7},3);
+        //        _1_2(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
+        //        _1_3(new int[]{1, 2, 3, 4, 5, 6, 7}, 3);
 
-//        System.out.println(_2_1("abgggbe"));
-//        System.out.println(_2_2("abgggbe"));
+        //        System.out.println(_2_1("abgggbe"));
+        //        System.out.println(_2_2("abgggbe"));
 
-//        Set<String> s = new HashSet<>();
-//        s.add("leet");
-//        s.add("code");
-//        System.out.println(_3_1("leetcode",s));
-//        System.out.println(_3_2("leetcode", s));
+        //        Set<String> s = new HashSet<>();
+        //        s.add("leet");
+        //        s.add("code");
+        //        System.out.println(_3_1("leetcode",s));
+        //        System.out.println(_3_2("leetcode", s));
 
-        int a[] = new int[]{3,2,4,8,9};
-        int b[] = new int[]{5,9,0,3};
-        System.out.println(_4_2(a,b));
+        int a[] = new int[] {3, 2, 4, 8, 9};
+        int b[] = new int[] {5, 9, 0, 3};
+        System.out.println(_4_2(a, b));
+
+        System.out.println(findMost("aabbccc"));
     }
 
     //----------------------------------------------------
@@ -95,7 +99,6 @@ public class 字符串和数组 {
             System.out.print(arr[i]);
         }
         //空间复杂度均为o(1) 但时间复杂度为o(n)
-
 
     }
 
@@ -168,7 +171,7 @@ public class 字符串和数组 {
         }
 
         return longest;
-//        Time O(n^2), Space O(1)
+        //        Time O(n^2), Space O(1)
     }
 
     public static String helper(String s, int begin, int end) {
@@ -267,16 +270,14 @@ public class 字符串和数组 {
         }
     }
 
-
     public static double _4_2(int A[], int B[]) {
         int m = A.length;
         int n = B.length;
 
         if ((m + n) % 2 != 0) // odd
-            return (double) findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1);
-        else { // even
+        { return (double)findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1); } else { // even
             return (findKth(A, B, (m + n) / 2, 0, m - 1, 0, n - 1)
-                    + findKth(A, B, (m + n) / 2 - 1, 0, m - 1, 0, n - 1)) * 0.5;
+                + findKth(A, B, (m + n) / 2 - 1, 0, m - 1, 0, n - 1)) * 0.5;
         }
     }
 
@@ -287,12 +288,9 @@ public class 字符串和数组 {
         int bLen = bEnd - bStart + 1;
 
         // Handle special cases
-        if (aLen == 0)
-            return B[bStart + k];
-        if (bLen == 0)
-            return A[aStart + k];
-        if (k == 0)
-            return A[aStart] < B[bStart] ? A[aStart] : B[bStart];
+        if (aLen == 0) { return B[bStart + k]; }
+        if (bLen == 0) { return A[aStart + k]; }
+        if (k == 0) { return A[aStart] < B[bStart] ? A[aStart] : B[bStart]; }
 
         int aMid = aLen * k / (aLen + bLen); // a's middle count
         int bMid = k - aMid - 1; // b's middle count
@@ -312,5 +310,24 @@ public class 字符串和数组 {
         }
 
         return findKth(A, B, k, aStart, aEnd, bStart, bEnd);
+    }
+
+    //----------------------------------------------------
+    //5.找出字符串中重复次数最多的字符
+    //----------------------------------------------------
+
+    public static String findMost(String string) {
+        int max_length = 0;
+        String max_str = "";
+        while (string.length() > 0) {
+            String first = string.substring(0, 1);
+            int length = string.length();
+            string = string.replaceAll(first, "");
+            if (max_length < length - string.length()) {
+                max_length = length - string.length();
+                max_str = first;
+            }
+        }
+        return max_str;
     }
 }
