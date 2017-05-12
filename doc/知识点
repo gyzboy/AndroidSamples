@@ -53,6 +53,12 @@ adb shell dumpsys | grep "DUMP OF SERVICE" 列出dumpsys所支持的所有命令
 adb install -r APK_FILE 重新安装并保留所有数据
 adb shell am start PACKAGE_NAME/ACTIVITY_IN_PACKAGE 启动activity
 
+adb shell am start -w packagename/activityname 计算app启动时间,返回三个值
+ThisTime: 表示一连串启动 Activity 的最后一个 Activity 的启动耗时
+WaitTime: 就是总的耗时，包括前一个应用 Activity pause 的时间和新应用启动的时间
+TotalTime: 表示新应用启动的耗时，包括新进程的启动和 Activity 的启动，但不包括前
+          一个应用 Activity pause 的耗时
+
 adb shell input keyevent 82 解锁屏幕
 
 adb logcat -s TAG_NAME_1 TAG_NAME_2 按签名过滤日志
@@ -68,9 +74,14 @@ adb bugreport bugreport.zip  >7.0
 然后使用google的battery-historian 或者sony的ChkBugReport进行bug分析
 
 adb shell --> sqlite3访问数据库
+
+/proc文件系统是一个伪文件系统，它只存在内存当中，而不占用外存空间。它以文件系统的方式为内核与进程提供通信的接口。
+系统中当前运行的每一个进程在/proc下都对应一个以进程号为目录名的目录/proc/pid，它们是读取进程信息的接口。此外，在Linux 2.6.0-test6以上的版本中/proc/pid目录中有一个task目录，
+/proc/pid/task目录中也有一些以该进程所拥有的线程的线程号命名的目录/proc/pid/task/tid，它们是读取线程信息的接口
 cat /proc/meminfo 查看内存信息
 cat /proc/cpuinfo 查看CPU信息
-
+/proc/" + Pid + "/task/" + ThreadId + "/sched  读取线程信息,关注wait_sum,sum_exec_runtime,wait_max,wait_count,iowait_sum,iowait_count
+/proc/" + pid + "/stat 该文件包含了某一进程所有的活动的信息，该文件中的所有值都是从系统启动开始累计到当前时刻。
 adb shell -> run as packageName cd data/data/...访问私有文件
 
 
@@ -171,6 +182,11 @@ drawable 与 mdpi 相同
 4、同一个APP，将图片放在不同的drawable文件夹下，在相同的设备上占用的内存情况不一样,尽量放在xxhdpi中,适配主流屏幕,如果放在mdpi中的图片，在xxhdpi屏幕的手机上1dp=3px,所以会放大9倍,所占内存扩大了9倍
 内存占用计算公式:w * h * 4(ARGB4个通道) 单位byte
 
+十一、ClassLoader总结
+PathClassLoader: 主要用于系统和app的类加载器,其中optimizedDirectory为null, 采用默认目录/data/dalvik-cache/
+DexClassLoader: 可以从包含classes.dex的jar或者apk中，加载类的类加载器, 可用于执行动态加载,但必须是app私有可写目录来缓存odex文件. 能够加载系统没有安装的apk或者jar文件， 因此很多插件化方案都是采用DexClassLoader;
+BaseDexClassLoader: 比较基础的类加载器, PathClassLoader和DexClassLoader都只是在构造函数上对其简单封装而已.
+BootClassLoader: 作为父类的类构造器.
 
 
 

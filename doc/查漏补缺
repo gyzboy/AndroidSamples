@@ -1,0 +1,6 @@
+1、webview在线调试,使用chrome浏览器访问chrome://inspect/#devices 然后再inspect自己的手机,需要翻墙
+
+2、context.getContentResolver().bulkInsert插入数据失败,原因是ContentProvider底层数据通信是采用了Binder,而Binder的传输缓存区有个大小
+限制,目前为1MB,所以当Buffer中数据等于1MB时可以先执行一次bulkInsert
+
+3、

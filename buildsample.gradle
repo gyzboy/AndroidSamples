@@ -6,8 +6,8 @@ android {//android项目的DSL
 
     defaultConfig {//默认设置，类似于全局变量，所有的flavors都会共享
         applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来
-        minSdkVersion 17
-        targetSdkVersion 23
+        minSdkVersion 17  //指明APP能够安装的系统API的最低版本
+        targetSdkVersion 23  //指明APP最适合运行的系统API版本
         versionCode 1
         versionName "1.0"
         resConfigs "en", "fr", "xxhdpi"//限定语言仅支持英语和法语并且只使用xxhdpi资源
@@ -265,7 +265,7 @@ android {//android项目的DSL
 }
 configurations {
 //    all {
-//        //全局的依赖传递是否开启
+//        //全局的依赖传递是否开启,默认为true,也就是这个包内的依赖会递归的传递过来,设置为false后,只添加本依赖包,依赖包内所依赖项不会添加进来
 //        transitive = true
 //        resolutionStrategy {
 //            // 如果想插件和snaphost版本实时生效,请打开注释

@@ -8,6 +8,7 @@ import android.graphics.Paint;
 import android.graphics.Rect;
 import android.nfc.Tag;
 import android.os.Bundle;
+import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
@@ -22,7 +23,7 @@ import android.widget.Toast;
 import com.gyz.androidsamples.R;
 
 import java.util.ArrayList;
-
+import java.util.List;
 
 /**
  * Created by guoyizhe on 16/9/8.
@@ -44,6 +45,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
     private RecyclerView rvView;
     private String[] arr;
     private ArrayList<String> arrayList;
+    private ArrayList<String> oldList;
     private int lastInVisPos = 0;
     private int lastVisPos = 0;
 
@@ -74,7 +76,11 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
             @Override
             public void onClick(View v) {
                 arrayList.add("notifyDataChanged");
-                adapter.notifyDataSetChanged();
+                DiffUtil.DiffResult diffResult =
+                    DiffUtil.calculateDiff(new DiffCallBack(oldList, arrayList), true);
+                diffResult.dispatchUpdatesTo(adapter);
+                //adapter.setDatas(arrayList);
+                //adapter.notifyDataSetChanged();
             }
         });
         LinearLayoutManager llM = new LinearLayoutManager(this);
@@ -82,13 +88,19 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
         rvView.addItemDecoration(mItemDecoration);
         arr = new String[]{"0", "1", "2", "3", "4", "5", "6", "7", "8", "9", "10", "11", "12", "13", "14", "15", "16"};
         arrayList = new ArrayList<>();
+        oldList = new ArrayList<>();
         for (int i = 0; i < 16; i++) {
             arrayList.add("" + i);
+            oldList.add("" + i);
         }
 //        MyAdapter adapter = new MyAdapter(arr);
         adapter = new MyAdapter(arrayList);
         rvView.setAdapter(adapter);
         adapter.setInterface(this);
+
+        //SnapHelper是对RecyclerView的拓展,旨在支持 RecyclerView 的对齐方式，也就是通过计算对齐 RecyclerView 中 TargetView 的指定点或者容器中的任何像素点。
+        //StartSnapHelper helper = new StartSnapHelper();
+        //helper.attachToRecyclerView(rvView);
 
 
 //        rvView.setLayoutFrozen(true);//禁止滚动
@@ -316,6 +328,10 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
         void click(int pos);
     }
 
+    public  void setDatas(ArrayList<String> list){
+        arrList = list;
+    }
+
     public onItemClickLsn mInterface;
 
     public void setInterface(onItemClickLsn lsn) {
@@ -389,5 +405,5 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //            mWebView = (WebView) view.findViewById(R.id.rv_wb);
         }
     }
-
 }
+

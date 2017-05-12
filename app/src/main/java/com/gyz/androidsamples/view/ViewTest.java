@@ -34,6 +34,12 @@ public class ViewTest extends Activity {
 
 //        ColorFilter设置颜色变化
 
+        //DecorView : Window上的根视图，ViewTree中的根，最顶层视图
+        //ContentView: 客户端程序员定义的所有视图的父节点，如Actvity中常见的setContentView(view)
+
+        //View rootView = ((ViewGroup) (getWindow().getDecorView().findViewById(android.R.id.content))).getChildAt(0);
+
+
         setContentView(R.layout.activity_view);
 
         //splitMotionEvents多点触控

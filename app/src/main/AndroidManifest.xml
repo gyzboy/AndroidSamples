@@ -449,6 +449,16 @@
         </activity>
 
         <activity
+            android:name="com.gyz.androidsamples.view.choreographer.ASFrameSkipTestActivity"
+            android:label="views/choreographer"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".view.ASRecyclerView"
             android:label="views/RecyclerView">
             <intent-filter>

@@ -27,6 +27,7 @@ import com.gyz.androidopensamples.weex.extend.module.RenderModule;
 import com.gyz.androidopensamples.weex.extend.module.WXEventModule;
 import com.gyz.androidsamples.callbacks.ASActivityLifeCallback;
 import com.gyz.androidsamples.callbacks.ASComponentCallbacks;
+import com.gyz.androidsamples.view.choreographer.MyActivityLifeCycle;
 import com.taobao.weex.InitConfig;
 import com.taobao.weex.WXSDKEngine;
 import com.taobao.weex.common.WXException;
@@ -80,7 +81,8 @@ public class ASApplication extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
-        registerActivityLifecycleCallbacks(new ASActivityLifeCallback(appCount));
+        //registerActivityLifecycleCallbacks(new ASActivityLifeCallback(appCount));
+        registerActivityLifecycleCallbacks(MyActivityLifeCycle.getInstance());
         registerComponentCallbacks(new ASComponentCallbacks());
 
         initWeex();
