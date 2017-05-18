@@ -477,6 +477,15 @@
         </activity>
 
         <activity
+            android:name=".view.ASMotionEvent"
+            android:label="views/MotionEvent">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".view.ASWindow"
             android:label="window/Window">
             <intent-filter>

@@ -9,6 +9,8 @@ import java.util.List;
 import java.util.Random;
 import java.util.RandomAccess;
 
+import com.gyz.javasamples.reflect.Person;
+
 /**
  * Created by guoyizhe on 16/8/31.
  * 邮箱:gyzboy@126.com
@@ -105,6 +107,14 @@ public class ListTest {
 //        forloopRemove(removetest);//输出结果为[1,2]
         iteratorRemove(removetest);
         System.out.println(removetest);
+
+
+        //contains
+        List<Person> persons = new ArrayList<>();
+        persons.add(new Person());
+        persons.add(new Person());
+        persons.add(new Person());
+        System.out.println(persons.contains(new Person()));
 
 
     }
@@ -206,4 +216,5 @@ public class ListTest {
         }
         return list;
     }
+
 }

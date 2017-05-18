@@ -226,5 +226,11 @@
             android:id="@+id/btn_colorFilter"
             android:text="ColorFilter"
             android:src="@mipmap/ic_launcher"/>
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/iv_drawingcache"
+            android:src="@mipmap/ic_launcher"/>
     </LinearLayout>
+
 </LinearLayout>

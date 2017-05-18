@@ -188,6 +188,41 @@ DexClassLoader: 可以从包含classes.dex的jar或者apk中，加载类的类�
 BaseDexClassLoader: 比较基础的类加载器, PathClassLoader和DexClassLoader都只是在构造函数上对其简单封装而已.
 BootClassLoader: 作为父类的类构造器.
 
+十二、Android OOM Killer
+proc/pid下有几个值可以查看Android的OOM阈值
+proc/pid/oom_adj:
+1、前台进程 （Active Process）： oom_adj为0。
+前台进程包括 ： 1：活动 正在前台接收用户输入
+              2：活动、服务与广播接收器正在执行一个onReceive事件的处理函数
+              3： 服务正在运行 onStart、onCreate或onDestroy事件处理函数。
+
+2、已启动服务的进程(Started Service Process) ：oom_adj值为0，这类进程包含一个已启动的服务。 服务并不直接与用户输入交互，因此服务的优先级
+低于可见活动的优先级，但是，已启动服务的进程任被认为是前台进程，只有在活动以及可见活动需要资源时，已启动服务的进程才会被杀死。
+3、可见进程 （Visible Process）: oom_adj 为 1。活动是可见的，但并不在前台，或者不响应用户的输入。例如，活动被非全屏或者透明的活动所遮挡。
+4、后台进程 （Backgroud Process）: oom_adj 值为 2，这类进程不包含任何可见的活动与启动的服务。通常大量后台进程存在时，系统会采用（last-seen-first-kill）后见先杀的方式，释放资源为前台进程使用。
+5、主界面 （home process）： oom_adj 为 4
+6、隐藏进程 （hidden process）： oom_adj为 7
+7、内容提供者 （content provider）：oom_adj 为 14
+8、空进程 （Empty process）：oom_adj为 15
+
+oom_score的分数越高就越会被内核优先杀掉
+
+通过cat proc/pid/oom_adj 查看值
+
+十三、过度绘制
+颜色标识: 从好到差:蓝-绿-淡红-红
+1. 蓝色1x过度绘制
+2. 绿色2x过度绘制
+3. 淡红色3x过度绘制
+4. 红色超过4x过度绘制
+
+1.减少多余的background
+2.可复用组建使用include或者style的方式减少大量代码.
+3.viewStub的引入减少不长用的布局View的添加
+4.减少层级
+5.this.getWindow().setBackgroundDrawable(null);的方式去设置背景，这个要谨慎使用，在低端机上的使用可能会造成闪屏的情况
+
+
 
 
 

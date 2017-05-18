@@ -37,7 +37,7 @@ public class ASShapeDrawable extends Activity {
          android:bottomLeftRadius="integer"
          android:bottomRightRadius="integer" />
          <gradient   渐变色
-         android:angle="integer"
+         android:angle="integer"  渐变方向,90为从下到上,270为从上到下
          android:centerX="integer"
          android:centerY="integer"
          android:centerColor="integer"
