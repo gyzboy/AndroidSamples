@@ -27,6 +27,12 @@ import java.util.regex.Pattern;
 
 public class ANRCatcher {
 
+    //ANR排错一般有三种类型
+    //
+    //KeyDispatchTimeout(5 seconds) --主要是类型按键或触摸事件在特定时间内无响应
+    //BroadcastTimeout(10 seconds) --BroadcastReceiver在特定时间内无法处理完成
+    //ServiceTimeout(20 secends) --小概率事件 Service在特定的时间内无法处理完成
+
     File mSystemTraceFile;
     String mSystemTraceFilePath = "/data/anr/traces.txt";
     File mProcessANRFlagFile;

@@ -4,8 +4,10 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.view.View;
 import android.view.ViewStub;
+import android.view.ViewStub.OnInflateListener;
 import android.widget.ImageView;
 
+import android.widget.Toast;
 import com.gyz.androidsamples.R;
 
 /**
@@ -20,6 +22,12 @@ public class ASViewStub extends Activity {
         setContentView(R.layout.activity_viewstub_main);
         //ViewStub 是一个不可见的，大小为0的View
         ViewStub stub = (ViewStub)findViewById(R.id.stub);
+        stub.setOnInflateListener(new OnInflateListener() {//必须在inflate前调用
+            @Override
+            public void onInflate(ViewStub stub, View inflated) {
+                Toast.makeText(ASViewStub.this, "Inflate success", Toast.LENGTH_SHORT).show();
+            }
+        });
         View pic = stub.inflate();//inflate()被调用时, 被加载的视图替代viewstub并且返回自己的视图对象。这使得应用程序不需要额外执行findViewById()来获取所加载的视图的引用
         //		pic.setVisibility(View.VISIBLE);//一般不需要，如果要用到的话不能与stub.inflate()调换位置,因为它会间接调用inflate(),
         // ViewStub只能调用一次inflate()
@@ -31,6 +39,8 @@ public class ASViewStub extends Activity {
         ImageView imageview = (ImageView)view.findViewById(R.id.iv_pic);
         imageview.setImageResource(R.mipmap.ic_launcher);
         System.out.println(String.valueOf(view.getId()));
+
+
 
         //		TextView text = (TextView)findViewById(R.id.tv_show);
         //		text.setText("这是include布局文件中的TextView");

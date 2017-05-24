@@ -16,7 +16,7 @@ import android.view.SurfaceView;
  * Created by guoyizhe on 16/7/29.
  * 邮箱:gyzboy@126.com
  */
-public class ASSurfaceView extends Activity {
+public class    ASSurfaceView extends Activity {
 
 
     @Override

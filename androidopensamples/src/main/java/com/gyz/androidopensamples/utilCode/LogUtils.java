@@ -11,26 +11,26 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.Locale;
 
-
 public class LogUtils {
 
     private LogUtils() {
         throw new UnsupportedOperationException("u can't instantiate me...");
     }
 
-    private static boolean logSwitch      = true;
+    private static boolean logSwitch = true;
     private static boolean log2FileSwitch = false;
-    private static char    logFilter      = 'v';
-    private static String  tag            = "TAG";
-    private static String  dir            = null;
-    private static int     stackIndex     = 0;
+    private static char logFilter = 'v';
+    private static String tag = "TAG";
+    private static String dir = null;
+    private static int stackIndex = 0;
 
     /**
      * 初始化函数
      * <p>与{@link #getBuilder()}两者选其一</p>
      *
      * @param logSwitch      日志总开关
-     * @param log2FileSwitch 日志写入文件开关，设为true需添加权限 {@code <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE"/>}
+     * @param log2FileSwitch 日志写入文件开关，设为true需添加权限 {@code <uses-permission android:name="android.permission
+     * .WRITE_EXTERNAL_STORAGE"/>}
      * @param logFilter      输入日志类型有{@code v, d, i, w, e}<br>v代表输出所有信息，w则只输出警告...
      * @param tag            标签
      */
@@ -63,10 +63,10 @@ public class LogUtils {
 
     public static class Builder {
 
-        private boolean logSwitch      = true;
+        private boolean logSwitch = true;
         private boolean log2FileSwitch = false;
-        private char    logFilter      = 'v';
-        private String  tag            = "TAG";
+        private char logFilter = 'v';
+        private String tag = "TAG";
 
         public Builder setLogSwitch(boolean logSwitch) {
             this.logSwitch = logSwitch;
@@ -255,7 +255,7 @@ public class LogUtils {
      * @param type 日志类型
      */
     private static void log(String tag, String msg, Throwable tr, char type) {
-        if (msg == null || msg.isEmpty()) return;
+        if (msg == null || msg.isEmpty()) { return; }
         if (logSwitch) {
             if ('e' == type && ('e' == logFilter || 'v' == logFilter)) {
                 printLog(generateTag(tag), msg, tr, 'e');
@@ -312,7 +312,7 @@ public class LogUtils {
         Date now = new Date();
         String date = new SimpleDateFormat("MM-dd", Locale.getDefault()).format(now);
         final String fullPath = dir + date + ".txt";
-        if (!FileUtils.createOrExistsFile(fullPath)) return;
+        if (!FileUtils.createOrExistsFile(fullPath)) { return; }
         String time = new SimpleDateFormat("MM-dd HH:mm:ss.SSS", Locale.getDefault()).format(now);
         final String dateLogContent = time + ":" + type + ":" + tag + ":" + msg + '\n';
         new Thread(new Runnable() {
@@ -349,5 +349,24 @@ public class LogUtils {
         String format = "Tag[" + tag + "] %s[%s, %d]";
         callerClazzName = callerClazzName.substring(callerClazzName.lastIndexOf(".") + 1);
         return String.format(format, callerClazzName, caller.getMethodName(), caller.getLineNumber());
+    }
+
+    /**
+     * log在android中有字符串长度限制#define LOGGER_ENTRY_MAX_LEN        (4*1024)
+     * @param log
+     * @return
+     */
+    private static String strTooBig(String log) {
+        StringBuilder sb = new StringBuilder();
+        if (log.length() > 4000) {
+            for (int i = 0; i < log.length(); i += 4000) {
+                if (i + 4000 < log.length()) {
+                    sb.append(log.substring(i, i + 4000));
+                } else {
+                    sb.append(log.substring(i, log.length()));
+                }
+            }
+        }
+        return sb.toString();
     }
 }

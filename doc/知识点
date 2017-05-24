@@ -176,10 +176,12 @@ drawable 与 mdpi 相同
 4、改善后一定要验证，任何一个地方的改动都需要验证，避免因为改善性能问题导致其它的问题。
 
 常见的内存泄露问题:
-1、非静态内部类导致的内存泄露，比如Handler，解决方法是将内部类写成静态内部类，在静态内部类中使用软引用/弱引用持有外部类的实例
-2、IO操作后，没有关闭文件导致的内存泄露，比如Cursor、FileInputStream、FileOutputStream使用完后没有关闭，这种问题在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了
-3、自定义View中使用TypedArray后，没有recycle，这种问题也可以在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了
-4、同一个APP，将图片放在不同的drawable文件夹下，在相同的设备上占用的内存情况不一样,尽量放在xxhdpi中,适配主流屏幕,如果放在mdpi中的图片，在xxhdpi屏幕的手机上1dp=3px,所以会放大9倍,所占内存扩大了9倍
+1、定义 Activity 时在内部定义一个静态变量，并将其值设置为处于运行状态的 Activity 。如果在 Activity 生命周期结束时没有清除引用的话，这个 Activity 就会泄漏。
+2、静态的View
+3、非静态内部类导致的内存泄露，内部类在它的整个生命周期中是会访问外部类。比如Handler，解决方法是将内部类写成静态内部类，在静态内部类中使用软引用/弱引用持有外部类的实例
+4、IO操作后，没有关闭文件导致的内存泄露，比如Cursor、FileInputStream、FileOutputStream使用完后没有关闭，这种问题在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了
+5、自定义View中使用TypedArray后，没有recycle，这种问题也可以在Android Studio 2.0中能够通过静态代码分析检查出来，直接改善就可以了
+6、同一个APP，将图片放在不同的drawable文件夹下，在相同的设备上占用的内存情况不一样,尽量放在xxhdpi中,适配主流屏幕,如果放在mdpi中的图片，在xxhdpi屏幕的手机上1dp=3px,所以会放大9倍,所占内存扩大了9倍
 内存占用计算公式:w * h * 4(ARGB4个通道) 单位byte
 
 十一、ClassLoader总结
@@ -222,6 +224,29 @@ oom_score的分数越高就越会被内核优先杀掉
 4.减少层级
 5.this.getWindow().setBackgroundDrawable(null);的方式去设置背景，这个要谨慎使用，在低端机上的使用可能会造成闪屏的情况
 
+十四、ANTI_ALIAS_FLAG减少绘制边缘锯齿
+ANTI_ALIAS_FLAG 通过混合前景色与背景色来产生平滑的边缘,当我们在 Bitmap 上重绘时，像素的颜色会越来越纯粹导致边缘越来越粗糙。
+这就是为什么设置了 ANTI_ALIAS_FLAG 后你们图形的边缘还是十分粗糙。
+
+如何避免这个问题:
+1、避免重绘
+2、在重绘前清空Bitmap
+
+    @Override
+    protected void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+        if (bitmap == null) {
+            bitmap = Bitmap.createBitmap(200,
+                                         200,
+                                         Bitmap.Config.ARGB_8888);
+            bitmapCanvas = new Canvas(bitmap);
+        }
+        bitmapCanvas.drawColor(
+                  Color.TRANSPARENT,
+                  PorterDuff.Mode.CLEAR); //this line moved outside if
+        drawOnCanvas(bitmapCanvas);
+        canvas.drawBitmap(bitmap, mLeftX, mTopY, p);
+    }
 
 
 
