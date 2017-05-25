@@ -706,7 +706,7 @@ public class ImageUtils {
     }
 
     /**
-     * renderScript模糊图片
+     * renderScript模糊图片   这里对RGB565的图片支持不太好 可能出现花屏现象 需要转为RGB8888格式
      * <p>API大于17</p>
      *
      * @param context 上下文
@@ -725,9 +725,9 @@ public class ImageUtils {
                     .USAGE_SCRIPT);
             Allocation output = Allocation.createTyped(rs, input.getType());
             ScriptIntrinsicBlur blurScript = ScriptIntrinsicBlur.create(rs, Element.U8_4(rs));
-            blurScript.setInput(input);
+            blurScript.setInput(input);//输入图片
             blurScript.setRadius(radius);
-            blurScript.forEach(output);
+            blurScript.forEach(output);//输出经过滤镜加滤后的图片
             output.copyTo(src);
         } finally {
             if (rs != null) {
@@ -737,6 +737,22 @@ public class ImageUtils {
         return src;
     }
 
+    /**
+     * RGB565->RGB8888
+     * @param img
+     * @return
+     */
+    private Bitmap RGB565toARGB888(Bitmap img) {
+        int numPixels = img.getWidth()* img.getHeight();
+        int[] pixels = new int[numPixels];
+
+        img.getPixels(pixels, 0, img.getWidth(), 0, 0, img.getWidth(), img.getHeight());
+
+        Bitmap result = Bitmap.createBitmap(img.getWidth(), img.getHeight(), Bitmap.Config.ARGB_8888);
+
+        result.setPixels(pixels, 0, result.getWidth(), 0, 0, result.getWidth(), result.getHeight());
+        return result;
+    }
     /**
      * stack模糊图片
      *
