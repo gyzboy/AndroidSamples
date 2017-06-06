@@ -47,8 +47,8 @@ import static android.provider.MediaStore.Images.ImageColumns.ORIENTATION;
 // 源码的注释：当一个线程等待更多 message 的时候会触发该回调,就是 messageQuene 空闲的时候会触发该回调，里面还有一个queueIdle方法负责清除WeakReference被回收的资源
 
 //2.生命周期管理:
-//glide为当前的上下文 Activity 或者 Fragment 绑定一个 TAG 为"com.bumptech.glide.manager"的 RequestManagerFragment，然后把该 fragment 作为 rootRequestManagerFragment，并加入到当前上下文的 FragmentTransaction 事务中，
-// 从而与当前上下文 Activity 或者 Fragment 的生命周期保持一致。
+//glide为当前的上下文 Activity 或者 Fragment 绑定一个 TAG 为"com.bumptech.glide.manager"的 RequestManagerFragment，然后把该 fragment 作为 rootRequestManagerFragment，
+// 并加入到当前上下文的 FragmentTransaction 事务中，从而与当前上下文 Activity 或者 Fragment 的生命周期保持一致。
 public class GlideBaseUse extends Activity {
 
     ImageView imageView;

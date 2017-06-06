@@ -17,5 +17,4 @@ LeakCanary在dump出hprof文件后，会启动一个IntentService进行分析：
 以后每次启动LeakAnalyzerActivity就从文件里读取历史结果。
 
 
-2、Block
 

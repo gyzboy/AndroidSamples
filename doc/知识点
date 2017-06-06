@@ -4,7 +4,7 @@
 三. Launcher通过Binder进程间通信机制通知ActivityManagerService，它已经准备就绪进入Paused状态，
     于是ActivityManagerService就创建一个新的进程，这个进程就是相应的应用进程。
     ActivityManagerService 通过 Socket 通信的方式和 Zygote 进行协商，Zygote 在其监听的 /dev/socket/zygote socket 中发现有需要创建进程的请求后，
-    会 fork 自身，并返回相应的 Process Id用来启动一个ActivityThread实例，即将要启动的Activity就是在这个ActivityThread实例中运行；
+    会 fork(复制) 自身，并返回相应的 Process Id用来启动一个ActivityThread实例，即将要启动的Activity就是在这个ActivityThread实例中运行；
 四. ActivityThread通过Binder进程间通信机制将一个ApplicationThread类型的Binder对象传递给ActivityManagerService，
     以便以后ActivityManagerService能够通过这个Binder对象和它进行通信；
 五. ActivityManagerService通过Binder进程间通信机制通知ActivityThread，上面创建的Process 会进行相应的初始化，使得其具备与系统服务进行 IPC 通信的能力,
@@ -96,6 +96,8 @@ find . -maxdepth 3 -type f 最大深度为3类型为文件
 find . -type f -atime -7 7天内被访问的文件 7天前使用 +7
 find . -type f -atime 7 正好在7天前被访问的文件
 find . -type f -name "*.txt" -delete 删除后缀名为txt的所有文件
+find `find . -name res` -name "*.xml" | grep status_bar_size 查找res文件夹下的所有包含status_bar_size字符串的xml文件
+
 locate /etc/sh 查找目录下所有以sh开头的文件
 
 tail file 显示文件的最后10行
@@ -105,6 +107,7 @@ tail -c 10 file 显示文件最后10个字符
 
 less -N file 显示文件pageUp、pageDown翻页 Q退出
 
+//连接文件内容并输出
 cat -b file 显示file内容,忽略空白行编号
 cat m1 m2 < file 输出m1、m2到file文件中
 
@@ -248,9 +251,44 @@ ANTI_ALIAS_FLAG 通过混合前景色与背景色来产生平滑的边缘,当我
         canvas.drawBitmap(bitmap, mLeftX, mTopY, p);
     }
 
+十五、不要用Application缓存数据
+Application对象并不是始终在内存中的，它有可能会由于系统内存不足而被杀掉。但Android在你恢复这个应用时并不是重新开始启动这个应用，
+它会创建一个新的Application对象并且启动上次用户离开时的activity以造成这个app从来没有被kill掉得假象。
 
+十六、gradle脚本中debugCompile project
+因为在library项目中默认只会执行compileRelease而不是预想中的compileDebug,这就会导致library项目中的BuildConfig.DEBUG一直返回false,要解决这个问题
+可以指定编译参数,
+publishNonDefault true //需要加上该参数否则会提示debug not found
+debugCompile project(path: ‘:train’, configuration: ‘debug’)
 
+十七、获取前台运行进程
+1、通过getRunningTasks获取当前topActivity,通过topActivity的getProcess判断是否是当前进程,此方法在5.0以上失效
+2、通过getRunningAppProcesses的IMPORTANCE_FOREGROUND属性判断是否位于前台，当service需要常驻后台时候，此方法失效,分机型
+3、通过使用UsageStatsManager获取,5.0以上有用
+4、读取/proc目录下/proc/pid/cmdline，再根据进程的属性判断是否为前台
 
+十八、看似View不继承于View的"View"
+Toast--->show的时候通过aidl将show事件enqueueToast到notification服务中,makeText的时候动态的new出一个Toast对象,inflate布局
+PopupWindow--->附着在window上
+Dialog--->附着在window上,默认显示在center位置
+ViewRoot--->继承与Handler,主要是把WMS的IPC调用转换为本地的一个异步调用
+
+十九、FrameWork框架
+服务端(Android手机):Wms与Ams,一个用于显示,一个用于管理Activity，两个消息处理类:KeyQ(Wms内部类,会启动一个线程,不断读取用户的UI操作信息)
+InputDispatcherThread:会启动一个线程,不断的从QueueEvent中取出用户消息,并进行一定的过滤,再分发给当前客户端程序中
+
+客户端(App应用):
+ActivityThread:UI线程或者主线程
+Activity:APK运行的最小单元
+PhoneWindow:继承与Window,是一个内部含有View对象(DecordView),并提供一组通用窗口操作API
+Window:一个抽象类,Wms所管理的窗口不是window类,而是一个view或者viewGroup,对于phoneWindow而言就是decordView
+DecordView:是FrameLayout的子类
+ViewRoot:继承与Handler,将Wms的IPC调用转为本地的一个异步调用
+W:继承于Binder,是ViewRoot的一个内部类,是ViewRoot类内部用于Wms的IPC调用
+
+Activity启动后会创建一个ViewRoot.W和ApplicationThread,两者都继承于Binder,再启动一个UI线程ActivityThread
+
+二十、
 
 
 

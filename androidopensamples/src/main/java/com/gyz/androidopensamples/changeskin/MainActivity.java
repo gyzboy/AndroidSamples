@@ -1,5 +1,6 @@
 package com.gyz.androidopensamples.changeskin;
 
+import android.content.Context;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.annotation.Nullable;

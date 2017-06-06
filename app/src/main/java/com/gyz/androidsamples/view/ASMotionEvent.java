@@ -50,12 +50,20 @@ public class ASMotionEvent extends Activity {
             super(context, attrs, defStyleAttr);
         }
 
+        float x;
+        float y;
+
         @Override
         public boolean onTouchEvent(MotionEvent event) {
+
+
+
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     //第一个 手指 初次接触到屏幕 时触发。
                     sb.append("actionDown------->\n");
+                    x = event.getX();
+                    y = event.getY();
                     break;
                 case MotionEvent.ACTION_MOVE:
                     //手指 在屏幕上滑动 时触发，会多次触发
@@ -67,7 +75,15 @@ public class ASMotionEvent extends Activity {
                     //getHistoricalX (int pin, int pos)	获取第pin个手指的第pos个历史事件x坐标 (pin < getPointerCount(), pos <
                     // getHistorySize() )
                     //getHistoricalY (int pin, int pos)	获取第pin个手指的第pos个历史事件y坐标
+
                     printSamples(event,sb);
+
+                    if (event.getX() - x > 0) {
+                        //向左滑
+                    }else if (event.getX() - x < 0){
+                        //向右滑
+                    }
+
                     break;
                 case MotionEvent.ACTION_UP:
                     //最后一个 手指 离开屏幕 时触发。
