@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.support.v7.util.DiffUtil;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -54,7 +55,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
     private MyAdapter adapter;
 
     private CustomViewCacheExtension mCacheExtension;//自定义二级缓存
-
+    private ItemTouchHelper itemTouchHelper;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -162,8 +163,17 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
                 return i;
             }
         });
+
+        getItemTouchHelper().attachToRecyclerView(rvView);
     }
 
+    public final ItemTouchHelper getItemTouchHelper() {
+        if (null == itemTouchHelper) {
+            ItemBinderTouchCallback itemBinderTouchCallback = new ItemBinderTouchCallback(ASRecyclerView.this);
+            itemTouchHelper = new ItemTouchHelper(itemBinderTouchCallback);
+        }
+        return itemTouchHelper;
+    }
 
 //    getItemOffsets()就是我们在实现一个RecyclerView.ItemDecoration时可以重写的方法，通过mTempRect的大小，
 //    可以为每个ItemView设置位置偏移量，这个偏移量最终会参与计算ItemView的大小，也就是说ItemView的大小是包含这个位置偏移量的。
@@ -405,5 +415,6 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //            mWebView = (WebView) view.findViewById(R.id.rv_wb);
         }
     }
+
 }
 

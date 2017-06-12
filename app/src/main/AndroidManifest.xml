@@ -388,6 +388,16 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.drawtools.ASBitmapShader"
+            android:label="views/BitmapShader">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
         <activity
             android:name=".view.ASDialog"
             android:label="views/Dialog">
