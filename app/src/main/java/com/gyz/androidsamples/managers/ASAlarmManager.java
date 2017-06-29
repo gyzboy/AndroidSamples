@@ -24,8 +24,10 @@ import java.util.UUID;
  * 邮箱:gyzboy@126.com
  */
 
-//1、AlarmManager，顾名思义，就是“提醒”，是Android中常用的一种系统级别的提示服务，在特定的时刻为我们广播一个指定的Intent。(可用作设置不死服务，定时检测，定时重启，不手动设置cancel的情况下每次重启时会使manager无效)
-// 简单的说就是我们设定一个时间，然后在该时间到来时，AlarmManager为我们广播一个我们设定的Intent,通常我们使用 PendingIntent，PendingIntent可以理解为Intent的封装包，简单的说就是在Intent上在加个指定的动作。在使用Intent的时候，我们还需要在执行startActivity、startService或sendBroadcast才能使Intent有用。而PendingIntent的话就是将这个动作包含在内了。
+//1、AlarmManager，顾名思义，就是“提醒”，是Android中常用的一种系统级别的提示服务，在特定的时刻为我们广播一个指定的Intent,会一直保持CPU的唤醒状态直到onReceive执行,具体实现在IAlarmManager中
+// (可用作设置不死服务，定时检测，定时重启，不手动设置cancel的情况下每次重启时会使manager无效)
+// 简单的说就是我们设定一个时间，然后在该时间到来时，AlarmManager为我们广播一个我们设定的Intent,通常我们使用 PendingIntent，
+// PendingIntent可以理解为Intent的封装包，简单的说就是在Intent上在加个指定的动作。在使用Intent的时候，我们还需要在执行startActivity、startService或sendBroadcast才能使Intent有用。而PendingIntent的话就是将这个动作包含在内了。
 // 定义一个PendingIntent对象。
 // PendingIntent pi = PendingIntent.getBroadcast(this,0,intent,0);
 

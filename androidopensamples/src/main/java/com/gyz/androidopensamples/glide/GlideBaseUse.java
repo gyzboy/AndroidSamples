@@ -95,6 +95,18 @@ public class GlideBaseUse extends Activity {
 //        loadWithCustomSignatureKey();
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        Glide.with(GlideBaseUse.this).resumeRequests();
+    }
+
+    @Override
+    protected void onPause() {
+        super.onPause();
+        Glide.with(GlideBaseUse.this).pauseRequests();
+    }
+
     /**
      * 加载资源
      *

@@ -120,6 +120,7 @@ mv /usr/men/* . 将/usr/men下的所有文件移动到当前目录
 grep "xxx" file1 file2 --color=auto 在file1 file2 中输出包含xxx字符串的行并以颜色显示
 grep -v "xxx" file 输出除了包含xxx字符串的行
 grep -c "xxx" file 输出包含字符串xxx的行数
+grep -i "XXX" 忽略大小写
 
 grep "main()" . -r --include *.{php,html}在所有.php和.html文件中遍历查找包含main字符串的行
 
@@ -288,7 +289,74 @@ W:继承于Binder,是ViewRoot的一个内部类,是ViewRoot类内部用于Wms的
 
 Activity启动后会创建一个ViewRoot.W和ApplicationThread,两者都继承于Binder,再启动一个UI线程ActivityThread
 
-二十、
+二十、SharePreference关于getXXX方法性能降低的说法
+创建相关权限和mode的xml文件，异步同步锁加载xml文件并解析xml数据为map类型到内存中等待使用操作，特别注意，在xml文件异步加载未完成时调运SharePreference的getXXX及setXXX方法是阻塞等待的。
+由此也可以知道，一旦拿到SharePreference对象之后的getXXX操作其实都不再是文件读操作了，也就不存在网上扯蛋的认为多次频繁使用getXXX方法降低性能的说法了。
+
+二十一、Toast设置消失duration,Toast队列中最多50个Toast
+ private void scheduleTimeoutLocked(ToastRecord r)
+    {
+        //移除ToastRecord
+        mHandler.removeCallbacksAndMessages(r);
+        Message m = Message.obtain(mHandler, MESSAGE_TIMEOUT, r);
+        //static final int LONG_DELAY = 3500; // 3.5 seconds
+        //static final int SHORT_DELAY = 2000; // 2 seconds
+        long delay = r.duration == Toast.LENGTH_LONG ? LONG_DELAY : SHORT_DELAY;
+		//发送Toast消失的message
+        mHandler.sendMessageDelayed(m, delay);
+    }
+
+二十二、Linux文件属性
+
+-rwx-r----
+第一位:文件类型,d为目录,-为文件,l为连接文件,b为可供存储的接口设备,c为串口设备
+234位:当前用户权限,r读w写x执行
+567位:用户组权限
+8910位:其他用户
+
+chgrp users install.log  改变install.log文件所在组为users,users必须在group中已经存在 -R 递归
+chown 改变文件所有者
+chmod 改变文件权限 r=4 w=2 x=1
+chmod -r 777 install.log
+chmod a+x install.log 对所有用户增加执行权限 u=user g=group o=other a=all
+
+开放用户目录给任何人浏览时至少需要赋予r+x的权限
+
+默认使用Ext2/Ext3文件系统时,单一文件或者目录文件名最大长度为255个字符,带完整路径的最大长度为4096个字节
+
+less 可以向上下查询信息内容
+空格键   翻页
+/字符串  向下查询字符串
+？字符串  向上查询字符串
+n       重复前一个查询
+N       反向重复前一个查询
+q       离开
+
+查询11-20行的数据   head -n 20 /etc/main.config | tail -n 10
+
+touch 创建文件、修改文件时间
+
+umask 022 需要减掉的权限 0代表不需要减掉任何权限 2代表需要减掉w权限
+
+二十三、Android的沙盒机制
+每个app都有自己的UID,每个UID代表自己一个封闭的沙盒环境,想破之使用ShareUID
+
+二十四、Android Studio打包流程
+Gradle中有如下一下默认约定的任务:
+1. assemble
+该任务包含了项目中的所有打包相关的任务，比如java项目中打的jar包，Android项目中打的apk
+2. check
+该任务包含了项目中所有验证相关的任务，比如运行测试的任务
+3. build
+该任务包含了assemble和check
+4. clean
+该任务会清空项目的所有的输出，删除所有在assemble任务中打的包
+
+assemble, check 和 build 任务实际上并不做任何事情，它们其实只是为插件提供了一个钩子，真正的事情都是由插件来完成的。
+
+
+
+
 
 
 

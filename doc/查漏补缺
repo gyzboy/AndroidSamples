@@ -2,3 +2,50 @@
 
 2、context.getContentResolver().bulkInsert插入数据失败,原因是ContentProvider底层数据通信是采用了Binder,而Binder的传输缓存区有个大小
 限制,目前为1MB,所以当Buffer中数据等于1MB时可以先执行一次bulkInsert
+
+3、site:stackoverflow.com android webview OOM
+
+4、LocalBroadcastManager并不支持静态注册广播，也不支持有序广播的一些功能。BroadcastReceiver的通信是基于Binder机制，而LocalBroadcastManager的核心是基于Handler机制
+发送广播时，先根据intent中的action到mActions中找到对应的记录，然后再完整匹配filter里面的各个字段，若匹配成功，则将对应的receiver添加的mPendingBroadcasts列表中，等待handler对象的handleMessage()方法处理。
+在handler对象的handleMessage()方法中遍历 mPendingBroadcasts 列表, 依次循环调用其中的onReceive()方法，并将intent中的数据传入，从而消费广播信息
+
+5、PV即PageView，网站浏览量，指页面的浏览次数，用以衡量网站用户访问的网页数量。用户没打开一个页面便记录1次PV，多次打开同一页面则浏览量累计；
+   UV即UniqueVistor，独立访客数，指1天内访问某站点的人数，以cookie为依据。1天内同一访客的多次访问只计为1个访客；
+   VV即VisitView，访客的访问次数，用以记录所有访客1天内访问了多少次您的网站。当访客完成所有浏览并最终关掉该网站的所有页面时便完成了一次访问，同一访客1天内可能有多次访问行为，访问次数累计；
+   IP即独立IP数，指1天内使用不同IP地址的用户访问网站的数量，同一IP无论访问了几个页面，独立IP数均为1
+
+6、JSON 类解析一定要try 除了服务器异常 还有超时、运营商拦截等问题
+   类型强转
+
+7、常用英文解码表为ASCII系统,这个编码系统中，每个符号会占用1B的记录,因此总共有2的8次方的变化,对于中文编码系统,目前最常用的是Big5(gb2312)编码表,
+每个中文字符会占用2B，所以理论有2的16次方中文字,但big5并非将所有的位都拿来运用作为对照,所以并没有那么多的中文字码,Unicode编码打破了所有国家的不同
+编码
+
+8、GPL协议:必须无偿提供源代码,对整体或者部分进行修改都必须遵循GPL协议
+   BSD开源协议是一个给于使用者很大自由的协议。可以自由的使用，修改源代码，也可以将修改后的代码作为开源或者专有软件再发布。 当你发布使用了BSD协议的代码，或则以BSD协议代码为基础做二次开发自己的产品时，需要满足三个条件：
+   1． 如果再发布的产品中包含源代码，则在源代码中必须带有原来代码中的BSD协议。
+   2． 如果再发布的只是二进制类库/软件，则需要在类库/软件的文档和版权声明中包含原来代码中的BSD协议。
+   3． 不可以用开源代码的作者/机构名字和原来产品的名字做市场推广。
+   Apache协议:与BSD类似,不同在于如果再发布的产品中包含一个Notice文件，则在Notice文件中需要带有Apache Licence。你可以在Notice中增加自己的许可，但不可以表现为对Apache Licence构成更改。
+
+9、在onPause暂停请求,onResume开始请求
+1、在线程里while(flag),通过控制flag设置线程是否重启
+2、建立一个Set集合,集合中存有所有的Request请求,pause的时候clear请求,resume的时候,重新start,clear的时候remove掉Handler中的信息
+
+10、AsyncTask的坑
+一、屏幕旋转
+屏幕旋转时Activity会进行重建,AsyncTask持有的就不是之前的哪个实例,导致onPost里面的UI更新不会执行,处理方法,Activity: Activity.onRetainNonConfigurationInstance().
+Fragment:Fragment.setRetainedInstance(true)
+二、生命周期
+AsyncTask会一直执行, 直到doInBackground()方法执行完毕。然后，如果 cancel(boolean)被调用, 那么onCancelled(Result result) 方法会被执行；
+否则，执行onPostExecute(Result result) 方法。如果我们的Activity销毁之前，没有取消 AsyncTask，这有可能让我们的AsyncTask崩溃(crash)。
+因为它想要处理的view已经不存在了。所以，我们总是必须确保在销毁活动之前取消任务。总之，我们使用AsyncTask需要确保AsyncTask正确地取消。
+另外，即使我们正确地调用了cancle() 也未必能真正地取消任务。因为如果在doInBackgroud里有一个不可中断的操作，比如BitmapFactory.decodeStream()，
+那么这个操作会继续下去。
+三、内存泄漏
+如果AsyncTask被声明为Activity的非静态的内部类，那么AsyncTask会保留一个对创建了AsyncTask的Activity的引用。如果Activity已经被销毁，AsyncTask的后台线程还在执行，它将继续在内存里保留这个引用，导致Activity无法被回收，引起内存泄露
+四、在android 1.6之前的版本，AsyncTask是串行的，在1.6至2.3的版本，改成了并行的。在2.3之后的版本又做了修改，可以支持并行和串行，当想要串行执行时，
+直接执行execute()方法，如果需要并行执行，则要执行executeOnExecutor(Executor)
+
+11、Activity在状态栏下拉时不会触发onPause
+
