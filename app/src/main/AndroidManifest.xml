@@ -783,6 +783,20 @@
         <provider
             android:name="com.gyz.androidsamples.loaderandprovider.MyProvider"
             android:authorities="com.gyz.androidsamples"></provider>
+
+        <!-- ************************************* -->
+        <!--             os              -->
+        <!-- ************************************* -->
+
+        <activity
+            android:name="com.gyz.androidsamples.os.ASHandler"
+            android:label="os/Handler">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
         <!-- ************************************* -->
         <!--             Notification              -->
         <!-- ************************************* -->

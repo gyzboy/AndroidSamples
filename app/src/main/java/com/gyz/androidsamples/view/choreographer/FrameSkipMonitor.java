@@ -6,6 +6,7 @@ import android.util.Log;
 import android.view.Choreographer;
 import com.gyz.androidopensamples.timber.Timber;
 
+import java.lang.reflect.Field;
 import java.util.HashMap;
 import java.util.Iterator;
 import java.util.Map;
@@ -19,7 +20,7 @@ public class FrameSkipMonitor implements Choreographer.FrameCallback {
     private static final long ONE_FRAME_TIME = 16600000; // 1 Frame time cost
     private static final long MIN_FRAME_TIME = ONE_FRAME_TIME * 3; // 3 Frame time cost
     private static final long MAX_FRAME_TIME = 60 * ONE_FRAME_TIME;
-        // 60 Frame time cost, not record some special cases.
+    // 60 Frame time cost, not record some special cases.
 
     private static final String SKIP_EVENT_NAME = "frame_skip";
 
@@ -109,5 +110,24 @@ public class FrameSkipMonitor implements Choreographer.FrameCallback {
             time = mActivityShowTimeMap.get(mActivityName);
         }
         mActivityShowTimeMap.put(mActivityName, time + activityShowInterval);
+    }
+
+    /**
+     * 获取最后一帧的时间
+     * @return
+     */
+    private long getLastFrameNonoTimes() {
+        try {
+            Field mLastFrameTimeField = Choreographer.getInstance().getClass().getDeclaredField("mLastFrameTimeNanos");
+            if (mLastFrameTimeField != null) {
+                mLastFrameTimeField.setAccessible(true);
+                return mLastFrameTimeField.getLong(Choreographer.getInstance());
+            }
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+        return 0L;
     }
 }
