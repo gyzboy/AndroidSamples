@@ -30,7 +30,7 @@ public class StringTest {
 
         System.out.println(news.replaceAll(".","/"));//replaceAll第一个参数为正则表达式,"."表示任意字符
 
-        testSubStringOOM();
+        //testSubStringOOM();
 
     }
 

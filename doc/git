@@ -35,7 +35,7 @@
 
 10.git checkout -- file  撤销对文件的所有修改
 
-11.git fetch [remote-name] 会抓取克隆（或上一次抓取）后新推送的所有工作。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
+11.git fetch [remote-name] 会抓取克隆（或上一次抓取）后新推送的所有工作(同步本地的分支与远程分支)。 必须注意 git fetch 命令会将数据拉取到你的本地仓库 - 它并不会自动合并或修改你当前的工作。 当准备好时你必须手动将其合并入你的工作。
 git pull == git fetch + git merge
 
 12.git config --global alias.ci commit 起别名

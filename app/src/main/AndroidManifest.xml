@@ -1038,6 +1038,17 @@
         </activity>
 
         <activity
+            android:name="com.gyz.androidopensamples.utilCode.UtilTest"
+            android:label="UtilsTest"
+            android:theme="@style/AppTheme.NoActionBar"
+            >
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidOpenSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name="com.gyz.androidopensamples.hanzitopinyin.HanziToPinyinActivity"
             android:label="HanziToPinyin"
             android:theme="@style/AppTheme.NoActionBar"

@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="utf-8"?>
+<level-list xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:maxLevel="1">
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="45"
+                android:endColor="#80FF00FF"
+                android:startColor="#FFFF0000" />
+            <padding
+                android:bottom="7dp"
+                android:left="7dp"
+                android:right="7dp"
+                android:top="7dp" />
+
+            <!-- 填充颜色 会覆盖填充色-->
+            <!--<solid android:color="#F0F0F0" />-->
+
+            <!-- 显示一条实线，线的宽度为 width，颜色为 color -->
+            <!-- <stroke android:width="2dp" android:color="#E3E0D5"></stroke> -->
+
+            <!-- 显示一条虚线，破折线的宽度为 dashWith，破折线之间的空隙的宽度为 dashGap，当 dashGap=0dp 时，为实线 -->
+            <stroke
+                android:width="2dp"
+                android:color="#777777"
+                android:dashGap="2dp"
+                android:dashWidth="5dp" />
+
+            <!-- 虚线的高度 -->
+            <size android:height="10dp" />
+
+            <!-- 矩形的圆角半径 -->
+            <corners android:radius="2dp" />
+        </shape>
+    </item>
+    <item android:maxLevel="2">
+        <shape android:shape="line">
+
+            <!-- 显示一条虚线，破折线的宽度为 dashWidth，破折线之间的空隙的宽度为 dashGap，当 dashGap=0dp 时，为实线 -->
+            <stroke
+                android:width="1dp"
+                android:color="#777777"
+                android:dashGap="3dp"
+                android:dashWidth="2dp" />
+
+            <!-- 虚线的高度 -->
+            <size android:height="2dp" />
+        </shape>
+    </item>
+    <item android:maxLevel="3">
+        <shape android:shape="oval">
+
+            <!-- 填充颜色 -->
+            <solid android:color="#F0F0F0" />
+
+            <!--线的宽度，颜色灰色-->
+            <stroke
+                android:width="2dp"
+                android:color="#777777" />
+
+            <!-- 矩形的圆角半径 -->
+            <corners android:radius="5dp" />
+
+        </shape>
+    </item>
+    <item android:maxLevel="4">
+        <shape android:shape="rectangle">
+
+            <!-- topLeftRadius、topRightRadius 为半圆角矩形上半部分的圆角半径，bottomLeftRadius、bottomRightRadius 为矩形下半部分的圆角半径，值为0表示直角 -->
+            <corners
+                android:bottomLeftRadius="0dp"
+                android:bottomRightRadius="0dp"
+                android:topLeftRadius="5dp"
+                android:topRightRadius="5dp" />
+
+            <gradient
+                android:angle="270"
+                android:endColor="#d3d3d3"
+                android:startColor="#d3d3d3" />
+
+            <stroke
+                android:width="0.5dp"
+                android:color="#d9d9d9" />
+
+        </shape>
+    </item>
+</level-list>

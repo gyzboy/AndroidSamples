@@ -69,8 +69,10 @@ public class ASShapeDrawable extends Activity {
         layout.setOrientation(LinearLayout.VERTICAL);
 
         OvalShape os = new OvalShape();
-        Drawable sd = getResources().getDrawable(R.drawable.shapedrawable);
+        Drawable sd = getResources().getDrawable(R.drawable.shapegradient);
         sd.setLevel(3);
+        tv.setText("3323342");
+        tv.setCompoundDrawablesWithIntrinsicBounds(sd,null,sd,null);
         tv.setBackground(sd);
         tv.setLayerType(View.LAYER_TYPE_SOFTWARE, null);//3.0以后默认开启了硬件加速,然而虚线的绘制需要关闭之
 

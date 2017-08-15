@@ -1,0 +1,11 @@
+<component name="libraryTable">
+  <library name="tlog_adapter-1.1.0.1">
+    <CLASSES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taobao.android/tlog_adapter/1.1.0.1/c924210ec2850fa378385b9edbc739b24b7cc006/tlog_adapter-1.1.0.1.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.taobao.android/tlog_adapter/1.1.0.1/3fe213974af0533d940b782fa116a4052d8aeeb2/tlog_adapter-1.1.0.1-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>
