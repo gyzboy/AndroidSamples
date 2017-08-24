@@ -6,12 +6,15 @@ package com.gyz.androidsamples.view.spannablestring;
  */
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.SpannableStringBuilder;
 import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.text.style.URLSpan;
 import android.view.View;
 import android.webkit.WebView;
@@ -36,6 +39,8 @@ import com.gyz.androidsamples.R;
  */
 public class ASSpannableString extends Activity {
     private WebView wb_show;
+    private String used_mem = "50";
+    private String Free_mem = "120";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -207,6 +212,19 @@ public class ASSpannableString extends Activity {
         tv_show.append(spanText);
         //让URLSpan可以点击
         tv_show.setMovementMethod(new LinkMovementMethod());
+
+        String str = "已使用 " + used_mem + "，可用空间 " + Free_mem;
+        SpannableStringBuilder style = new SpannableStringBuilder(str);
+        ForegroundColorSpan redSpan = new ForegroundColorSpan(Color.parseColor("#FF0000"));
+        ForegroundColorSpan blueSpan1 = new ForegroundColorSpan(Color.parseColor("#2692FF"));
+        ForegroundColorSpan blueSpan2 = new ForegroundColorSpan(Color.parseColor("#2692FF"));
+        //同一行str中用到两个部分有相同颜色需要设置两个span对象进行设置 bluespan1、bluespan2
+
+        style.setSpan(blueSpan1, str.indexOf(used_mem),
+            str.indexOf(used_mem) + used_mem.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+            style.setSpan(redSpan, str.indexOf(Free_mem),
+                str.indexOf(Free_mem) + Free_mem.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        tv_show.setText(style);
 
     }
 

@@ -1,0 +1,172 @@
+<resources>
+    <string name="app_name">Android例子</string>
+
+
+    <!--activityLifeCycle-->
+    <string name="lifecycle_method_list">Lifecycle Method List</string>
+    <string name="activity_status">Activity Status</string>
+    <string name="dialog_text">Simple Dialog</string>
+
+    <string name="on_create">onCreate</string>
+    <string name="on_postcreate">onPostCreate</string>
+    <string name="on_postresume">onPostResume</string>
+    <string name="on_destroy">onDestroy</string>
+    <string name="on_start">onStart</string>
+    <string name="on_restart">onRestart</string>
+    <string name="on_stop">onStop</string>
+    <string name="on_pause">onPause</string>
+    <string name="on_resume">onResume</string>
+    <string name="on_restore">onRestoreInstance</string>
+    <string name="on_saveIns">onSaveInstance</string>
+
+    <string name="activity_a_label">Activity A</string>
+    <string name="activity_b_label">Activity B</string>
+    <string name="activity_c_label">Activity C</string>
+
+    <string name="btn_start_a_label">Start A</string>
+    <string name="btn_start_b_label">Start B</string>
+    <string name="btn_start_c_label">Start C</string>
+    <string name="btn_start_dialog_label">Dialog</string>
+
+    <string name="btn_finish_a_label">Finish A</string>
+    <string name="btn_finish_b_label">Finish B</string>
+    <string name="btn_finish_c_label">Finish C</string>
+    <string name="btn_finish_dialog_label">Close</string>
+
+    <string name="on_activity_created">onActivityCreated</string>
+    <string name="on_attach">onAttach</string>
+    <string name="on_create_view">onCreateView</string>
+    <string name="on_destroy_view">onDestroyView</string>
+    <string name="on_detach">onDetach</string>
+    <string name="on_view_created">onViewCreated</string>
+    <string name="activity_a">Activity A</string>
+
+    <string name="start_a">Start A</string>
+    <string name="start_b">Start B</string>
+    <string name="start_c">Start C</string>
+
+    <string name="close">Close</string>
+    <string name="dialog">Dialog</string>
+
+
+    <string name="screen_orientation">Screen Orientation</string>
+
+    <string name="text_test">你好%1$04d,%2$s,%3$2.2f</string>
+
+
+
+    <string name="contextmenu_openlink">打开</string>
+    <string name="contextmenu_openlink_newwindow">在新标签页打开</string>
+    <string name="contextmenu_openlink_newwindow_background">在新背景标签页打开</string>
+    <string name="contextmenu_savelink">保存链接</string>
+    <string name="contextmenu_sharelink">分享链接</string>
+    <string name="contextmenu_copy">复制</string>
+    <string name="contextmenu_copylink">复制URL</string>
+    <string name="contextmenu_download_image">保存图片</string>
+    <string name="contextmenu_view_image">查看图片</string>
+    <string name="contextmenu_set_wallpaper">保存为壁纸</string>
+    <string name="contextmenu_dial_dot">拨号</string>
+    <string name="contextmenu_add_contact">添加到联系人</string>
+    <string name="contextmenu_send_mail">发送邮件</string>
+    <string name="contextmenu_map">地图</string>
+    <string name="select_dot">选择文字</string>
+
+    <string name="circle">圆形</string>
+    <string name="square">正方形</string>
+    <string name="rect">长方形</string>
+    <string name="round_rect">圆角矩形</string>
+    <string name="oval">椭圆形</string>
+    <string name="triangle">三角形</string>
+    <string name="pentagon">五角形</string>
+    <string name="width_1">1像素</string>
+    <string name="width_3">3像素</string>
+    <string name="width_5">5像素</string>
+    <string name="color_red">红色</string>
+    <string name="color_green">绿色</string>
+    <string name="color_blue">蓝色</string>
+    <string name="color">画笔颜色</string>
+    <string name="width">画笔宽度</string>
+    <string name="blur">模糊效果</string>
+    <string name="emboss">浮雕效果</string>
+
+    <!--Rx-Android-->
+    <string name="test_button_simple">简单使用</string>
+    <string name="test_button_more">更多使用</string>
+    <string name="test_button_lambda">Lambda使用</string>
+    <string name="test_button_network">网络使用</string>
+    <string name="test_button_safe">线程安全</string>
+    <string name="test_button_binding">RxBinding</string>
+
+    <string name="usual_approach">常规方式</string>
+    <string name="reactive_approach">响应方式</string>
+
+    <string name="menu_add">添加</string>
+    <string name="menu_delete">删除</string>
+
+    <string name="rationale_camera">This app needs access to your camera so you can take pictures.</string>
+    <string name="rationale_location_contacts">This app needs access to your location and contacts to know where and who you are.</string>
+    <string name="rationale_sms">This app needs access to your sms to read all your great messages.</string>
+    <string name="returned_from_app_settings_to_activity">Returned from app settings to MainActivity</string>
+    <string name="camera">Camera</string>
+    <string name="location_and_contacts">Location and Contacts</string>
+    <string name="sms">SMS</string>
+
+    <string name="tip">Here is the content from clipboard, click to view it:</string>
+    <string name="init_tip">Copy some text to clipboard, a view will be displayed at the top of the screen. Click it, the content will be displayed here.</string>
+
+    <string name="action_settings">Settings</string>
+    <string name="shake_gesture">Shake Gesture</string>
+    <string name="flip_gesture">Flip Gesture</string>
+    <string name="orientation_gesture">Orientation Gesture</string>
+    <string name="proximity_gesture">Proximity Gesture</string>
+    <string name="light_gesture">Light Detection</string>
+    <string name="wave_gesture">Wave Detection</string>
+    <string name="touch_detection">Touch Detection</string>
+    <string name="pinch_scale_gesture">Pinch Scale Detection</string>
+    <string name="sound_level_detection">Sound Level Detection</string>
+    <string name="movement_detection">Movement Detection</string>
+    <string name="chop_detector">Chop Detector</string>
+    <string name="wrist_twist_detection">Wrist Twist Detection</string>
+    <string name="hit_area">[ Hit Area ]</string>
+    <string name="touch_detector">Touch Detector</string>
+    <string name="results_show_here">Results show here</string>
+    <string name="scroll_to_access_more_detectors">Scroll to access more detectors</string>
+
+    <string name="content">longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglonglong
+    longlonglonglonglonglonglonglonglonglonglonglonglonglong</string>
+</resources>

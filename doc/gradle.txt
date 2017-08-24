@@ -46,6 +46,7 @@ nTask4 -- add action by leftShift
 nTask4 -- doLast
 BUILD SUCCESSFUL
 
+##########
 System Properties:
 在运行java程序时，可以使用-D来设置Java的系统变量,gradle xxx -DmySystemProp=xxxx
 
@@ -54,6 +55,9 @@ task printSysProps << {
   println System.properties['system']
 }
 
+gradle xxx -Dsystem='xxxxx'
+
+##########
 Project Properties:
 Project Properties是Gradle专门为Project定义的属性。它的最大优点在于当运行gradle的时候，我们可以使用-P来设置它的值。比如，
 
@@ -66,6 +70,9 @@ task printProps << {
     }
 }
 
+gradle xxx -PcommandLineProjectProp='xxxxxxx'
+
+##########
 Ext Properties:
 我们还可以为Project或者Task定义Ext属性，也称动态属性，我们必须使用关键字ext(对应ExtraPropertiesExtension的实例)去定义动态属性。
 
@@ -117,7 +124,7 @@ tasks.whenTaskAdded { task ->
     }
 }
 
-
+##########
 gradle命令:
 gradle -m build 试运行,可以查看哪些task会被执行
 gradle build --profile 查看build运行时间的报告,存储在build/report/profile目录
@@ -126,5 +133,48 @@ gradle -q dependencies  --configuration testCompile 只查看testCompile的依�
 gradle dependencies  查看依赖
 gradle tasks --all 显示所有可被使用的task以及之间的依赖关系
 grdale build -x test 跳过所有test任务
+
+
+编译过程分为三个阶段：
+
+初始化阶段：创建 Project 对象，如果有多个build.gradle，也会创建多个project.
+配置阶段：在这个阶段，会执行所有的编译脚本，同时还会创建project的所有的task，为后一个阶段做准备。
+执行阶段：在这个阶段，gradle 会根据传入的参数决定如何执行这些task,真正action的执行代码就在这里.
+
+##########
+一个项目有一个setting.gradle、包括一个顶层的 build.gradle文件、每个Module 都有自己的一个build.gradle文件。
+
+setting.gradle:这个 setting 文件定义了哪些module 应该被加入到编译过程，对于单个module 的项目可以不用需要这个文件，但是对于 multimodule 的项目我们就需要这个文件，否则gradle 不知道要加载哪些项目。这个文件的代码在初始化阶段就会被执行。
+顶层的build.gradle:顶层的build.gradle文件的配置最终会被应用到所有项目中。
+它典型的配置如下：
+buildscript {
+    repositories {
+        jcenter()
+    }
+
+    dependencies {
+        classpath 'com.android.tools.build:gradle:1.2.3'
+    }
+}
+
+allprojects{
+    repositories{
+        jcenter()
+    }
+}
+buildscript：定义了 Android 编译工具的类路径。repositories中,jCenter是一个著名的 Maven 仓库。
+allprojects:中定义的属性会被应用到所有 moudle 中，但是为了保证每个项目的独立性，我们一般不会在这里面操作太多共有的东西。
+
+##########
+有四个基本的 task, Android 继承他们分别进行了自己的实现：
+
+assemble：对所有的 buildType 生成 apk 包。
+clean:移除所有的编译输出文件，比如apk
+check:执行lint检测编译。
+build:同时执行assemble和check命令
+
+比如 默认的 assmeble 会依赖 assembleDebug 和assembleRelease，如果直接执行assmeble，最后会编译debug，和release 的所有版本出来。
+如果我们只需要编译debug 版本，我们可以运行assembleDebug
+
 
 

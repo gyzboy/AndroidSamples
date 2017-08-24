@@ -225,19 +225,21 @@ public class ASTextView extends Activity implements TextView.OnEditorActionListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         final TextView textView = new TextView(this);
-//        setContentView(textView);
-//        forTestText(textView);
-        setContentView(R.layout.activity_text_2); //for testTextAttrs()
-        final EditText search = (EditText) findViewById(R.id.imeOption1);
-        search.setOnEditorActionListener(this);
-        EditText go = (EditText) findViewById(R.id.imeOption2);
-        go.setOnEditorActionListener(this);
-        TextView text  = (TextView) findViewById(R.id.text);
-        search.setEnabled(false);//点击后没反应
-        TextView passwd = (TextView) findViewById(R.id.passwd);
-        search.setText("2131312312");
-        final TextView text_pic = (TextView) findViewById(R.id.text_pic);
-        testTextAttrs(text,passwd,text_pic,search,go);
+        setContentView(textView);
+        textView.setText(Html.fromHtml("12312" + String.format("<font color=\"#FF0000\">%s", "234")));
+
+        //        forTestText(textView);
+//        setContentView(R.layout.activity_text_2); //for testTextAttrs()
+//        final EditText search = (EditText) findViewById(R.id.imeOption1);
+//        search.setOnEditorActionListener(this);
+//        EditText go = (EditText) findViewById(R.id.imeOption2);
+//        go.setOnEditorActionListener(this);
+//        TextView text  = (TextView) findViewById(R.id.text);
+//        search.setEnabled(false);//点击后没反应
+//        TextView passwd = (TextView) findViewById(R.id.passwd);
+//        search.setText("2131312312");
+//        final TextView text_pic = (TextView) findViewById(R.id.text_pic);
+//        testTextAttrs(text,passwd,text_pic,search,go);
 
     }
 

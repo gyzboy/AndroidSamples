@@ -28,6 +28,14 @@ allprojects {
             url "http://mvnrepo.alibaba-inc.com/mvn/repository"
 //            url "https://jitpack.io"
         }
+//        credentials{
+//            username ''
+//            password ''
+//        }
+
+//        flatDir{//本地环境
+//            dirs 'arrs'
+//        }
 
     }
 
