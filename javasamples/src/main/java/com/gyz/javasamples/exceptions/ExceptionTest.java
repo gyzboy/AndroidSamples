@@ -63,4 +63,6 @@ public class ExceptionTest {
             return 0;
         }
     }
+
+//    不能在 finally 块中使用 return，finally 块中的 return 返回后方法结束执行，不 会再执行 try 块中的 return 语句
 }

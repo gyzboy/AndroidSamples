@@ -191,4 +191,12 @@ public class MapTest {
 //        　　3.每一个级别都是其更低级别的子集，并且是有序的；
 //        　　4.如果关键字 key在 级别level=i中出现，则，level<=i的链表中都会包含该关键字key;
     }
+
+/*
+    集合类                 Key             Value           Super           说明
+    Hashtable           不允许为 null    不允许为 null      Dictionary      线程安全
+    ConcurrentHashMap   不允许为 null    不允许为 null      AbstractMap     分段锁技术
+    TreeMap             不允许为 null    允许为 null        AbstractMap     线程不安全
+    HashMap             允许为 null      允许为 null       AbstractMap      线程不安全
+*/
 }
