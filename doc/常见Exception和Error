@@ -1,0 +1,76 @@
+Exception:
+
+-----IOException:
+
+1、EOFException:
+在读某东西时突然达到了该文件或流的结尾，可能主要是跟没有正确使用输入输出之类的有关
+2、FileNotFoundException:
+文件为找到
+
+-----RuntimeException:
+
+1、ClassNotFoundException:
+    1 所需要的支持类库放错了地方，并没有放在类路径(CLASSPATH环境变量)里面。
+    2 使用了重复的类库，且版本不一致。导致低版本的被优先使用。
+    3 类名错了，一般是使用Class.forName的时候，手工指定了类名的情况。
+    4 没有导入纯JAVA驱动包。
+
+2、ArrayIndexOutOfBoundsException
+数组下标越界
+
+3、IllegalArgumentException
+方法的参数错误
+
+4、IllegalAccessException
+没有访问权限，当应用程序要调用一个类，但当前的方法即没有对该类的访问权限便会出现这个异常
+
+5、ClassCastException
+
+6、IllegalStateException
+状态异常,比如本地java对象和native对象不一致了
+
+7、InstantiationException
+实例化对象异常,通常由于实例化对象时一个抽象类或者接口
+
+8、SecurityException
+Android权限异常,在清单文件中未声明相应权限
+
+9、ConcurrentModificationException
+对Vector、ArrayList在迭代的时候如果同时对其进行修改就会抛出java.util.ConcurrentModificationException异常
+//如果在多线程中
+1）在使用iterator迭代的时候使用synchronized或者Lock进行同步；
+2）使用并发容器CopyOnWriteArrayList代替ArrayList和Vector。
+public class Test {
+    public static void main(String[] args)  {
+        ArrayList<Integer> list = new ArrayList<Integer>();
+        list.add(2);
+        Iterator<Integer> iterator = list.iterator();
+        while(iterator.hasNext()){
+            Integer integer = iterator.next();//next中会判断expectedModCount与modCount(记录list的修改次数)是否相等,不等的话就会抛出异常
+            if(integer==2)
+                list.remove(integer);//会抛出异常,解决方法,替换为integer.remove()
+        }
+    }
+}
+
+
+
+
+Error:
+1、NoClassDefFoundError:
+JVM或者ClassLoader加载一个类(普通方法调用或者实例化一个对象)时发现class未定义,这时源码已经被编译,但是找不到这个类,多发生在类似于
+jar的文件中,里面并不是所有所需要的类被加载进去,在编译期就会出错,可能发生于在静态域或者静态代码块初始化期间
+
+2、OutOfMemoryError:
+除了程序计数器外，其他几个运行时区域都有可能发生OutOfMemoryError（OOM）异常
+
+内存中加载的数据量过于庞大，如一次从数据库取出过多数据；
+集合类中有对对象的引用，使用完后未清空，使得JVM不能回收；
+使用的第三方软件中的BUG；
+启动参数内存值设定的过小
+
+3、StackOverFlow：线程申请的栈深度超过允许的最大深度
+代码中存在死循环或循环产生过多重复的对象实体；
+
+4、UnsatisfiedLinkedError
+NDK加载.so文件时找不到
