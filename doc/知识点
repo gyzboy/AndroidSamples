@@ -382,6 +382,51 @@ private static final ThreadLocal<DateFormat> df = new ThreadLocal<DateFormat>() 
 说明:如果是 JDK8 的应用，可以使用 Instant 代替 Date，LocalDateTime 代替 Calendar，
 DateTimeFormatter 代替 Simpledateformatter，官方给出的解释:simple beautiful strong immutable thread-safe
 
+二十八、ThreadLocal
+
+1. 建立一个类，并在其中封装一个静态的ThreadLocal变量，使其成为一个共享数据环境。
+2. 在类中实现访问静态ThreadLocal变量的静态方法（设值和取值）。
+
+1. ThreadLocalMap变量属于线程（Thread）的内部属性，不同的线程（Thread）拥有完全不同的ThreadLocalMap变量。
+2. 线程（Thread）中的ThreadLocalMap变量的值是在ThreadLocal对象进行set或者get操作时创建的。
+3. 在创建ThreadLocalMap之前，会首先检查当前线程（Thread）中的ThreadLocalMap变量是否已经存在，如果不存在则创建一个；如果已经存在，则使用当前线程（Thread）已创建的ThreadLocalMap。
+4. 使用当前线程（Thread）的ThreadLocalMap的关键在于使用当前的ThreadLocal的实例作为key进行存储。
+ThreadLocal模式，至少从两个方面完成了数据访问隔离，有了横向和纵向的两种不同的隔离方式，ThreadLocal模式就能真正地做到线程安全：
+纵向隔离 —— 线程（Thread）与线程（Thread）之间的数据访问隔离。这一点由线程（Thread）的数据结构保证。因为每个线程（Thread）在进行对象访问时，访问的都是各自线程自己的ThreadLocalMap。
+横向隔离 —— 同一个线程中，不同的ThreadLocal实例操作的对象之间的相互隔离。这一点由ThreadLocalMap在存储时，采用当前ThreadLocal的实例作为key来保证。
+
+1）ThreadLocal是一个Java类，通过对当前线程（Thread）中的局部变量的操作来解决不同线程的变量访问的冲突问题。所以，ThreadLocal提供了线程安全的共享对象机制，每个线程（Thread）都拥有其副本。
+2）Java中的synchronized是一个保留字，它依靠JVM的锁机制来实现临界区的函数或者变量在访问中的原子性。在同步机制中，通过对象的锁机制保证同一时间只有一个线程访问变量。此时，被用作“锁机制”的变量是多个线程共享的。
+同步机制采用了“以时间换空间”的方式，提供一份变量，让不同的线程排队访问。而ThreadLocal采用了“以空间换时间”的方式，为每一个线程都提供了一份变量的副本，从而实现同时访问而互不影响。
+
+二十九、classLoader与双亲委派
+启动类加载器
+扩展类加载器
+应用类加载器
+自定义加载器
+
+如果一个类加载器收到类加载的请求，它首先不会自己去尝试加载这个类，而是把这个请求委派给父类加载器完成。每个类加载器都是如此，
+只有当父加载器在自己的搜索范围内找不到指定的类时（即ClassNotFoundException），子加载器才会尝试自己去加载。
+
+双亲委派模型是保证了类的安全加载，这里同时依赖了类加载器隔离的原理：不同类加载器加载的类之间是无法直接交互的，即使是同一个类，被不同的ClassLoader加载，它们也无法感知到彼此的存在。
+这样即使有恶意的类冒充自己在核心包（例如java.lang）下，由于它无法被启动类加载器加载，也造成不了危害
+
+三十、Handler、Looper
+looper在prepare时会把当前Looper放到threadlocal中,保证了每个线程拥有自己的looper
+looper在loop的时候会先从threadlocal中获取属于自己thread的looper,如果为null的话就抛出RuntimeException异常
+msg.target不断的分发消息,msg.target只是个handler
+
+for (;;) {//死循环，会不会把主线程卡死？？？
+不会被卡死。
+涉及到Linux下的通讯机制，管道通讯的概念，管道就是内存中的一个特殊的一个文件，这个文件有两个句柄（其实就是java中的引用），
+一个是读的引用，一个是写的引用，当写的一端写入内容时，读的一端就会被唤醒，读的一端在没有读到消息时会休眠
+
+总结looper.loop（）做了什么?
+其实就是首先通过myLooper()方法获得looper对象引用，然后通过looper对象的引用获得消息队列的引用，然后通过一个死循环不断地从消息队列中获取到消息，通过msg.target获得handler，
+然后调用handler对象的disPatchmessage（）方法执行handMessage()【由我们外部重写】，这也就消息就循环执行起来了。。。
+
+Binder的clearCallingIdentity作用是清空远程调用端的uid和pid，用当前本地进程的uid和pid替代
+Binder的restoreCallingIdentity作用是恢复远程调用端的uid和pid信息，正好是`clearCallingIdentity`的反过程
 
 
 

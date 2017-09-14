@@ -23,11 +23,16 @@ public class MyClass {
         System.out.println(6.0 / 0 == 555.0 / 0);//所有正无穷大都是相等的
         System.out.println(-8 / 0.0);//得到负无穷大
 
-        try {
-            export("recordevent.txt", "recordtouse.txt");//转换16进制为10进制,为adb shell sendevent所用
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        //try {
+        //    export("recordevent.txt", "recordtouse.txt");//转换16进制为10进制,为adb shell sendevent所用
+        //} catch (IOException e) {
+        //    e.printStackTrace();
+        //}
+
+        String aa = "c";
+        String bb = "d";
+        boolean isOk = aa.equals("a") && (!"b".equals(bb));
+        System.out.println(isOk);
     }
 
     public static void export(String input, String output) throws IOException {

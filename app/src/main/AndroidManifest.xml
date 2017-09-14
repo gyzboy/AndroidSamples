@@ -798,8 +798,16 @@
         </activity>
 
         <!-- ************************************* -->
-        <!--             Notification              -->
+        <!--             Service                   -->
         <!-- ************************************* -->
+        <activity
+            android:name="com.gyz.androidsamples.service.ASServiceSample"
+            android:label="Service">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
         <activity android:name="com.gyz.androidopensamples.MainActivity">
 
@@ -1068,6 +1076,7 @@
             android:enabled="true"
             android:exported="true"
             android:process=":process"></service>
+        <service android:name=".service.ASService"/>
 
         <receiver
             android:name="com.gyz.androidopensamples.uccopypaste.BootCompletedReceiver"
