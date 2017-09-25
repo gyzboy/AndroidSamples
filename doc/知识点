@@ -428,8 +428,84 @@ for (;;) {//死循环，会不会把主线程卡死？？？
 Binder的clearCallingIdentity作用是清空远程调用端的uid和pid，用当前本地进程的uid和pid替代
 Binder的restoreCallingIdentity作用是恢复远程调用端的uid和pid信息，正好是`clearCallingIdentity`的反过程
 
+三十一、ConcurrentHashMap
+ConcurrentHashMap是一个线程安全的Hash Table，它的主要功能是提供了一组和HashTable功能相同但是线程安全的方法。ConcurrentHashMap可以做到读取数据不加锁，
+并且其内部的结构可以让其在进行写操作的时候能够将锁的粒度保持地尽量地小，不用对整个ConcurrentHashMap加锁
+
+ConcurrentHashMap定位一个元素的过程需要进行两次Hash操作，第一次Hash定位到Segment，第二次Hash定位到元素所在的链表的头部，因此，这一种结构的带来的副作用是Hash的过程要比普通的HashMap要长，
+但是带来的好处是写操作的时候可以只对元素所在的Segment进行加锁即可，不会影响到其他的Segment，这样，在最理想的情况下，ConcurrentHashMap可以最高同时支持Segment数量大小的写操作（刚好这些写操作都非常平均地分布在所有的Segment上）
+
+CurrentHashMap的初始化一共有三个参数，一个initialCapacity，表示初始的容量，一个loadFactor，表示负载参数，最后一个是concurrentLevel，代表ConcurrentHashMap内部的Segment的数量，
+ConcurrentLevel一经指定，不可改变，后续如果ConcurrentHashMap的元素数量增加导致ConrruentHashMap需要扩容，ConcurrentHashMap不会增加Segment的数量，而只会增加Segment中链表数组的容量大小
+
+ssize就是初始化segment的数量,这里Segment的数量是不大于concurrentLevel的最大的2的指数，就是说Segment的数量永远是2的指数个，这样的好处是方便采用移位操作来进行hash，加快hash的过程。
+接下来就是根据intialCapacity确定Segment的容量的大小，每一个Segment的容量大小也是2的指数，同样使为了加快hash的过程
+         while (ssize < concurrencyLevel) {
+             ++sshift;
+             ssize <<= 1;
+         }
+    segmentShift = 32 - sshift;
+    segmentMask = ssize - 1;
+
+hash值就是key的hash值
+
+get操作是不加锁的,通过segments[(hash >>> segmentShift) & segmentMask]获取是在哪个segment中,假设Segment的数量是2的n次方，根据元素的hash值的高n位就可以确定元素到底在哪一个Segment中
+count的值是voliate的,这样确保整个读写操作在多线程时是透明的
+
+getFirst获取table的位置,这个table就是这个segment中所有Entry的数量,取hash值的低n位，其中n是HashTable的长度以2为底的结果。
+
+put操作是加锁完成的,while循环是在链表中寻找和要put的元素相同key的元素，如果找到，就直接更新更新key的value，如果没有找到，生成一个新的HashEntry并且把它加到整个Segment的头部，然后再更新count的值
+
+remove操作也是确定需要删除的元素的位置，不过这里删除元素的方法不是简单地把待删除元素的前面的一个元素的next指向后面一个就完事了，我们之前已经说过HashEntry中的next是final的，一经赋值以后就不可修改，
+在定位到待删除元素的位置以后，程序就将待删除元素前面的那一些元素全部复制一遍，然后再一个一个重新接到链表上去
+
+size操作:
+for (;;) {
+    if (retries++ == RETRIES_BEFORE_LOCK) {//retries初始值-1，后者初始值2
+        for (int j = 0; j < segments.length; ++j)
+            ensureSegment(j).lock(); // force creation
+    }
+    sum = 0L;
+    size = 0;
+    overflow = false;
+    for (int j = 0; j < segments.length; ++j) {
+        Segment<K,V> seg = segmentAt(segments, j);
+        if (seg != null) {
+            sum += seg.modCount;
+            int c = seg.count;
+            if (c < 0 || (size += c) < 0)
+                overflow = true;
+        }
+    }
+    if (sum == last)
+        break;
+    last = sum;
+}
+size操作就是遍历了两次Segment，每次记录Segment的modCount值，然后将两次的modCount进行比较，如果相同，则表示期间没有发生过写入操作，就将原先遍历的结果返回，如果不相同，则把这个过程再重复做一次，
+如果再不相同，则就需要将所有的Segment都锁住，然后一个一个遍历了
+
+V定义成volatile，这样保证V在修改后对其他线程立即可见，但volatile不保证修改V操作的原子性，所以在读到V为null时，还需要加锁再读一次readValueUnderLock。
+​next定义为final，这样next在初始化后不可修改，在编译时就保证next不会被修改。这样也使得add和remove操作更加复杂，不能像上面HashMap直接修改next。
+
+三十二、HashMap AND fast-fail
+HashIterator遍历的时候会将expectedModCount = modCount,然后判断modCount跟expectedModCount是否相等，如果不相等就表示已经有其他线程修改了Map,注意到modCount声明为volatile，保证线程之间修改的可见性
+HashMap 在 new 后并不会立即分配bucket数组，而是第一次 put 时初始化，类似 ArrayList 在第一次 add 时分配空间。
+HashMap 的 bucket 数组大小一定是2的幂，如果 new 的时候指定了容量且不是2的幂，实际容量会是最接近(大于)指定容量的2的幂，比如 new HashMap<>(19)，比19大且最接近的2的幂是32，实际容量就是32。
+HashMap 在 put 的元素数量大于 Capacity * LoadFactor（默认16 * 0.75） 之后会进行扩容。
+JDK8在哈希碰撞的链表长度达到TREEIFY_THRESHOLD（默认8)后，会把该链表转变成树结构，提高了性能。
+JDK8在 resize 的时候，通过巧妙的设计，减少了 rehash 的性能消耗。
 
 
+JDK 1.8
+HashMap 的bucket数组并不会在new 的时候分配，而是在第一次 put 的时候通过 resize() 函数进行分配
+put函数的思路大致分以下几步：
 
+对key的hashCode()进行hash后计算数组下标index;
+如果当前数组table为null，进行resize()初始化；
+如果没碰撞直接放到对应下标的bucket里；
+如果碰撞了，且节点已经存在，就替换掉 value；
+如果碰撞后发现为树结构，挂载到树上。
+如果碰撞后为链表，添加到链表尾，并判断链表如果过长(大于等于TREEIFY_THRESHOLD，默认8)，就把链表转换成树结构；
+数据 put 后，如果数据量超过threshold，就要resize。
 
 
