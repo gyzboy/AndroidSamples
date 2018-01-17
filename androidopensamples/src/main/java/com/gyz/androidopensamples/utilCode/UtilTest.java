@@ -10,9 +10,6 @@ import android.support.annotation.Nullable;
 import android.widget.ScrollView;
 import android.widget.TextView;
 import com.gyz.androidopensamples.utilCode.AppUtils.AppInfo;
-import com.taobao.orange.OrangeConfig;
-import com.youku.ranger.RangerManager;
-import com.youku.ranger.configs.ConfigForOrange;
 
 /**
  * Created by gyzboy on 2017/7/18.
@@ -52,9 +49,6 @@ public class UtilTest extends Activity {
         //for (int i = 0; i < file.size(); i++) {
         //    System.out.println(file.get(i).getName());
         //}
-        OrangeConfig.getInstance().init(UtilTest.this,"23570660","6.8.2",2,1);
-        RangerManager.getInstance().init(UtilTest.this);
-        ConfigForOrange.getInstance().config(UtilTest.this);
         //tv.setText("app数量为:" + count + "\n" + sb.toString());
         //sv.addView(tv);
         setContentView(sv);

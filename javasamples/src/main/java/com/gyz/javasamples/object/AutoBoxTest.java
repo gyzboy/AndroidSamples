@@ -59,3 +59,13 @@ public class AutoBoxTest {
         System.out.println(test);
     }
 }
+
+//        基本类型	装箱类型	取值范围	是否缓存	缓存范围
+//        byte	Byte	-128 ~ 127	是	-128 ~ 127
+//        short	Short	-2^15 ~ (2^15 - 1)	是	-128 ~ 127
+//        int	Integer	-2^31 ~ (2^31 - 1)	是	-128 ~ 127
+//        long	Long	-2^63 ~ (2^63 - 1)	是	-128～127
+//        float	Float	--	否	--
+//        double	Double	--	否	--
+//        boolean	Boolean	true, false	是	true, false
+//        char	Character	\u0000 ~ \uffff

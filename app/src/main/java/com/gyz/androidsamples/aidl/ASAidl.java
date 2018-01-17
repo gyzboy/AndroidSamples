@@ -17,7 +17,7 @@ import java.util.List;
 
 public class ASAidl extends Activity {
 
-    IASAidlInterface aidlService;
+//    IASAidlInterface aidlService;
     List<Book> books;
 
     @Override
@@ -28,12 +28,12 @@ public class ASAidl extends Activity {
         ServiceConnection connection = new ServiceConnection() {
             @Override
             public void onServiceConnected(ComponentName name, IBinder service) {
-                aidlService = IASAidlInterface.Stub.asInterface(service);
-                try {
-                    books = aidlService.getBooks();
-                } catch (RemoteException e) {
-                    e.printStackTrace();
-                }
+//                aidlService = IASAidlInterface.Stub.asInterface(service);
+//                try {
+//                    books = aidlService.getBooks();
+//                } catch (RemoteException e) {
+//                    e.printStackTrace();
+//                }
             }
 
             @Override

@@ -176,5 +176,27 @@ build:同时执行assemble和check命令
 比如 默认的 assmeble 会依赖 assembleDebug 和assembleRelease，如果直接执行assmeble，最后会编译debug，和release 的所有版本出来。
 如果我们只需要编译debug 版本，我们可以运行assembleDebug
 
+//exclude项目
+configurations {
+    all*.exclude group: 'org.jboss.logging'
+}
+compile ('org.hibernate:hibernate-core:4.3.6.Final') {
+      exclude module: 'dom4j'
+      exclude group: 'org.jboss.logging'
+   }
 
-
+Transitive用于自动处理子依赖项。默认为true
+//统一指定
+configurations.all {
+   transitive = false
+}
+//强制指定某个版本
+configurations.all {
+   resolutionStrategy {
+       force 'org.hamcrest:hamcrest-core:1.3'
+   }
+}
+//exclude项目
+configurations {
+   all*.exclude group: 'org.hamcrest', module: 'hamcrest-core'
+}

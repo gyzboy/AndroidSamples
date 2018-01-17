@@ -86,43 +86,7 @@ adb shell -> run as packageName cd data/data/...访问私有文件
 
 
 五、Linux命令
-which 查看命令路径 对应$PATH中的路径  which adb
-find 命令:
-find . 列出当前目录以及子目录的所有文件
-find /home -name "*.txt" 在home下查找.txt后缀的所有文件  -iname 忽略大小写
-find . -name "*.txt" -o -name "*.pdf" 查找所有txt和pdf结尾的文件
-find /home ! -name "*.txt" 不是以txt结尾的文件
-find . -maxdepth 3 -type f 最大深度为3类型为文件
-find . -type f -atime -7 7天内被访问的文件 7天前使用 +7
-find . -type f -atime 7 正好在7天前被访问的文件
-find . -type f -name "*.txt" -delete 删除后缀名为txt的所有文件
-find `find . -name res` -name "*.xml" | grep status_bar_size 查找res文件夹下的所有包含status_bar_size字符串的xml文件
 
-locate /etc/sh 查找目录下所有以sh开头的文件
-
-tail file 显示文件的最后10行
-tail -f file 显示文件最新追加的内容
-tail +20 file 显示文件从第20行到末尾
-tail -c 10 file 显示文件最后10个字符
-
-less -N file 显示文件pageUp、pageDown翻页 Q退出
-
-//连接文件内容并输出
-cat -b file 显示file内容,忽略空白行编号
-cat m1 m2 < file 输出m1、m2到file文件中
-
-rm -i file 删除前询问用户
-rm -rf file 强制删除file以及子目录下所有文件
-
-mv ex3 new1 将ex3重命名为new1
-mv /usr/men/* . 将/usr/men下的所有文件移动到当前目录
-
-grep "xxx" file1 file2 --color=auto 在file1 file2 中输出包含xxx字符串的行并以颜色显示
-grep -v "xxx" file 输出除了包含xxx字符串的行
-grep -c "xxx" file 输出包含字符串xxx的行数
-grep -i "XXX" 忽略大小写
-
-grep "main()" . -r --include *.{php,html}在所有.php和.html文件中遍历查找包含main字符串的行
 
 
 六、Android中资源文件与资源ID之间的映射工作
@@ -508,4 +472,6 @@ put函数的思路大致分以下几步：
 如果碰撞后为链表，添加到链表尾，并判断链表如果过长(大于等于TREEIFY_THRESHOLD，默认8)，就把链表转换成树结构；
 数据 put 后，如果数据量超过threshold，就要resize。
 
-
+三十三、nanotime和currentMillTime
+nanotime是jvm虚拟机用来计算间隔时间的方法,返回的是纳秒
+currentMillTime计算的是从1972.1.1到现在的时间

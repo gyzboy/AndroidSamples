@@ -24,8 +24,69 @@ public class NioTest {
     // channel:有点像流,数据可以从channel读到Buffer中,也可以从buffer写到channel中
     // buffers:缓存区,通道中的数据总是要先读到一个buffer,或者总是要从一个buffer写入
     // selectors:Selector允许单线程处理多个 Channel。如果你的应用打开了多个连接（通道），但每个连接的流量都很低，使用Selector就会很方便。
+
+//    缓冲区：
+//    在javaNIO中负责数据的存取。底层就是数组，用于存储不同数据类型的数据。根据数据类型不同，提供了相应类型的缓冲区（Boolean除外），
+//    ByteBuffer
+//    ShortBuffer
+//    IntBUffer
+//    LongBuffer
+//    FolatBuffer
+//    DoubleBuffer
+//    上述缓冲区的管理方式基本相同，通过allocate（）获取相应的缓冲区
+
+
+//    缓冲区核心方法：
+//    put:向缓冲区中存入数据
+//    get:从缓冲区中取出数据
+//    flip：切换模式（从写模式切换到读模式）
+//    rewind:可重复读取数据，将position的值置为0
+//    clear：清空缓冲区，回到最初的状态，其中的数据并没有被清空。数据处于被遗忘的状态。
+//    hasRemaining：判断缓冲区中是否还有可以读取的数据
+//    *remaining：如果有可以读取的数据，看看还有多少个。
+
+
+//    缓冲区核心属性：
+//    capacity：缓冲区中最大存储数据的容量，一旦声明不能改变。
+//            *limit：表示缓冲区中可以操作数据的大小，limit后面的数据是不能够进行读写的。
+//    position：表示换缓冲区中正在操作数据的位置。
+//    mark:标记，可以记录position的位置，可以通过reset恢复position的状态。
+
+
+//    直接缓冲区和非直接缓冲区:
+//    非直接缓冲区：通过allocate（）方法获取缓冲区，将缓冲区建立在jvm的内存中。直接缓冲区只有ByteBuffer支持
+//    直接缓冲区：通过allocateDirect（）分配直接缓冲区，将换缓冲区建立在操作系统的物理内存中。
     public static void main(String[] args) {
 
+//        char[] buffer = {'1', '2', '3', '4','7',
+//                '5', '6', '7', '8','8',
+//                '9', 'a', 'b', 'c','8',
+//                'd', 'e', 'f', 'g','1',
+//                '9', 'a', 'b', 'c','8'};
+//
+//        int width = 5;
+//        int height = 5;
+//
+//        for (int i = 0; i < height /2; i++) {
+//            for (int j = 0; j < width; j++) {
+//                char c = buffer[j + i * width];
+//                buffer[j + i * width] = buffer[j + width * (height - 1 - i)];
+//                buffer[j + width * (height - 1 - i)] = c;
+//            }
+//        }
+//
+//        for (int i = 0; i < buffer.length; i++) {
+//            System.out.println(buffer[i]);
+//        }
+
+        for (int i = 0; i < 5; i++) {
+            System.out.println(i);
+        }
+
+        int i = 1;
+        for (i = 2 ; i < 10 ; i++){
+            System.out.println(i);
+        }
     }
 
     private static void testFileChannel() throws IOException {
@@ -179,7 +240,7 @@ public class NioTest {
 
         buf.flip();
 
-        while(buf.hasRemaining()) {
+        while (buf.hasRemaining()) {
             sinkChannel.write(buf);
         }
 

@@ -81,6 +81,8 @@ public class OperatorTest {
 
         System.out.println(hashcode);
 
+        System.out.println(100 << 2);
+
     }
 }
 

@@ -14,8 +14,21 @@ import java.text.SimpleDateFormat;
 public class FileTest {
 
     public static void main(String[] args) {
-        testFileStaticFields();
-        testFileDirAPIS();
+//        testFileStaticFields();
+//        testFileDirAPIS();
+        test();
+    }
+
+    private static void test() {
+        File file = new File("dirr");
+        file.mkdirs();
+        File file2 = new File("dirr","testt.txt");
+        try {
+            file2.createNewFile();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
     }
 
     public static void testFileStaticFields() {

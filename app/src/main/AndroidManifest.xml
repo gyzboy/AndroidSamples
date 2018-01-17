@@ -9,7 +9,6 @@
       该属性规定了我们可以在程序中捕获到的事件类型，多个事件类型用|分隔
       配置后只调用activity中的onConfiguration方法
  -->
-    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE" />
     <uses-permission android:name="android.permission.GET_TASKS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
