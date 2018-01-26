@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.SystemClock;
 import android.view.View;
@@ -57,6 +58,11 @@ import java.util.UUID;
 // 如果是采用Activity的方式来实现闹钟提示的话，PendingIntent对象的获取就应该采用 PendingIntent.getActivity(Context c,int i,Intent intent,int j)方法。
 // 如果这三种方法错用了的话，虽然不会报错，但是看不到闹钟提示效果。
 
+
+//    SDK API < 19   直接使用setRepeating
+//    SDK API >= 19 && SDK API < 23   默认1分钟,使用setExtrack
+//    SDK API >= 23   解开Doze模式
+
 public class ASAlarmManager extends Activity {
     private Calendar calendar;
     private AlarmManager am;
@@ -65,7 +71,6 @@ public class ASAlarmManager extends Activity {
     Intent intent;
     TextView tv;
     StringBuilder sb = new StringBuilder();
-    int i = 0;
     boolean isRegistered = false;
 
     @Override
@@ -78,8 +83,7 @@ public class ASAlarmManager extends Activity {
         button.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                registerReceiver(TimeReceiver, filter);
-                isRegistered = true;
+
             }
         });
 //        calendar = Calendar.getInstance();
@@ -92,22 +96,28 @@ public class ASAlarmManager extends Activity {
 //        calendar.set(Calendar.MILLISECOND, 0);
         filter = new IntentFilter();
         filter.addAction("com.gyz.androidsamples.alarm");
+        registerReceiver(TimeReceiver, filter);
 
         intent = new Intent();
         intent.setAction("com.gyz.androidsamples.alarm");
-        intent.putExtra("time", i);
+        isRegistered = true;
         pendingIntent = PendingIntent.getBroadcast(ASAlarmManager.this, UUID.randomUUID().hashCode(),
-                intent, PendingIntent.FLAG_UPDATE_CURRENT);
+                intent, 0);
         // 获取系统进程
         am = (AlarmManager) getSystemService(ALARM_SERVICE);
         //第一个参数设置模式
         //第二个参数设置起始时间
         //第三个参数设置周期
-        am.setRepeating(AlarmManager.ELAPSED_REALTIME, 0,
-                3 * 1000, pendingIntent);
+
 //        String tmps = "设置闹钟时间为：" + format(hourOfDay) + ":" + format(minute);
 //        Toast.makeText(this,tmps,Toast.LENGTH_SHORT).show();
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            am.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), pendingIntent);
+        } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+            am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), pendingIntent);
+        } else {
+            am.setRepeating(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime(), 300, pendingIntent);
+        }
 
     }
 
@@ -123,11 +133,16 @@ public class ASAlarmManager extends Activity {
     private BroadcastReceiver TimeReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+            // 重复定时任务
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                am.setExactAndAllowWhileIdle(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 300, pendingIntent);
+            } else if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT) {
+                am.setExact(AlarmManager.ELAPSED_REALTIME_WAKEUP, SystemClock.elapsedRealtime() + 300, pendingIntent);
+            }
             String action = intent.getAction();
             if (action.equals("com.gyz.androidsamples.alarm")) {
-                sb.append("到时间了:" + intent.getIntExtra("time",-1) + "\n");
+                sb.append("到时间了!当前时间为:"+System.currentTimeMillis()+"\n");
                 tv.setText(sb.toString());
-                i++;
             }
         }
     };

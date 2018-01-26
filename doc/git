@@ -57,3 +57,6 @@ git merge client
 16.git stash 储藏现在的改变
    git stash list 查看储藏的内容
    git stash apply 还原到当前的储藏
+
+17.git graph
+最左侧的线代表着当前所在分支,每个点都是一次提交
