@@ -5,6 +5,7 @@ import java.io.IOException;
 import java.net.URI;
 import java.util.Calendar;
 import java.text.SimpleDateFormat;
+import java.util.Stack;
 
 /**
  * Created by guoyizhe on 16/9/5.
@@ -15,8 +16,8 @@ public class FileTest {
 
     public static void main(String[] args) {
 //        testFileStaticFields();
-//        testFileDirAPIS();
-        test();
+        testFileDirAPIS();
+//        test();
     }
 
     private static void test() {
@@ -28,7 +29,6 @@ public class FileTest {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
     }
 
     public static void testFileStaticFields() {

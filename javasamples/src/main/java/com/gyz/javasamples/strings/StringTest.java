@@ -32,6 +32,11 @@ public class StringTest {
 
         //testSubStringOOM();
 
+
+
+        String a = "time_2029302.png";
+        System.out.println(a.substring(a.indexOf("time_")+5,a.indexOf(".png")));
+
     }
 
     static void f(String s){
