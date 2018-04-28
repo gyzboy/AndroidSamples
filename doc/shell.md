@@ -13,6 +13,9 @@ Shell脚本编程30分钟入门
 		touch test_$i.txt
 	done
 
+
+source 与 ./xxx.sh 区别,source会使用当前shell执行命令,./xxx.sh需要在path中定义,会需要权限
+
 ### 示例解释
 
 - 第1行：指定脚本解释器，这里是用/bin/sh做解释器的
