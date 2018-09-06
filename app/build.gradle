@@ -71,15 +71,37 @@ configurations {
 dependencies {
     compile fileTree(dir: 'libs', include: ['*.jar'])
     testCompile 'junit:junit:4.12'
+
     compile 'com.android.support:appcompat-v7:24.2.1'
     compile 'com.android.support:support-v4:24.2.1'
     compile 'com.jcodecraeer:xrecyclerview:1.2.7'
-    compile 'com.android.support:support-annotations:24.2.1'
     compile project(':androidopensamples')
     compile project(':base')
 
     provided 'org.jetbrains:annotations:13.0'
     lintChecks project(path: ':timber-lint', configuration: 'lintChecks')
+
+
+    //众多框架API的兼容性包装器
+    compile 'com.android.support:support-compat:24.2.1'
+    //大量实用程序类
+    compile 'com.android.support:support-core-utils:24.2.1'
+    //各种UI相关组件
+    compile 'com.android.support:support-core-ui:24.2.1'
+    //部分移植媒体框架
+    compile 'com.android.support:support-media-compat:24.2.1'
+
+    compile 'com.android.support:support-fragment:24.2.1'
+
+    compile 'com.android.support:palette-v7:24.2.1'
+
+    //设计支持库
+    compile 'com.android.support:design:24.2.1'
+    //自定义标签页支持库
+    compile 'com.android.support:customtabs:24.2.1'
+
+    compile 'com.android.support:percent:24.2.1'
+
 }
 
 task copyLintJar(type: Copy) {

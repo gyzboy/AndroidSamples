@@ -21,6 +21,9 @@ public class MyClass {
         float b = Float.NEGATIVE_INFINITY;
         System.out.println(a == b);//负无穷大是相等的
         System.out.println(0.0 / 0.0);//出现非数
+//        System.out.println(String.format("%d",0/0));
+        System.out.println(String.format("%f",0/0.0f));
+        System.out.println(0 == 0.0f);
         System.out.println(0.0 / 0.0 == Float.NaN);//两个非数之间不相等
         System.out.println(6.0 / 0 == 555.0 / 0);//所有正无穷大都是相等的
         System.out.println(-8 / 0.0);//得到负无穷大
@@ -120,6 +123,8 @@ public class MyClass {
         }else{
             System.out.println("is not ok");
         }
+
+
     }
 
     static void heapInit(int[] a, int parent, int length){

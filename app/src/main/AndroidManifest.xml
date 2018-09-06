@@ -440,6 +440,15 @@
         </activity>
 
         <activity
+            android:name=".media.ASTss"
+            android:label="media/TTS">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
             android:name=".view.ASSurfaceView"
             android:label="views/SurfaceView">
             <intent-filter>
@@ -613,6 +622,22 @@
         <activity
             android:name=".drawable.ASBitmapDrawable"
             android:label="drawable/BitmapDrawable">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".drawable.ASTint"
+            android:label="drawable/Tint">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".drawable.ASColorList"
+            android:label="drawable/ColorList">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidSample" />

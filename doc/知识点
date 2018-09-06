@@ -475,3 +475,10 @@ put函数的思路大致分以下几步：
 三十三、nanotime和currentMillTime
 nanotime是jvm虚拟机用来计算间隔时间的方法,返回的是纳秒
 currentMillTime计算的是从1972.1.1到现在的时间
+
+三十四、ndk-build命令
+ndk-build clean 移除以前生成的任意二进制文件
+ndk-build -B 强制执行完全的重新构建
+ndk-build -C <project> 构建位于<project>路径下的原生代码,不用cd进去
+
+三十五、

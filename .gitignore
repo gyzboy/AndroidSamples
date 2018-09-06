@@ -13,3 +13,7 @@
 .externalNativeBuild
 .idea
 /release
+*build*
+app/*.iml
+plugin/build/*
+gradlew

@@ -2,9 +2,13 @@ package com.gyz.androidsamples.drawable;
 
 import android.app.Activity;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.graphics.Color;
 import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawable;
+import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
 
 import com.gyz.androidsamples.R;
@@ -38,9 +42,11 @@ public class ASBitmapDrawable extends Activity {
         int[] colors = new int[]{Color.BLUE,Color.BLUE,Color.BLUE,Color.BLUE};//颜色数组长度必须大于width * height
         ImageView iv = new ImageView(this);
 //        iv.setImageResource(R.drawable.bitmap);
+        Drawable drawable = RoundedBitmapDrawableFactory.create(getResources(), BitmapFactory.decodeResource(getResources(),R.mipmap.ic_launcher));
         iv.setImageDrawable(new BitmapDrawable(
                 getApplicationContext().getResources(),
                 Bitmap.createBitmap(colors,1, 1, Bitmap.Config.ARGB_8888)));//可以构造个1像素的透明activity,(*^__^*) 嘻嘻……
+        iv.setImageDrawable(drawable);
         setContentView(iv);
 
     }

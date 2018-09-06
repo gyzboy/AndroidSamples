@@ -22,4 +22,7 @@ public class ASDrawable {
 
     //大部分控件的setDrawable或者类似设置drawable的方法，内部都会调用各种drawable的onDraw方法，所以具体的绘制实现都在各种
     //drawable的onDraw方法中(这是在练习scaledrawable时发现的)
+
+    //Android 系统为了减少内存消耗，将应用中所用到的相同 drawable （可以理解为相同资源）共享同一个 state，并称之为 constant state。这里用图表演示一下，
+    // 两个 View 加载同一个图片资源，创建两个 drawables 对象，但是共享同一个 constant state
 }

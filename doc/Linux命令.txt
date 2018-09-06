@@ -47,8 +47,8 @@ chgrp -v bin log2012.log 将log2012.log的群组改为bin
 ifconfig eth0 up
 ifconfig eth0 down
 
-//下载192.168.120.204中的目录mongodb文件夹到soft目录
-scp -r root@192.168.120.204:/opt/soft/mongodb /opt/soft/
+//下载192.168.120.204:8030中的目录mongodb文件夹到soft目录
+scp -rP 8030 root@192.168.120.204:/opt/soft/mongodb /opt/soft/
 //上传mongodb到远端
 scp -r /opt/soft/mongodb root@192.168.120.204:/opt/soft/scptest
 
