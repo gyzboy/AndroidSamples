@@ -1,3 +1,8 @@
+<!--
+如果您是手动创建此文件，请将其置于 Android 项目的根目录
+Lint 为每个 <issue> 定义唯一的 id 属性值。
+要在 Android 项目中特别禁止 Lint 检查某个 Java 类或方法，请向此 Java 代码添加 @SuppressLint 注解。
+-->
 <?xml version="1.0" encoding="UTF-8"?>
 <lint>
     <!-- Disable the given check in this project -->

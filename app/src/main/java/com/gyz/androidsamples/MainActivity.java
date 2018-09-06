@@ -164,7 +164,7 @@ public class MainActivity extends ListActivity {
                 }
             }).start();
             /**使用lambda表达式写法**/
-            new Thread(() -> Log.d(TAG, "this is a lambda Thread")).start();
+//            new Thread(() -> Log.d(TAG, "this is a lambda Thread")).start();
         }
 
         /**
@@ -182,7 +182,7 @@ public class MainActivity extends ListActivity {
                 }
             });
             /**使用lambda表达式写法**/
-            findViewById(R.id.button).setOnClickListener(v -> Log.d(TAG, "this is a lambda onClick"));
+//            findViewById(R.id.button).setOnClickListener(v -> Log.d(TAG, "this is a lambda onClick"));
         }
 
         /**
@@ -201,10 +201,10 @@ public class MainActivity extends ListActivity {
                 }
             });
             /**使用lambda表达式写法**/
-            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
-                Log.d(TAG, "this is a lambda onCheckedChanged");
-                Log.d(TAG, "this is a lambda onCheckedChanged_isChecked=" + isChecked);
-            });
+//            checkBox.setOnCheckedChangeListener((buttonView, isChecked) -> {
+//                Log.d(TAG, "this is a lambda onCheckedChanged");
+//                Log.d(TAG, "this is a lambda onCheckedChanged_isChecked=" + isChecked);
+//            });
         }
     }
 

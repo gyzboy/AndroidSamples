@@ -133,6 +133,12 @@ gradle -q dependencies  --configuration testCompile 只查看testCompile的依�
 gradle dependencies  查看依赖
 gradle tasks --all 显示所有可被使用的task以及之间的依赖关系
 grdale build -x test 跳过所有test任务
+gradle --profile --recompile-scripts --offline --rerun-tasks assembleXXXDebug 强制 Gradle 重新运行所有任务并忽略任何任务优化
+Gradle 会尝试通过不重复执行输入未发生变化的任务来节省时间（这些任务在报告的 Task Execution 标签中标记为 UP-TO-DATE，如图 3 中所示），您可以确定哪些任务在不必要的时间执行了工作。例如，如果 :app:processDevUniversalDebugManifest 未标记为 UP-TO-DATE，
+则可能说明您的构建配置会随着每个构建动态更新 manifest。不过，有些任务（例如 :app:checkDevDebugManifest）需要在每个构建期间始终运行。
+
+gradle cleanBuildCache 清除构建缓存
+
 
 
 编译过程分为三个阶段：

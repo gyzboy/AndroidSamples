@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<!--用途:
+    1、库中的所有资源在默认情况下均处于公开状态。要将所有资源隐式设为私有，您必须至少将一个特定的属性定义为公开
+    2、固定资源的id,防止在aapt时覆盖之前的id
+-->
+
+<resources>
+    <public name="screen_orientation" type="string"/>
+    <public type="string" name="string3" id="0x7f040001" />
+</resources>

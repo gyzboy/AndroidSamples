@@ -481,4 +481,51 @@ ndk-build clean 移除以前生成的任意二进制文件
 ndk-build -B 强制执行完全的重新构建
 ndk-build -C <project> 构建位于<project>路径下的原生代码,不用cd进去
 
-三十五、
+三十五、模块开发注意事项
+1、资源合并冲突
+
+构建工具会将库模块中的资源与相关应用模块的资源合并。如果在两个模块中均定义了给定资源 ID，将使用应用中的资源。
+如果多个 AAR 库之间发生冲突，将使用依赖项列表首先列出（位于 dependencies 块顶部）的库中的资源。
+为了避免常用资源 ID 的资源冲突，请使用在模块（或在所有项目模块）中具有唯一性的前缀或其他一致的命名方案。
+
+2、库模块可以包含 JAR 库
+您可以开发一个自身包含 JAR 库的库模块；不过，您需要手动编辑相关应用模块的构建路径，并添加 JAR 文件的路径。
+
+3、库模块可以依赖外部 JAR 库
+您可以开发一个依赖于外部库（例如 Maps 外部库）的库模块。在这种情况下，相关应用必须针对包含外部库（例如 Google API 插件）的目标构建。另外也要注意，库模块和相关应用都必须在其清单文件的 <uses- library> 元素中声明外部库。
+
+4、库模块不得包含原始资源
+工具不支持在库模块中使用原始资源文件（保存在 assets/ 目录中）。应用使用的任何原始资源都必须存储在应用模块自身的 assets/ 目录中。
+
+5、应用模块的 minSdkVersion 必须大于或等于库定义的版本
+库作为相关应用模块的一部分编译，因此，库模块中使用的 API 必须与应用模块支持的平台版本兼容。
+
+6、每个库模块都会创建自己的 R 类
+在您构建相关应用模块时，库模块将先编译到 AAR 文件中，然后再添加到应用模块中。因此，每个库都有其自己的 R 类，并根据库的软件包名称命名。从主模块和库模块生成的 R 类会在所需的所有软件包（包括主模块的软件包和库的软件包）中创建。
+
+7、库模块可能包含自己的 ProGuard 配置文件
+
+通过将 ProGuard 配置文件添加到包含其 ProGuard 指令的库，您可以在自己的库上启用代码压缩。构建工具会为库模块将此文件嵌入到生成的 AAR 文件中。在您将库添加到应用模块时，库的 ProGuard 文件将附加至应用模块的 ProGuard 配置文件 (proguard.txt)。
+通过将 ProGuard 文件嵌入到您的库模块中，您可以确保依赖于此库的应用模块不必手动更新其 ProGuard 文件即可使用库。当 ProGuard 在 Android 应用模块上运行时，它会同时使用来自应用模块和库的指令，因此您不应当只在库上运行 ProGuard。
+要指定您的库的配置文件名称，请将其添加到 consumerProguardFiles 方法中，此方法位于您的库的 build.gradle 文件的 defaultConfig 块内。例如，以下片段会将 lib-proguard-rules.txt 设置为库的 ProGuard 配置文件：
+android {
+    defaultConfig {
+        consumerProguardFiles 'lib-proguard-rules.txt'
+    }
+    ...
+}
+默认情况下，应用模块会使用库的发布构建，即使在使用应用模块的调试构建类型时亦是如此。要使用库中不同的构建类型，您必须将依赖项添加到应用的 build.gradle 文件的 dependencies 块中，并在库的 build.gradle 文件中将 publishNonDefault 设置为 true。例如，您应用的 build.gradle 文件中的以下代码段会使应用在应用模块于调试模式下构建时使用库的调试构建类型，以及在应用模块于发布模式下构建时使用库的发布构建类型：
+
+dependencies {
+    debugCompile project(path: ':library', configuration: 'debug')
+    releaseCompile project(path: ':library', configuration: 'release')
+}
+您还必须在自己库的 build.gradle 文件的 android 块内添加以下代码行，以便将此库的非发布配置展示给使用它的项目：
+
+android {
+    ...
+    publishNonDefault true
+}
+不过请注意，设置 publishNonDefault 会增加构建时间。
+
+三十六、

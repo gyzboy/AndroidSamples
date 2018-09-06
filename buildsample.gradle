@@ -5,7 +5,7 @@ android {//android项目的DSL
     buildToolsVersion "23.0.2"//required，编译工具版本
 
     defaultConfig {//默认设置，类似于全局变量，所有的flavors都会共享
-        applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来
+        applicationId "com.gyz.androidsamples"//应用ID，用以代替packageName，与java区分开来,尽管清单 package 和 Gradle applicationId 可以具有不同的名称，但构建工具会在构建结束时将应用 ID 复制到 APK 的最终清单文件中。所以，如果您在构建后检查 AndroidManifest.xml 文件，package 属性发生更改就不足为奇。
         minSdkVersion 17  //指明APP能够安装的系统API的最低版本
         targetSdkVersion 23  //指明APP最适合运行的系统API版本
         versionCode 1
@@ -67,6 +67,7 @@ android {//android项目的DSL
         }
         debug {
             applicationIdSuffix ".debug"
+            ext.enableCrashlytics = false
         }
 
         jniDebug {
@@ -120,7 +121,7 @@ android {//android项目的DSL
     }
     aaptOptions {//aapt设置，会影响所有使用aapt的项目
 //        additionalParameters //传到aapt中的额外元素，方法数过多时调用
-        cruncherEnabled true //是否检测png合法性
+        cruncherEnabled true //是否检测png合法性,停用可加快构建速度
         failOnMissingConfigEntry false //当aapt检测配置中实体缺失时强制返回error
         ignoreAssets false //忽略对assets文件的描述
         noCompress 'foo', 'bar'
@@ -282,6 +283,18 @@ dependencies {
     testCompile 'junit:junit:4.12'
     compile 'com.android.support:appcompat-v7:23.4.0'
 //    provided compile 'xxx.jar'//指定 Gradle 不与应用的 APK 一起打包的编译时依赖项。如果运行时无需此依赖项，这将有助于缩减 APK 的大小。您可以将此配置与 JAR 二进制依赖项一起使用，而不能与其他库模块依赖项或 AAR 二进制依赖项一起使用。
+
+    //implementation相对于compile优秀之处在于在编译时,这个依赖只对当前module可见,避免了构建系统的recompile
+    implementation project(":lib")
+    implementation fileTree(dir:'libs',include:['*.jar'])
+    implementation files('libs/foo.jar',"libs/bar.jar")
+    implementation 'com.example.xxx'
+    implementation group:'com.example.xxx',name:'magic',version:'12.3'
+
+    //与implementation相反,api会穿透传递当前lib,所以在编译期所有依赖此lib的module都会进行recompile
+    api project(":libs")
+
+
 }
 
 task updateIcon << {
