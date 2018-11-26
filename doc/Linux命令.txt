@@ -33,6 +33,7 @@ grep "xxx" file1 file2 --color=auto 在file1 file2 中输出包含xxx字符串�
 grep -v "xxx" file 输出除了包含xxx字符串的行
 grep -c "xxx" file 输出包含字符串xxx的行数
 grep -i "XXX" 忽略大小写
+grep -nr "*.bmp" * 在当前路径搜索所有的bmp文件
 
 grep "main()" . -r --include *.{php,html}在所有.php和.html文件中遍历查找包含main字符串的行
 

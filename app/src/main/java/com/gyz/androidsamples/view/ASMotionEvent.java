@@ -8,6 +8,7 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
+
 import com.gyz.androidsamples.R;
 
 /**
@@ -57,7 +58,6 @@ public class ASMotionEvent extends Activity {
         public boolean onTouchEvent(MotionEvent event) {
 
 
-
             switch (event.getAction()) {
                 case MotionEvent.ACTION_DOWN:
                     //第一个 手指 初次接触到屏幕 时触发。
@@ -76,11 +76,11 @@ public class ASMotionEvent extends Activity {
                     // getHistorySize() )
                     //getHistoricalY (int pin, int pos)	获取第pin个手指的第pos个历史事件y坐标
 
-                    printSamples(event,sb);
+                    printSamples(event, sb);
 
                     if (event.getX() - x > 0) {
                         //向左滑
-                    }else if (event.getX() - x < 0){
+                    } else if (event.getX() - x < 0) {
                         //向右滑
                     }
 
@@ -103,6 +103,12 @@ public class ASMotionEvent extends Activity {
                     // 所以它先传递给对应 ItemView，询问 ItemView 是否需要这个事件，然而接下来又传递过来了一个 ACTION_MOVE 事件，
                     // 且移动的方向和 RecyclerView 的可滑动方向一致，所以 RecyclerView 判断这个事件是滚动事件，于是要收回事件处理权，
                     // 这时候对应的 ItemView 会收到一个 ACTION_CANCEL ，并且不会再收到后续事件。
+
+                    //父视图onInterceptTouchEvent (MotionEvent ev)先返回false，后返回true的情况下，子视图收不到后续的事件，而只是在父视图由返回false改成返回true（拦截）的时候收到ACTION_CANCEL事件
+                    break;
+                case MotionEvent.ACTION_OUTSIDE:
+//当使用WindowManager动态的显示一个Modal视图时，可以在显示视图时，指定布局参数的flags为FLAG_WATCH_OUTSIDE_TOUCH，
+// 这样当点击事件发生在这个Modal视图之外时，Modal视图就可以接收到ACTION_OUTSIDE事件
                     break;
                 default:
 
@@ -118,13 +124,13 @@ public class ASMotionEvent extends Activity {
                 sb.append("At time :" + ev.getHistoricalEventTime(h) + "\n");
                 for (int p = 0; p < pointerCount; p++) {
                     sb.append("  pointer : " +
-                        ev.getPointerId(p) + ev.getHistoricalX(p, h) + ev.getHistoricalY(p, h) + "\n");
+                            ev.getPointerId(p) + ev.getHistoricalX(p, h) + ev.getHistoricalY(p, h) + "\n");
                 }
             }
             sb.append("At time :" + ev.getEventTime() + "\n");
             for (int p = 0; p < pointerCount; p++) {
                 sb.append("  pointer:" +
-                    ev.getPointerId(p) + ev.getX(p) + ev.getY(p) + "\n");
+                        ev.getPointerId(p) + ev.getX(p) + ev.getY(p) + "\n");
             }
         }
     }

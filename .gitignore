@@ -17,6 +17,6 @@
 app/*.iml
 plugin/build/*
 gradlew
-idea/*
+.idea/*
 plugin/*
 app/*.iml

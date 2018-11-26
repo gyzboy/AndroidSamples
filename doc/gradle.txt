@@ -126,6 +126,7 @@ tasks.whenTaskAdded { task ->
 
 ##########
 gradle命令:
+gradle wrapper --gradle-version xxx 生成wrapper文件，免去使用者安装gradle环境
 gradle -m build 试运行,可以查看哪些task会被执行
 gradle build --profile 查看build运行时间的报告,存储在build/report/profile目录
 gradle dependencyInsight --dependency junit查看项目中有没有引入junit,哪些阶段引入的
@@ -138,6 +139,11 @@ Gradle 会尝试通过不重复执行输入未发生变化的任务来节省时�
 则可能说明您的构建配置会随着每个构建动态更新 manifest。不过，有些任务（例如 :app:checkDevDebugManifest）需要在每个构建期间始终运行。
 
 gradle cleanBuildCache 清除构建缓存
+gradle build --dry-run 查看所有编译任务而不执行
+gradle clean build --refresh-dependencies 刷新gradle依赖缓存
+gradle 直接执行gradle会执行默认defaultTasks "clean","build"
+gradle clean build --continue 任务失败后继续执行
+
 
 
 
