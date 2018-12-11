@@ -36,6 +36,7 @@
 一、屏幕旋转
 屏幕旋转时Activity会进行重建,AsyncTask持有的就不是之前的哪个实例,导致onPost里面的UI更新不会执行,处理方法,Activity: Activity.onRetainNonConfigurationInstance().
 Fragment:Fragment.setRetainedInstance(true)
+activity在重建时调用默认的onSaveInstanceState会重新绘制Fragment,所以就会出现有两层UI的情况,解决方法可以粗暴的将activity中的onSaveInstanceState中的super.onSaveInstanceState注释掉
 二、生命周期
 AsyncTask会一直执行, 直到doInBackground()方法执行完毕。然后，如果 cancel(boolean)被调用, 那么onCancelled(Result result) 方法会被执行；
 否则，执行onPostExecute(Result result) 方法。如果我们的Activity销毁之前，没有取消 AsyncTask，这有可能让我们的AsyncTask崩溃(crash)。
