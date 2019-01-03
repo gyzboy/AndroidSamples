@@ -138,7 +138,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
         // Recycler的作用就是重用ItemView。在填充ItemView的时候，ItemView是从它获取的；滑出屏幕的ItemView是由它回收的。
         // 对于不同状态的ItemView存储在了不同的集合中，比如有scrapped、cached、exCached、recycled
 
-//RecyclerView.Recycler.getViewForPosition():
+//RecyclerView.Recycler.getViewForPosition()返回ViewHolder对象:
 // 根据列表位置获取ItemView，先后从scrapped、cached、exCached、recycled集合中查找相应的ItemView，如果没有找到，就创建（Adapter.createViewHolder()），
 // 最后与数据集绑定。其中scrapped、cached和exCached集合定义在RecyclerView.Recycler中，分别表示将要在RecyclerView中删除的ItemView、一级缓存ItemView和二级缓存ItemView，
 // cached集合的大小默认为２，exCached是需要我们通过RecyclerView.ViewCacheExtension自己实现的，默认没有；
@@ -263,6 +263,7 @@ public class ASRecyclerView extends Activity implements MyAdapter.onItemClickLsn
 
 
     //自定义二级缓存
+    //适合位置固定、样式、type不改变的item,例如广告
     public class CustomViewCacheExtension extends RecyclerView.ViewCacheExtension {
 
 
@@ -415,6 +416,82 @@ class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder> {
 //            mWebView = (WebView) view.findViewById(R.id.rv_wb);
         }
     }
+
+//    RecyclerView在Recyler里面实现ViewHolder的缓存，Recycler里面的实现缓存的主要包含以下5个对象：
+//
+//    ArrayList mAttachedScrap：
+//       未与RecyclerView分离的ViewHolder列表,如果仍依赖于 RecyclerView （比如已经滑动出可视范围，但还没有被移除掉），
+//       但已经被标记移除的 ItemView 集合会被添加到 mAttachedScrap 中,按照id和position来查找ViewHolder
+//
+//
+//    ArrayList mChangedScrap：表示数据已经改变的viewHolder列表,存储 notifXXX 方法时需要改变的 ViewHolder,匹配机制按照position和id进行匹配
+//    ArrayList mCachedViews：缓存ViewHolder，主要用于解决RecyclerView滑动抖动时的情况，还有用于保存Prefetch的ViewHoder
+//
+//    最大的数量为：mViewCacheMax = mRequestedCacheMax + extraCache（extraCache是由prefetch的时候计算出来的）
+//
+//
+//    ViewCacheExtension mViewCacheExtension：开发者可自定义的一层缓存，是虚拟类ViewCacheExtension的一个实例，开发者可实现方法getViewForPositionAndType(Recycler recycler, int position, int type)来实现自己的缓存。
+//
+//    适用场景：固定位置、样式固定(广告)
+//    位置固定
+//    内容不变
+//    数量有限
+//
+//
+//    mRecyclerPool ViewHolder缓存池，在有限的mCachedViews中如果存不下ViewHolder时，就会把ViewHolder存入RecyclerViewPool中。
+//
+//    按照Type来查找ViewHolder
+//            每个Type默认最多缓存5个
+
+//    RecyclerView在设计的时候讲上述5个缓存对象分为了3级。每次创建ViewHolder的时候，会按照优先级依次查询缓存创建ViewHolder。每次讲ViewHolder缓存到Recycler缓存的时候，也会按照优先级依次缓存进去。三级缓存分别是：
+//
+//    一级缓存：返回布局和内容都都有效的ViewHolder
+//
+//            按照position或者id进行匹配
+//            命中一级缓存无需onCreateViewHolder和onBindViewHolder
+//            mAttachScrap在adapter.notifyXxx的时候用到
+//            mChanedScarp在每次View绘制的时候用到
+//            mCachedView：用来解决滑动抖动的情况，默认值为2
+//
+//
+//    二级缓存：返回View
+//
+//            按照position和type进行匹配
+//            直接返回View
+//            需要自己继承ViewCacheExtension实现
+//            位置固定，内容不发生改变的情况，比如说Header如果内容固定，就可以使用
+//
+//
+//    三级缓存：返回布局有效，内容无效的ViewHolder
+//
+//            按照type进行匹配，每个type缓存值默认=5
+//            layout是有效的，但是内容是无效的
+//            多个RecycleView可共享,可用于多个RecyclerView的优化
+
+//具体步骤:
+
+//出屏幕时候的情况
+//
+//    1、当ViewHolder（position=0，type=1）出屏幕的时候，由于mCacheViews是空的，那么就直接放在mCacheViews里面，ViewHolder在mCacheViews里面布局和内容都是有效的，因此可以直接复用。
+//    2、ViewHolder（position=1，type=2）同步骤1
+//    3、当ViewHolder（position=2，type=1）出屏幕的时候由于一级缓存mCacheViews已经满了，因此将其放入RecyclerPool（type=1）的缓存池里面。
+//       此时ViewHolder的内容会被标记为无效，当其复用的时候需要再次通过Adapter.bindViewHolder来绑定内容。
+//    4、ViewHolder（position=3，type=2）同步骤3
+//
+//进屏幕时候的情况
+//
+//    5、当ViewHolder（position=3-10，type=3）进入屏幕绘制的时候，由于Recycler的mCacheViews里面找不到position匹配的View，同时RecyclerPool里面找不到type匹配的View，
+//       因此，其只能通过adapter.createViewHolder来创建ViewHolder，然后通过adapter.bindViewHolder来绑定内容。
+//    6、当ViewHolder（position=11，type=1）进入屏幕的时候，发现ReccylerPool里面能找到type=1的缓存，因此直接从ReccylerPool里面取来使用。
+//      由于内容是无效的，因此还需要调用bindViewHolder来绑定布局。同时ViewHolder（position=4，type=3）需要出屏幕，其直接进入RecyclerPool（type=3）的缓存池中
+//    7、ViewHolder（position=12，type=2）同步骤6
+//
+//    屏幕往下拉ViewHoder（position=1）进入屏幕的情况
+//
+//    8、由于mCacheView里面的有position=1的ViewHolder与之匹配，直接返回。由于内容是有效的，因此无需再次绑定内容
+//    9、ViewHolder（position=0）同步骤8
+//
+//
 
 }
 
