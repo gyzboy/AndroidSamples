@@ -206,6 +206,7 @@ public class NioTest {
                 // a connection was established with a remote server.
             } else if (key.isReadable()) {
                 // a channel is ready for reading
+                key.channel();//get the channel
             } else if (key.isWritable()) {
                 // a channel is ready for writing
             }
