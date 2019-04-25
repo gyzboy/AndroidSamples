@@ -37,7 +37,8 @@
 
         <activity
             android:name=".LaucherActivity"
-            android:configChanges="orientation|keyboardHidden">
+            android:configChanges="orientation|keyboardHidden"
+            android:excludeFromRecents="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -429,6 +430,16 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+
+        <activity
+            android:name=".view.opengl.ASGLSurfaceView"
+            android:label="views/GLSurfaceView">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
 
         <activity
             android:name=".media.ASAudioFx"

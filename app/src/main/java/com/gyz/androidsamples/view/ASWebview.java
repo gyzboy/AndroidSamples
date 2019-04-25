@@ -61,6 +61,8 @@ import android.widget.TextView;
 
 import com.gyz.androidsamples.BuildConfig;
 import com.gyz.androidsamples.R;
+import com.taobao.weex.devtools.inspector.domstorage.DOMStoragePeerManager;
+import com.taobao.weex.devtools.inspector.protocol.module.DOMStorage;
 
 import java.io.File;
 import java.io.IOException;
@@ -414,6 +416,8 @@ public class ASWebview extends Activity {
         settings.setJavaScriptCanOpenWindowsAutomatically(true);//支持通过JS打开新窗口，默认false，true的话js可通过window.open()打开窗口
         settings.setLoadWithOverviewMode(false);//缩放至屏幕的大小，默认false
         settings.setLoadsImagesAutomatically(true);//支持自动加载图片
+        settings.setDomStorageEnabled(true);//设置使用DOM缓存,key-value缓存,类似于SP机制
+
 
 
     }
@@ -1147,6 +1151,7 @@ class AdvancedWebView extends WebView {
 
             @Override
             public void onReceivedSslError(WebView view, SslErrorHandler handler, SslError error) {
+                handler.proceed();//允许接受所有网站的证书
                 if (mCustomWebViewClient != null) {
                     mCustomWebViewClient.onReceivedSslError(view, handler, error);
                 } else {

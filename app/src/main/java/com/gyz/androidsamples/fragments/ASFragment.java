@@ -36,6 +36,9 @@ public class ASFragment extends Fragment {
 //    setTargetFragment //多用于设置希望跳转到目标fragment并获取返回结果,getTargetFragment().onActivityResult设置返回结果
 //    setUserVisiableHint //FragmentPagerAdapter中使用的Fragment会调用此方法，处理预加载问题,可能在Fragment生命周期之外调用
 
+    //commit与commitAllowLoss  当Activity的onSaveInstanceState调用之后调用了该activity的FragmentTransaction的commit方法就会
+    //抛出异常,因为会checkState
+
     private ArrayList<String> listData = new ArrayList<>();
     MyAdapter adapter;
     XRecyclerView xrv;
