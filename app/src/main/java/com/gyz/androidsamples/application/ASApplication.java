@@ -7,6 +7,7 @@ import android.content.pm.ApplicationInfo;
 import android.content.res.Configuration;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 import android.widget.Toast;
@@ -232,5 +233,11 @@ public class ASApplication extends Application {
      */
     private static Boolean isDebug(Context context){
         return  context.getApplicationInfo() != null && (context.getApplicationInfo().flags & ApplicationInfo.FLAG_DEBUGGABLE) != 0;
+    }
+
+    private void setStrictMode(){
+        StrictMode.ThreadPolicy policy = new StrictMode.ThreadPolicy.Builder()
+                .detectAll().penaltyLog().build();
+        StrictMode.setThreadPolicy(policy);
     }
 }
