@@ -1,5 +1,4 @@
 apply plugin: 'com.android.application'//应用的插件名
-
 android {//android项目的DSL
     compileSdkVersion 24//required，编译sdk版本
     buildToolsVersion "24.0.0"//required，编译工具版本
@@ -116,14 +115,14 @@ project.afterEvaluate {
     compileLintTask.dependsOn(copyLintJar)
 }
 
-task updateIcon << {
-    println "Generating Release Icon"
-    def scriptDir = "/scripts";
-    exec {
-        executable "bash"
-        args "$rootProject.rootDir$scriptDir/icon_gen.sh", "v1.0", rootProject.rootDir, scriptDir
-    }
-}
+//task updateIcon << {
+//    println "Generating Release Icon"
+//    def scriptDir = "/scripts";
+//    exec {
+//        executable "bash"
+//        args "$rootProject.rootDir$scriptDir/icon_gen.sh", "v1.0", rootProject.rootDir, scriptDir
+//    }
+//}
 //preBuild.dependsOn updateIcon
 
 buildscript {
@@ -134,23 +133,27 @@ buildscript {
     }
 
     dependencies {
-        classpath group: 'com.gyz.androidsamples.gradle.plugin',
-                name: 'plugin',//这里的plugin取的就是plugin的项目名
-                version: '1.0.0'
+//        classpath group: 'com.gyz.androidsamples.gradle.plugin',
+//                name: 'plugin',//这里的plugin取的就是plugin的项目名
+//                version: '1.0.1'
     }
 }
 
-apply plugin: 'com.gyz.androidsamples.plugin'
-
-myArgs {
-    sender = 'gyzboy'
-    message = 'Gradle is so simple.'
-    nestArgs {
-        receiver = 'gyzboy'
-        email = 'gyzboy@126.com'
-    }
-
-}
+//必须先生成插件了再写这些
+//apply plugin: 'com.gyz.androidsamples.plugin'
+//
+//myArgs {
+//    sender = 'gyzboy'
+//    message = 'Gradle is so simple.'
+//    nestArgs {
+//        receiver = 'gyzboy'
+//        email = 'gyzboy@126.com'
+//    }
+//}
+////自定义属性
+//testCreatJavaConfig{
+//    str = "动态生成java类的字符串"
+//}
 
 //对文件进行checkstyle检查 默认输出路径为${project}/app/build/reports/checkstyle/checkstyle.html
 apply plugin: 'checkstyle'
@@ -190,3 +193,4 @@ task findbugs(type: FindBugs, dependsOn: "assembleDebug") {
     classpath = files()
     ignoreFailures true  // 避免检查失败 gradle 执行中止
 }
+
