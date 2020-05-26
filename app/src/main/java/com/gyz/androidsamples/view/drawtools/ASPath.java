@@ -79,6 +79,8 @@ public class ASPath extends Activity {
                     phase);
             // 初始化PathDashPathEffect，PathDashPathEffect有动画效果
             Path p = new Path();
+            //CW 顺时针
+            //CCW 逆时针
             p.addRect(0, 0, 8, 8, Path.Direction.CCW);
             effects[4] = new PathDashPathEffect(p, 12, phase,
                     PathDashPathEffect.Style.ROTATE);

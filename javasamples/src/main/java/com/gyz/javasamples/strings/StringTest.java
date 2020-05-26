@@ -1,7 +1,11 @@
 package com.gyz.javasamples.strings;
 
+import java.math.BigDecimal;
+import java.text.NumberFormat;
+import java.text.ParseException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by guoyizhe on 16/8/25.
@@ -36,6 +40,19 @@ public class StringTest {
 
         String a = "time_2029302.png";
         System.out.println(a.substring(a.indexOf("time_")+5,a.indexOf(".png")));
+
+
+        String num = "2.0000001";
+        String regix = "\\d*\\.0*";
+        System.out.println(num.matches(regix));
+        BigDecimal decimal = new BigDecimal(num);
+        NumberFormat format = NumberFormat.getNumberInstance();
+        format.setMinimumIntegerDigits(3);
+        try {
+            System.out.println(format.parse(num));
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
 
     }
 

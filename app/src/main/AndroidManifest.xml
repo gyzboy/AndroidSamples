@@ -582,6 +582,14 @@
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".view.animation.ASTransitionAnim"
+            android:label="views/ASTransitionAnim">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
 
         <!-- ************************************* -->
         <!--                 Utils                 -->

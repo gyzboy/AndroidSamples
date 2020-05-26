@@ -78,7 +78,7 @@ dependencies {
     compile project(':base')
 
     provided 'org.jetbrains:annotations:13.0'
-    lintChecks project(path: ':timber-lint', configuration: 'lintChecks')
+//    lintChecks project(path: ':timber-lint', configuration: 'lintChecks')
 
 
     //众多框架API的兼容性包装器

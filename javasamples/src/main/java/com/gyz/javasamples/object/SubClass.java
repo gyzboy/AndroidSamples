@@ -6,8 +6,6 @@ package com.gyz.javasamples.object;
  */
 public class SubClass extends BaseClass {
 
-    public String name = "sub";
-
     public void f() {
         System.out.println(name);
     }
@@ -20,6 +18,7 @@ public class SubClass extends BaseClass {
     }
 
     public static void main(String[] args) {
-
+        SubClass s = new SubClass();
+        s.f();
     }
 }

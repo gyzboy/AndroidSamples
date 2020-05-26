@@ -5,10 +5,10 @@ dependencies {
     compile gradleApi()//设置可以使用org.gradle.api包下的api
     compile localGroovy()
 
-    compile 'com.android.tools.build:gradle:3.4.1'
+    compile 'com.android.tools.build:gradle:3.6.5'
     compile 'com.android.tools.build:transform-api:1.5.0'
     compile 'javassist:javassist:3.12.1.GA'
-    compile 'commons-io:commons-io:2.5'
+    compile 'commons-io:commons-io:2.6'
 }
 
 repositories {
