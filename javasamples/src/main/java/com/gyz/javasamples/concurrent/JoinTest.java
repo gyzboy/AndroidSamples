@@ -12,7 +12,7 @@ public class JoinTest {
             t1.start();                     // 启动“线程t1”
             t1.join();                        // 将“线程t1”加入到“主线程main”中，并且“主线程main()会等待它的完成”
             System.out.printf("%s finish\n", Thread.currentThread().getName());
-        } catch (InterruptedException e) {
+        } catch (InterruptedException e) { //等待状态是可以被中断的,所以调用要捕获中断异常
             e.printStackTrace();
         }
     }
@@ -26,6 +26,11 @@ public class JoinTest {
             System.out.printf("%s start\n", this.getName());
 
             // 延时操作
+            try {
+                sleep(2000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
             for(int i=0; i <1000000; i++)
                 ;
 

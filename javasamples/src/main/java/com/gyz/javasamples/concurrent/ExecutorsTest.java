@@ -40,14 +40,27 @@ public class ExecutorsTest {
          *                          即当提交第41个任务时(前面线程都没有执行完,此测试方法中用sleep(100)),
          *                                任务会交给RejectedExecutionHandler来处理
          */
-        ThreadPoolExecutor ePool = new ThreadPoolExecutor(10,
-                30,
+        ThreadPoolExecutor ePool = new ThreadPoolExecutor(3,
+                5,
                 30,
                 TimeUnit.MILLISECONDS,
-                new ArrayBlockingQueue<Runnable>(10),
+                new ArrayBlockingQueue<Runnable>(5),
                 new CustomThreadFactory(),
                 new CustomRejectedExecutionHandler());
-
+        for (int i = 0; i < 10; i++) {
+            int val = i;
+            ePool.execute(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        Thread.sleep(2000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    System.out.println(val);
+                }
+            });
+        }
     }
 }
 

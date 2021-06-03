@@ -6,6 +6,7 @@ import java.util.concurrent.Future;
 import java.util.concurrent.Executors;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.ExecutionException;
+import java.util.concurrent.FutureTask;
 
 /**
  * Created by guoyizhe on 16/9/7.
@@ -27,8 +28,11 @@ public class CallableAndFutureTest {
         Callable c1 = new MyCallable();
         //执行任务并获取Future对象
         Future f1 = pool.submit(c1);
+        FutureTask<Integer> task = new FutureTask<Integer>(c1);
+        new Thread(task).start();
         // 输出结果
-        System.out.println(f1.get());
+//        System.out.println(f1.get());
+        System.out.println(task.get());
         //关闭线程池
         pool.shutdown();
     }

@@ -3,6 +3,8 @@ package com.gyz.javasamples.algorithm;
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.util.LinkedList;
+import java.util.Queue;
 import java.util.Scanner;
 
 /**
@@ -21,7 +23,10 @@ public class _40 {
 //        _7();
 //        _8();
 //        _9();
-        _10();
+//        _10();
+//        System.out.println(reverse(123));
+//        String[] test = ["flow","flower","floi"];
+//        longestCommonPrefix(test);
     }
 
 
@@ -234,5 +239,49 @@ public class _40 {
             }
         }
         System.out.println(t);
+    }
+
+    public static int reverse(int x) {
+        int result = 0;
+        int t = 1;
+        int temp = x;
+        Queue<Integer> stack = new LinkedList<>();
+        while (temp >= 10){
+            temp = temp / 10;
+            t = t * 10;
+        }
+        while(t > 0){
+            stack.offer(x / t);
+            x = x - t;
+            t = t / 10;
+        }
+        for (int i = 0; i < stack.size(); i++) {
+            result += stack.poll() * i * 10;
+        }
+        if(x < 0){
+            result = -result;
+        }
+        return result;
+    }
+
+    public static String longestCommonPrefix(String[] strs) {
+        if (strs.length == 1) {
+            return strs[0];
+        }
+        int max = 0;
+        int minLen = strs[0].length();
+        for (int i = 0; i < strs.length; i++) {
+            minLen = Math.min(minLen,strs[i].length());
+        }
+        for (int j = 0; j < minLen; j++) {
+            char tag = strs[0].charAt(j);
+            for (int i = 0; i < strs.length; i++) {
+                if (tag != strs[i].charAt(j)) {
+                    break;
+                }
+            }
+            max = j;
+        }
+        return strs[0].substring(0,max);
     }
 }

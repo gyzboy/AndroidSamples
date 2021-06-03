@@ -85,11 +85,11 @@ public class MapTest {
 
         //testWeakHashMap();
         //
-        //testTreeMap();
+        testTreeMap();
         //
         //testLinkedHashMap();
 
-        testMap();
+//        testMap();
 
     }
 

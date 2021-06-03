@@ -3,6 +3,7 @@ package com.gyz.javasamples.holding;
 import java.util.Comparator;
 import java.util.PriorityQueue;
 import java.util.Queue;
+import java.util.concurrent.ArrayBlockingQueue;
 
 /**
  * Created by guoyizhe on 2017/2/13.
@@ -37,17 +38,31 @@ public class QueueTest {
 
             }
         };
-        Queue<Test> priorityQueue = new PriorityQueue<Test>(11, OrderIsdn);//默认数组大小就是11
+//        Queue<Test> priorityQueue = new PriorityQueue<Test>(11, OrderIsdn);//默认数组大小就是11
+//
+//        Test t1 = new Test("t1", 1);
+//        Test t3 = new Test("t3", 3);
+//        Test t2 = new Test("t2", 2);
+//        Test t4 = new Test("t4", 0);
+//        priorityQueue.add(t1);
+//        priorityQueue.add(t3);
+//        priorityQueue.add(t2);
+//        priorityQueue.add(t4);
+//        System.out.println(priorityQueue.poll().toString());
 
-        Test t1 = new Test("t1", 1);
-        Test t3 = new Test("t3", 3);
-        Test t2 = new Test("t2", 2);
-        Test t4 = new Test("t4", 0);
-        priorityQueue.add(t1);
-        priorityQueue.add(t3);
-        priorityQueue.add(t2);
-        priorityQueue.add(t4);
-        System.out.println(priorityQueue.poll().toString());
+        ArrayBlockingQueue<String> queue = new ArrayBlockingQueue<String>(5);
+        try {
+            queue.put("a");
+            queue.put("b");
+            queue.put("c");
+            queue.put("d");
+            queue.put("e");
+            System.out.println(queue);
+            queue.put("f");
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        System.out.println(queue);
     }
 }
 

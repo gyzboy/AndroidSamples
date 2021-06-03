@@ -30,7 +30,7 @@ public class HelloClassLoader {
 //        mockStringClass();
 
         // fileSystemClassLoader, load ~/Desktop/LocalClassCopy , print()
-        loadFileSystemClass();
+//        loadFileSystemClass();
         // different classloader will load different class
 //        loadClassByDifferentLoader();
 

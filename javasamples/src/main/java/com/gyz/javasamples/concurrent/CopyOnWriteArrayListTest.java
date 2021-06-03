@@ -1,5 +1,7 @@
 package com.gyz.javasamples.concurrent;
 
+import java.util.concurrent.CopyOnWriteArrayList;
+
 /**
  * Created by guoyizhe on 2017/3/16.
  * 邮箱:gyzboy@126.com
@@ -15,4 +17,5 @@ public class CopyOnWriteArrayListTest {
     //CopyOnWrite并发容器用于读多写少的并发场景。
 
     //缺点是 内存性能上因为需要复制所以内存占用空间比较大, 同时 不能保证读取数据的实时性
+    CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
 }
