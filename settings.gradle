@@ -1,2 +1,3 @@
-include ':app',':base',':androidopensamples'
+include ':app',':base',':androidopensamples',':javasamples'
 //':javasamples',':javapuzzles',':plugin' ,'timber-lint'
+include ':doubleclick'

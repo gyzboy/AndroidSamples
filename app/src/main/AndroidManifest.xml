@@ -23,6 +23,7 @@
     <!-- 配置权限 -->
     <uses-permission android:name="android.permission.READ_PHONE_STATE" />
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW" />
+    <uses-permission android:name="android.permission.CAMERA"/>
 
     <application
         android:name=".application.ASApplication"
@@ -38,7 +39,7 @@
         <activity
             android:name=".LaucherActivity"
             android:configChanges="orientation|keyboardHidden"
-            android:excludeFromRecents="true">
+            android:excludeFromRecents="false">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -68,15 +69,14 @@
         <!-- ************************************* -->
         <activity
             android:name=".activity.lifecycle.ActivityA"
-            android:label="activity/LifeCycle"
-            android:launchMode="singleTask">
+            android:label="activity/LifeCycle">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
         >
-        <activity android:name=".activity.lifecycle.ActivityB" />
+        <activity android:name=".activity.lifecycle.ActivityB" android:launchMode="singleInstance"/>
         <activity android:name=".activity.lifecycle.ActivityC" />
         <activity
             android:name=".activity.lifecycle.DialogActivity"
@@ -159,18 +159,28 @@
         <activity
             android:name=".activity.launchMode.ActivityA"
             android:label="activity/LaunchMode"
-            android:launchMode="singleTask">
+            >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidSample" />
             </intent-filter>
         </activity>
-        <activity android:name=".activity.launchMode.ActivityB" />
-        <activity android:name=".activity.launchMode.ActivityC" />
+        <activity android:name=".activity.launchMode.ActivityB" android:launchMode="singleInstance"/>
+        <activity android:name=".activity.launchMode.ActivityC" android:taskAffinity="com.gyz"/>
 
         <activity
             android:name=".activity.features.ASRequestWindowFeature"
             android:label="activity/RequestWindowFeature"
+            android:theme="@android:style/Theme">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+
+        <activity
+            android:name=".view.touch.ASTouchActivity"
+            android:label="view/TouchActivity"
             android:theme="@android:style/Theme">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -409,6 +419,22 @@
         <activity
             android:name=".view.ASMatrix"
             android:label="views/Matrix">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.inflate.ASInflate"
+            android:label="views/Inflate">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+                <category android:name="androidSample" />
+            </intent-filter>
+        </activity>
+        <activity
+            android:name=".view.textureview.ASTextureView"
+            android:label="views/TextureView">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="androidSample" />

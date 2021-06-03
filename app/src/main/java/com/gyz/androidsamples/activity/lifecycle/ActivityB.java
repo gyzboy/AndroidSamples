@@ -102,6 +102,19 @@ public class ActivityB extends Activity {
     }
 
     @Override
+    public void finish() {
+        setResult(4);
+        super.finish();
+        mStatusTracker.setStatus(mActivityName, "onFinish");
+    }
+
+    @Override
+    public void onBackPressed() {
+        super.onBackPressed();
+        mStatusTracker.setStatus(mActivityName, "onBackPressed");
+    }
+
+    @Override
     protected void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
         // Save UI state changes to the savedInstanceState.

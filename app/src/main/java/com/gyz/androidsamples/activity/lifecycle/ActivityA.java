@@ -84,6 +84,7 @@ public class ActivityA extends Activity {
         // onRestoreInstanceState if the process is
         // killed and restarted by the run time.当调用recreate或者onConfigureChange时调用
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_saveIns));
+        Utils.printStatus(mStatusView, mStatusAllView);
     }
 
     @Override
@@ -124,6 +125,7 @@ public class ActivityA extends Activity {
         // Will only be called if the Activity has been
         // killed by the system since it was last visible.
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_destroy));
+        Utils.printStatus(mStatusView, mStatusAllView);
     }
 
     @Override
@@ -169,6 +171,17 @@ public class ActivityA extends Activity {
         mStatusTracker.setStatus(mActivityName, "onDetachedFromWindow");
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        mStatusTracker.setStatus(mActivityName, "resultCode = " + resultCode);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        mStatusTracker.setStatus(mActivityName, "onfinish");
+    }
 
     public void startDialog(View v) {
         Intent intent = new Intent(ActivityA.this, DialogActivity.class);
@@ -177,7 +190,7 @@ public class ActivityA extends Activity {
 
     public void startActivityB(View v) {
         Intent intent = new Intent(ActivityA.this, ActivityB.class);
-        startActivity(intent);
+        startActivityForResult(intent,1);
     }
 
     public void startActivityC(View v) {

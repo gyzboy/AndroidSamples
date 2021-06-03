@@ -60,8 +60,8 @@ apply plugin: 'java'
 //apply plugin: 'net.ltgt.errorprone'
 
 repositories {
-    mavenLocal()
     mavenCentral()
+    mavenLocal()
 }
 
 //configurations.errorprone {

@@ -17,13 +17,18 @@
 package com.gyz.androidsamples.activity.launchMode;
 
 import android.app.Activity;
+import android.app.Service;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.support.annotation.Nullable;
 import android.view.View;
 import android.widget.TextView;
 
 import com.gyz.androidsamples.R;
 import com.gyz.androidsamples.activity.lifecycle.DialogActivity;
+import com.gyz.androidsamples.service.ASService;
 import com.gyz.androidsamples.utils.StatusTracker;
 import com.gyz.androidsamples.utils.Utils;
 
@@ -50,6 +55,11 @@ public class ActivityB extends Activity {
     }
 
     @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         mStatusTracker.setStatus(mActivityName, getString(R.string.on_start));
@@ -66,6 +76,9 @@ public class ActivityB extends Activity {
     public void startActivityA(View v) {
         Intent intent = new Intent(ActivityB.this, ActivityA.class);
         startActivity(intent);
+
+//        Intent intent = new Intent(ActivityB.this, ASService.class);
+//        startService(intent);
     }
 
     public void startActivityC(View v) {

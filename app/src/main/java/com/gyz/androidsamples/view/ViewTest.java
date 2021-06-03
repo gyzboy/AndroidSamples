@@ -7,6 +7,7 @@ import android.graphics.Color;
 import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
@@ -175,9 +176,27 @@ public class ViewTest extends Activity {
         });
 
         //drawingCache可用来获取ImageView对象中的图像，在保存数据的时候，再次从该ImageView对象中获取图像，然后比较先后所得到的像个图像是否一致，并进行进一步的处理。
-        ImageView iv_drawingcache = (ImageView)findViewById(R.id.iv_drawingcache);
-        iv_drawingcache.setDrawingCacheEnabled(true);//使用drawingcache之前一定要先调用这个方法
-        Bitmap bm = Bitmap.createBitmap(iv_drawingcache.getDrawingCache());
-        iv_drawingcache.setDrawingCacheEnabled(false);//从ImaggeView对象中获取图像后，要记得调用setDrawingCacheEnabled(false)清空画图缓冲区，否则，下一次用getDrawingCache()方法回去图像时，还是原来的图像
+//        ImageView iv_drawingcache = (ImageView)findViewById(R.id.iv_drawingcache);
+//        iv_drawingcache.setDrawingCacheEnabled(true);//使用drawingcache之前一定要先调用这个方法
+//        Bitmap bm = Bitmap.createBitmap(iv_drawingcache.getDrawingCache());
+//        iv_drawingcache.setDrawingCacheEnabled(false);//从ImaggeView对象中获取图像后，要记得调用setDrawingCacheEnabled(false)清空画图缓冲区，否则，下一次用getDrawingCache()方法回去图像时，还是原来的图像
+
+        int count = getViewTree(getWindow().getDecorView().getRootView());
+        System.out.println("gyzzz" + count);
+    }
+
+    public int getViewTree(View rootView){
+        int count = 0;
+        if (rootView instanceof ViewGroup) {
+            ViewGroup group = (ViewGroup) rootView;
+            for (int i = 0; i < group.getChildCount(); i++) {
+                if (group.getChildAt(i) instanceof ViewGroup) {
+                    count += getViewTree(group.getChildAt(i));
+                }else{
+                    count++;
+                }
+            }
+        }
+        return count;
     }
 }

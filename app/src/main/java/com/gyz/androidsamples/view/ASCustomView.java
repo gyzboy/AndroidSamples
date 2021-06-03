@@ -10,9 +10,11 @@ import android.graphics.Rect;
 import android.os.Bundle;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.view.TouchDelegate;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,13 +29,33 @@ public class ASCustomView extends Activity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //一个View显示在屏幕上需要经历三个流程：测量(onMeasure)，布局()，绘制
-        FlowLayout fl = new FlowLayout(this, null);
-        for (int i = 0; i < 10; i++) {
-            CustomView tv = new CustomView(this);
-            tv.setBackgroundColor(Color.GRAY);
-            fl.addView(tv);
-        }
+        final FlowLayout fl = new FlowLayout(this, null);
+        final CustomView tv = new CustomView(this);
+        tv.setBackgroundColor(Color.GRAY);
+        fl.addView(tv);
         setContentView(fl);
+
+        fl.post(new Runnable() {
+            @Override
+            public void run() {
+                fl.setTouchDelegate(new TouchDelegate(new Rect(0,0,fl.getWidth() / 4,fl.getHeight() / 4),tv));
+            }
+        });
+
+        fl.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ASCustomView.this,"layout clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        tv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ASCustomView.this,"clicked",Toast.LENGTH_SHORT).show();
+            }
+        });
+
     }
 }
 

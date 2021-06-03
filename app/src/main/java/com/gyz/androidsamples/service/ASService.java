@@ -3,10 +3,15 @@ package com.gyz.androidsamples.service;
 import android.app.Service;
 import android.content.Intent;
 import android.os.Binder;
+import android.os.Handler;
 import android.os.IBinder;
 import android.support.annotation.IntDef;
 import android.support.annotation.Nullable;
 import android.util.Log;
+
+import com.gyz.androidsamples.activity.launchMode.ActivityB;
+import com.gyz.androidsamples.activity.launchMode.ActivityC;
+import com.gyz.androidsamples.activity.lifecycle.ActivityA;
 
 /**
  * Created by gyzboy on 2017/9/12.
@@ -18,6 +23,7 @@ public class ASService extends Service {
 
     private MyBinder mBinder = new MyBinder();
 
+    private Handler mHandler = new Handler();
 
     @Override
     public void onCreate() {
@@ -28,9 +34,26 @@ public class ASService extends Service {
     }
 
     @Override
-    public int onStartCommand(Intent intent,
-                                  int flags, int startId) {
+    public int onStartCommand(final Intent intent,
+                              int flags, int startId) {
         Log.e(TAG,"service onstartCommand");
+//        Intent[] intent1 = new Intent[3];
+//        intent1[0] = new Intent(ASService.this, ActivityA.class);
+//        intent1[0].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent1[1] = new Intent(ASService.this, ActivityB.class);
+//        intent1[1].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intent1[2] = new Intent(ASService.this, ActivityC.class);
+//        intent1[2].setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        startActivities(intent1);
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                Intent intent1 = new Intent();
+                intent1.setClass(ASService.this, ActivityC.class);
+                intent1.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent1);
+            }
+        },2000);
         return super.onStartCommand(intent, flags, startId);
     }
 

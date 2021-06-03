@@ -1,5 +1,6 @@
 package com.gyz.androidsamples.drawable;
 
+import android.animation.ObjectAnimator;
 import android.app.Activity;
 import android.graphics.drawable.AnimationDrawable;
 import android.os.Bundle;
@@ -20,7 +21,7 @@ public class ASAnimationDrawable extends Activity {
         img.setBackgroundResource(R.drawable.animlist);
 
         AnimationDrawable frameAnimation = (AnimationDrawable) img.getBackground();
-
+        ObjectAnimator.ofFloat(img,"translationX",0,1).start();
         frameAnimation.start();
         setContentView(img);
     }

@@ -8,6 +8,10 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="AppWelcomeTheme">
+        <item name="android:windowBackground">@mipmap/big</item>
+    </style>
+
     <style name="popupwindow_animation">
         <item name="android:windowEnterAnimation">@anim/popupwindow_enter</item>
         <item name="android:windowExitAnimation">@anim/popupwindow_exit</item>

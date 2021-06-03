@@ -6,7 +6,9 @@ import android.app.Activity;
 import android.os.Bundle;
 import android.os.Handler;
 import android.os.Handler.Callback;
+import android.os.Looper;
 import android.os.Message;
+import android.os.MessageQueue;
 import android.support.annotation.Nullable;
 import android.util.Log;
 import android.widget.TextView;
@@ -47,11 +49,59 @@ public class ASHandler extends Activity {
         }
     };
 
+    private MessageQueue.IdleHandler idleHandler = new MessageQueue.IdleHandler() {
+        @Override
+        public boolean queueIdle() {
+            sb.append("\nidlehandler gogogo");
+            textView.setText(sb.toString());
+            return false;
+        }
+    };
+    private MessageQueue.IdleHandler idleHandler2 = new MessageQueue.IdleHandler() {
+        @Override
+        public boolean queueIdle() {
+            sb.append("\nidlehandler2 gogogo");
+            textView.setText(sb.toString());
+            return false;
+        }
+    };
+
+
     private TextView textView;
+    private Handler handler2;
+
+    private Handler handlerBarrier;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                Looper.prepare();
+//                Looper.prepare();
+
+                Looper.loop();
+                handler2 = new Handler(new Callback() {
+                    @Override
+                    public boolean handleMessage(Message msg) {
+                        System.out.println("handler from thread");
+                        return false;
+                    }
+                });
+
+            }
+        }).start();
+        getMainLooper().getQueue().addIdleHandler(idleHandler);
+        getMainLooper().getQueue().addIdleHandler(idleHandler2);
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                if (handler2 != null) {
+                    handler2.sendEmptyMessage(0);
+                }
+            }
+        },5000);
         //Message类是final的,继承不了
         Message message = Message.obtain();
         message.what = 1;
@@ -94,6 +144,7 @@ public class ASHandler extends Activity {
         handler.sendMessageAtFrontOfQueue(message2);
         textView = new TextView(this);
         textView.setText(sb.toString());
+
         setContentView(textView);
 
     }

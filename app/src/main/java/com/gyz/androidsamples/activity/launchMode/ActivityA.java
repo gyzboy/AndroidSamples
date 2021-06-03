@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 import com.gyz.androidsamples.R;
 import com.gyz.androidsamples.activity.lifecycle.DialogActivity;
+import com.gyz.androidsamples.service.ASService;
 import com.gyz.androidsamples.utils.StatusTracker;
 import com.gyz.androidsamples.utils.Utils;
 
@@ -83,13 +84,31 @@ public class ActivityA extends Activity {
     }
 
     public void startActivityB(View v) {
-        Intent intent = new Intent(ActivityA.this, ActivityB.class);
-        startActivity(intent);
+//        intents.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+//        intents.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(5000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+                Intent intents  = new Intent(ActivityA.this, ActivityB.class);
+                startActivity(intents);
+            }
+        }).start();
+
     }
 
     public void startActivityC(View v) {
         Intent intent = new Intent(ActivityA.this, ActivityC.class);
         startActivity(intent);
+    }
+
+    public void startService(View v){
+        Intent intent = new Intent(ActivityA.this, ASService.class);
+        startService(intent);
     }
 
     public void finishActivityA(View v) {
