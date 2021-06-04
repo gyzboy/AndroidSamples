@@ -23,7 +23,9 @@ public class ASHandler extends Activity {
 
     private StringBuilder sb = new StringBuilder();
 
-    private Handler handler = new Handler(new MyCallback()) {
+    private final Handler mHandler = new Handler();
+
+    private final Handler handler = new Handler(new MyCallback()) {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
@@ -146,6 +148,13 @@ public class ASHandler extends Activity {
         textView.setText(sb.toString());
 
         setContentView(textView);
+
+        mHandler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                System.out.println("some thing");
+            }
+        },1000);
 
     }
 

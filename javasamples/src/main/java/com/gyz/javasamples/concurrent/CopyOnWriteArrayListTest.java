@@ -1,5 +1,6 @@
 package com.gyz.javasamples.concurrent;
 
+import java.util.ArrayList;
 import java.util.concurrent.CopyOnWriteArrayList;
 
 /**
@@ -17,5 +18,34 @@ public class CopyOnWriteArrayListTest {
     //CopyOnWrite并发容器用于读多写少的并发场景。
 
     //缺点是 内存性能上因为需要复制所以内存占用空间比较大, 同时 不能保证读取数据的实时性
-    CopyOnWriteArrayList<String> list = new CopyOnWriteArrayList<>();
+    private static int ii = 0;
+    private static int ii2 = 0;
+    public static void main(String[] args){
+        CopyOnWriteArrayList<Integer> list = new CopyOnWriteArrayList<>();
+
+        ArrayList<Integer> listt = new ArrayList<>();
+        for (int i = 0; i < 10; i++) {
+            new Thread(new Runnable() {
+                @Override
+                public void run() {
+                    list.add(ii2++);
+                    try {
+                        Thread.sleep(3000);
+                    } catch (InterruptedException e) {
+                        e.printStackTrace();
+                    }
+                    listt.add(ii++);
+                }
+            }).start();
+        }
+        try {
+            Thread.sleep(3000);
+        } catch (InterruptedException e) {
+            e.printStackTrace();
+        }
+        for (int i = 0; i < 10; i++) {
+            System.out.println("list = " + listt.get(i));
+            System.out.println("copy list" + list.get(i));
+        }
+    }
 }

@@ -29,6 +29,10 @@ public class ListTest {
 //
 //    和Vector不同，ArrayList中的操作不是线程安全的！所以，建议在单线程中才使用ArrayList，而在多线程中可以选择Vector或者CopyOnWriteArrayList。
 
+    //arraylist线程不安全体现在:
+    //1.抛出数组越界异常,原因是因为在ensureCapacityInternal时A线程返回一个已经适用A线程数据处理的空间,B线程执行操作时获取不满足使用条件的数据空间
+    //2.执行赋值操作时,两个线程同时往一个地址赋值,导致值覆盖,另一个值为null
+
     public static void main(String[] args) {
 
 

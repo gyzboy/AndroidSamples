@@ -25,6 +25,12 @@ class InterruptThread extends Thread {
     }
 }
 
+
+//public void interrupt():不会中断正在执行的线程，只是将线程的标志位设置成true,如果再调用join等会抛出异常
+//public static boolean interrupted():线程的中断状态由该方法清除
+//public boolean isInterrupted():测试线程是否已经中断。线程的中断状态不受该方法的影响。在catch块中捕获到这个异常时，
+// 线程的中断标志位已经被设置成false了，因此在此catch块中调用t.isInterrupted(),Thread.interrupted()始终都为false
+
 public class InterruptTest {
 
     public static void main(String[] args) {

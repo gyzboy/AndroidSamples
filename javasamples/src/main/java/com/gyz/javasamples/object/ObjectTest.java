@@ -54,5 +54,10 @@ public class ObjectTest {
                 " void     |    -    |  Void";
 
         System.out.println(baseCategory);
+
+        Object o1 = new Object();
+        Object o2 = new Object();
+        System.out.println("o1 equals o2 = " + o1.equals(o2));
+        System.out.println("o1 == o2 = " + (o1 == o2));
     }
 }

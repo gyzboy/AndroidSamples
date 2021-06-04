@@ -20,8 +20,8 @@ public class ReferenceTest {
 
 
         //只有当内存不够的时候，才回收这类内存，因此在内存足够的时候，它们通常不被回收
-//        Object obj = new Object();
-//        ReferenceQueue<Object> refQueue = new ReferenceQueue<Object>();
+        Object obj = new Object();
+        ReferenceQueue<Object> refQueue = new ReferenceQueue<Object>();
 //        SoftReference<Object> softRef = new SoftReference<Object>(obj, refQueue);
 //        System.out.println(softRef.get()); // java.lang.Object@f9f9d8
 //        System.out.println(refQueue.poll());// null
@@ -35,52 +35,52 @@ public class ReferenceTest {
 //        Thread.sleep(200);
 //        System.out.println(refQueue.poll());
 
-/*
+
         //=================
 
         //弱引用: 当发生GC的时候,Weak引用对象总是会内回收回收。因此Weak引用对象会更容易、更快被GC回收。
         //Weak引用对象常常用于Map数据结构中，引用占用内存空间较大的对象
-        WeakReference<Object> weakRef = new WeakReference<Object>(obj, refQueue);
-        System.out.println(weakRef.get()); // java.lang.Object@f9f9d8
-        System.out.println(refQueue.poll());// null
-
-        // 清除强引用,触发GC
-        obj = null;
-        System.gc();
-
-        System.out.println(weakRef.get());
-
-        // 这里特别注意:poll是非阻塞的,remove是阻塞的.
-        // JVM将弱引用放入引用队列需要一定的时间,所以这里先睡眠一会儿
-        // System.out.println(refQueue.poll());// 这里有可能是null
-
-        Thread.sleep(200);
-        System.out.println(refQueue.poll());
+//        WeakReference<Object> weakRef = new WeakReference<Object>(obj, refQueue);
+//        System.out.println(weakRef.get()); // java.lang.Object@f9f9d8
+//        System.out.println(refQueue.poll());// null
+//
+//        // 清除强引用,触发GC
+//        obj = null;
+//        System.gc();
+//
+//        System.out.println(weakRef.get());
+//
+//        // 这里特别注意:poll是非阻塞的,remove是阻塞的.
+//        // JVM将弱引用放入引用队列需要一定的时间,所以这里先睡眠一会儿
+//        // System.out.println(refQueue.poll());// 这里有可能是null
+//
+//        Thread.sleep(200);
+//        System.out.println(refQueue.poll());
         // System.out.println(refQueue.poll());//这里一定是null,因为已经从队列中移除
 
         // System.out.println(refQueue.remove());
 
-*/
+
         //=================
 
 //当GC一但发现了虚引用对象，将会将PhantomReference对象插入ReferenceQueue队列.
 //而此时PhantomReference所指向的对象并没有被GC回收，而是要等到ReferenceQueue被你真正的处理后才会被回收.
-//        PhantomReference<Object> phantom = new PhantomReference<Object>(obj,
-//                refQueue);
-//        System.out.println(phantom.get()); // java.lang.Object@f9f9d8
-//        System.out.println(refQueue.poll());// null
-//
-//        obj = null;
-//        System.gc();
+        PhantomReference<Object> phantom = new PhantomReference<Object>(obj,
+                refQueue);
+        System.out.println(phantom.get()); // java.lang.Object@f9f9d8
+        System.out.println(refQueue.poll());// null
+        Thread.sleep(200);
+        obj = null;
+        System.gc();
 
-        // 调用phanRef.get()不管在什么情况下会一直返回null
-//        System.out.println(phantom.get());
+//         调用phanRef.get()不管在什么情况下会一直返回null
+        System.out.println(phantom.get());
 
         // 当GC发现了虚引用，GC会将phanRef插入进我们之前创建时传入的refQueue队列
         // 注意，此时phanRef所引用的obj对象，并没有被GC回收，在我们显式地调用refQueue.poll返回phanRef之后
         // 当GC第二次发现虚引用，而此时JVM将phanRef插入到refQueue会插入失败，此时GC才会对obj进行回收
-//        Thread.sleep(200);
-//        System.out.println(refQueue.poll());
+        Thread.sleep(200);
+        System.out.println(refQueue.poll());
 
 
 //1.
@@ -130,9 +130,9 @@ public class ReferenceTest {
 //        MyDate date = new MyDate();
 //        date = null;
 
-        ReferenceQueue queue = new ReferenceQueue();
-        PhantomReference ref = new PhantomReference(new MyDate(), queue);
-        System.gc();
+//        ReferenceQueue queue = new ReferenceQueue();
+//        PhantomReference ref = new PhantomReference(new MyDate(), queue);
+//        System.gc();
     }
 
 

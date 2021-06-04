@@ -55,21 +55,16 @@ class WildCard implements IWildCard<String,Integer>{
 
 /*
 class TT<T>{
-
     private T t1 = new T();//失败,在初始化时需要知道确切的类型
-
     public TT() {
         System.out.println("wildcard");
     }
-
-
     public void handle(List<String> s){//编译不通过,因为在编译时会类型擦除
         System.out.println(s);
     }
     public void handle(List<Integer> i){
         System.out.println(i);
     }
-
 
 // 读取的元素使用了Object类型来表示，这是安全的，因为所有的类都是Object的子类。
 // 这里就又出现了另外一个问题，如下代码所示，如果试图往使用通配符？的集合中加入对象，就会在编译时出现错误。
@@ -87,6 +82,5 @@ class TT<T>{
 //        list.add(str);
         list.add(null);
     }
-
 }
 */
